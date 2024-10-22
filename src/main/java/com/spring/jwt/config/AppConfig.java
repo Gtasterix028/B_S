@@ -101,7 +101,8 @@ public class AppConfig {
                 .requestMatchers("/user/form/**").permitAll()
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers("/admin/update-status").permitAll()
-
+                .requestMatchers("/Shipping/**").permitAll()
+                .requestMatchers("/TaxRates/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
