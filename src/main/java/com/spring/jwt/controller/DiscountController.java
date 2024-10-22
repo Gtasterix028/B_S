@@ -35,6 +35,7 @@ public class DiscountController {
     @GetMapping("/getById")
     public ResponseEntity<Response> getById(@RequestParam Integer id) {
         try {
+
             DiscountDto getId = discountUser.getByID(id);
             Response response = new Response("get by id succefully", getId, false);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -86,5 +87,3 @@ public class DiscountController {
         }
     }
 
-//    public ResponseEntity<Response> Patchby
-//}
