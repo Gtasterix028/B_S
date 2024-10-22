@@ -10,22 +10,22 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Payments")
-@Data // Generates getters, setters, toString, equals, and hashCode methods
-@NoArgsConstructor // Generates a no-argument constructor
-@AllArgsConstructor // Generates an all-argument constructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paymentID; // Wrapper class for Integer
+    private Integer paymentID;
 
-    private Integer invoiceID;   //for connection ............................RUja Patil
+    private Integer invoiceID;   //for connection ............................RUTUJA Patil
 
-    private LocalDate paymentDate; // Date for payment date
+    private LocalDate paymentDate;
 
-    private String paymentMethod; // String for payment method
+    private String paymentMethod;
 
-    private Double amount; // Wrapper class for Double
+    private Double amount;
 
-    // Optionally, you can add other fields or methods if needed
+
 }

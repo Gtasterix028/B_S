@@ -40,7 +40,7 @@ public class PaymentStatusServiceImpl implements IPaymentStatus {
     @Override
     public PaymentStatus updatePaymentStatus(Integer id, PaymentStatusDTO paymentStatusDTO) {
         PaymentStatus paymentStatus = getPaymentStatusById(id);
-        modelMapper.map(paymentStatusDTO, paymentStatus); // Map values from DTO to existing entity
+        modelMapper.map(paymentStatusDTO, paymentStatus);
         return paymentStatusRepository.save(paymentStatus);
     }
 

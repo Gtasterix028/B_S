@@ -40,7 +40,7 @@ public class PaymentServiceImpl implements IPayment {
     @Override
     public Payment updatePayment(Integer id, PaymentDTO paymentDTO) {
         Payment payment = getPaymentById(id);
-        modelMapper.map(paymentDTO, payment); // Map values from DTO to existing entity
+        modelMapper.map(paymentDTO, payment);
         return paymentRepository.save(payment);
     }
 
