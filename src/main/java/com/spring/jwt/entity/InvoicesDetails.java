@@ -17,7 +17,7 @@ public class InvoicesDetails {
     @JoinColumn(name = "InvoiceID", nullable = false)
     private Invoices invoice;
 
-    // Foreign key to Products
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductID", nullable = false)
     private Products product;

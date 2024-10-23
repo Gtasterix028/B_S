@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,6 +22,7 @@ public class Invoices {
     @JoinColumn(name = "customerID", nullable = false)
     private Customers customer;
 
-
+    @OneToMany(mappedBy = "invoices", cascade = CascadeType.ALL)
+    private List<ShippingDetail> shippingDetails;
 
 }

@@ -12,6 +12,6 @@ public class InvoicesDetailsDTO {
     private Integer invoiceDetailID;
     private Integer Quantity;
     private Invoices invoice;
-
     private Products product;
+
 }

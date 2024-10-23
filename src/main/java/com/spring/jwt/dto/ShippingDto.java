@@ -1,5 +1,6 @@
 package com.spring.jwt.dto;
 
+import com.spring.jwt.entity.Invoices;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class ShippingDto {
         private int invoicedId;
         private String shippingAddress;
         private LocalDate shippingDate;
-        private LocalDate estimatedArrivalDAte;
+        private LocalDate estimatedArrivalDate;
 
 
 

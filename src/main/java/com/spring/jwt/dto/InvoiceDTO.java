@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class InvoiceDTO {
@@ -15,6 +16,8 @@ public class InvoiceDTO {
     private LocalDate invoiceDate;
     private LocalDate dueDate;
     private Double total;
-
     private Customers customer;
+
+    private List<ShippingDto> shippingDetails;
+
 }

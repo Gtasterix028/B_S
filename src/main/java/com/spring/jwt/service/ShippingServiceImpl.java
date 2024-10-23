@@ -6,6 +6,7 @@ import com.spring.jwt.dto.ShippingDto;
 import com.spring.jwt.entity.ShippingDetail;
 
 import lombok.RequiredArgsConstructor;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,10 @@ public class ShippingServiceImpl implements TaxSecurity {
             ShippingDetail shippingDetail = shippingDetailOptional.get();
 
 
-            shippingDetail.setInvoicedId(shippingDto.getInvoicedId());
+            shippingDetail.setShippingDetailId(shippingDto.getShippingDetailId());
             shippingDetail.setShippingAddress(shippingDto.getShippingAddress());
             shippingDetail.setShippingDate(shippingDto.getShippingDate());
-            shippingDetail.setEstimatedArrivalDAte(shippingDto.getEstimatedArrivalDAte());
+            shippingDetail.setEstimatedArrivalDate(shippingDto.getEstimatedArrivalDate());
 
             ShippingDetail updatedShipping = shippingDetailRepository.save(shippingDetail);
             return mapper.map(updatedShipping, ShippingDto.class);
