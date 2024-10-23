@@ -12,6 +12,8 @@ public interface ICustomers {
 
     CustomersDTO saveInformation(Integer id ,CustomersDTO customersDTO);
 
+    CustomersDTO saveInformation(CustomersDTO customersDTO);
+
     CustomersDTO updateAny(Integer id, CustomersDTO customersDTO);
 
     void deleteCustomer(Integer id);

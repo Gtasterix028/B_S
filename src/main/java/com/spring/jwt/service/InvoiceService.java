@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Service
-public class InvoiceServiceImpl implements IInvoice {
+public class InvoiceService implements IInvoice {
 
     @Autowired
     private InvoiceRepository invoiceRepository;
