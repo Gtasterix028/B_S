@@ -5,7 +5,7 @@ import com.spring.jwt.dto.InvoicesDetailsDTO;
 import java.util.List;
 
 public interface IInvoiceDetails {
-    Object saveInformation(InvoicesDetailsDTO invoicesDetailsDTO);
+    Object saveInformation( Integer id ,InvoicesDetailsDTO invoicesDetailsDTO);
 
     List<InvoicesDetailsDTO> getAllInvoicesDetails();
 

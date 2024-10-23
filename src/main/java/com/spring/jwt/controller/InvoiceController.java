@@ -19,9 +19,9 @@ public class InvoiceController {
     private IInvoice iInvoice;
 
     @PostMapping("/saveInformation")
-    public ResponseEntity<Response> saveInformation (@RequestBody  InvoiceDTO invoiceDTO){
+    public ResponseEntity<Response> saveInformation (@RequestParam Integer id,@RequestBody InvoiceDTO invoiceDTO){
         try{
-            Object saveDTO = iInvoice.saveInformation(invoiceDTO);
+            Object saveDTO = iInvoice.saveInformation(id,invoiceDTO);
             return  ResponseEntity.ok(new Response("Information added Sucessfully",saveDTO,false));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Failed to add Information",e.getMessage(),true));

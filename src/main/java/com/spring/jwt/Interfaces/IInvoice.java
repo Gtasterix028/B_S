@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IInvoice {
 
-    Object saveInformation(InvoiceDTO invoiceDTO);
+    Object saveInformation(Integer id,InvoiceDTO invoiceDTO);
 
     List<InvoiceDTO> getALlInvoices();
 

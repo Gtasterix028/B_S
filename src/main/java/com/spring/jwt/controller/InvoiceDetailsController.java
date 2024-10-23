@@ -19,9 +19,9 @@ public class InvoiceDetailsController {
 
         // Save new invoice detail information
         @PostMapping("/saveInformation")
-        public ResponseEntity<Response> saveInformation(@RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
+        public ResponseEntity<Response> saveInformation(@RequestParam Integer id ,@RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
             try {
-                Object savedDTO = iInvoiceDetails.saveInformation(invoicesDetailsDTO); // Save the invoice detail
+                Object savedDTO = iInvoiceDetails.saveInformation(id,invoicesDetailsDTO); // Save the invoice detail
                 return ResponseEntity.ok(new Response("Invoice detail added successfully", savedDTO, false));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
