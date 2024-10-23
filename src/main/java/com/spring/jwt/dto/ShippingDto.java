@@ -15,7 +15,6 @@ public class ShippingDto {
         private LocalDate shippingDate;
         private LocalDate estimatedArrivalDAte;
 
-
         private InvoiceDTO invoiceDTO;
 
 
