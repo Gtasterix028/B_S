@@ -6,26 +6,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Payments")
-@Data // Generates getters, setters, toString, equals, and hashCode methods
-@NoArgsConstructor // Generates a no-argument constructor
-@AllArgsConstructor // Generates an all-argument constructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paymentID; // Wrapper class for Integer
+    private Integer paymentID;
 
-    private Integer invoiceID;   //for connection ............................RUja Patil
+    private LocalDate paymentDate;
+    private String paymentMethod;
+    private Double amount;
 
-    private LocalDate paymentDate; // Date for payment date
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceID", referencedColumnName = "invoiceId", nullable = false)
+    private Invoices invoices;
 
-    private String paymentMethod; // String for payment method
+    @OneToOne(mappedBy = "paymentStatusID",cascade = CascadeType.ALL)
+    private List<PaymentStatus> paymentStatuses;
 
-    private Double amount; // Wrapper class for Double
+    @OneToOne(mappedBy = "paymentStatusID",cascade = CascadeType.ALL)
+    private List<Customers> customers;
 
-    // Optionally, you can add other fields or methods if needed
+
+
 }

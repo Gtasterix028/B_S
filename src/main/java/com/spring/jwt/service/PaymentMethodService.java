@@ -1,11 +1,8 @@
 package com.spring.jwt.service;
 
-import com.spring.jwt.Interfaces.PaymentMethodInterface;
-import com.spring.jwt.dto.DiscountDto;
+import com.spring.jwt.Interfaces.IPaymentMethod;
 import com.spring.jwt.dto.PaymentMethodDto;
-import com.spring.jwt.entity.Discount;
 import com.spring.jwt.entity.PaymentMethods;
-import com.spring.jwt.repository.DiscountRepository;
 import com.spring.jwt.repository.PaymentMethodRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PaymentMethodService implements PaymentMethodInterface {
+public class PaymentMethodService implements IPaymentMethod {
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
     @Autowired
