@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,6 +21,10 @@ public class Invoices {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customerID", nullable = false)
     private Customers customer;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "shippingDetailsID" , nullable = false)
+//    private List<ShippingDetails> shippingDetails;
 
 
 

@@ -102,6 +102,9 @@ public class AppConfig {
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers("/admin/update-status").permitAll()
                 .requestMatchers("/PaymentMethod/**").permitAll()
+                .requestMatchers("/customers/**").permitAll()
+                .requestMatchers("/invoice/**").permitAll()
+                .requestMatchers("/invoiceDetails/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()

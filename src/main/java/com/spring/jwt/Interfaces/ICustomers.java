@@ -10,7 +10,7 @@ public interface ICustomers {
     CustomersDTO getCustomerByID(Integer id);
     
 
-    CustomersDTO saveInformation(CustomersDTO customersDTO);
+    CustomersDTO saveInformation(Integer id ,CustomersDTO customersDTO);
 
     CustomersDTO updateAny(Integer id, CustomersDTO customersDTO);
 

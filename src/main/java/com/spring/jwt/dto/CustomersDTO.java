@@ -2,6 +2,9 @@ package com.spring.jwt.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
+
 @Data
 public class CustomersDTO {
     private Integer customerID ;
@@ -11,4 +14,5 @@ public class CustomersDTO {
     private String phone;
     private String address;
 
+    private List<InvoiceDTO> invoicesList;
 }
