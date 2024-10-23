@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "Payments")
@@ -19,13 +18,18 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentID;
 
-    private Integer invoiceID;   //for connection ............................RUTUJA Patil
-
     private LocalDate paymentDate;
-
     private String paymentMethod;
-
     private Double amount;
 
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    private PaymentStatus paymentStatus;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceID", nullable = false)
+    private Invoices invoice;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customerID", nullable = false)
+    private Customers customer;
 }

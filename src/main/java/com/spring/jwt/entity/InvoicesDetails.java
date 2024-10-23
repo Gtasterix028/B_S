@@ -11,14 +11,13 @@ public class InvoicesDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invoiceDetailID;
 
-    private Integer Quantity;
+    private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "InvoiceID", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "productID", nullable = false)
+    private Products products; //
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceID", nullable = false)
     private Invoices invoice;
-
-    // Foreign key to Products
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProductID", nullable = false)
-    private Products product;
 }

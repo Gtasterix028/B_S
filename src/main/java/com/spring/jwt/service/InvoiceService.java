@@ -2,8 +2,9 @@ package com.spring.jwt.service;
 
 import com.spring.jwt.Interfaces.IInvoice;
 import com.spring.jwt.dto.InvoiceDTO;
-
 import com.spring.jwt.entity.Invoices;
+import com.spring.jwt.entity.Customers;
+import com.spring.jwt.repository.CustomersRepository;
 import com.spring.jwt.repository.InvoiceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
-public class InvoiceServiceImpl implements IInvoice {
+public class InvoiceService implements IInvoice {
 
     @Autowired
     private InvoiceRepository invoiceRepository;
@@ -22,9 +23,17 @@ public class InvoiceServiceImpl implements IInvoice {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private CustomersRepository customersRepository;
+
     @Override
-    public Object saveInformation(InvoiceDTO invoiceDTO){
+    public Object saveInformation(Integer id , InvoiceDTO invoiceDTO){
+
+        Customers customer = customersRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
         Invoices invoice = modelMapper.map(invoiceDTO, Invoices.class);
+        invoice.setCustomer(customer);
         Invoices savedInvoice = invoiceRepository.save(invoice);
         return modelMapper.map(savedInvoice , InvoiceDTO.class) ;
     }

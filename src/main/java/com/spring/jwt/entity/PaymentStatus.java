@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "PaymentStatus")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data // Generates getters, setters, toString, equals, and hashCode methods
+@NoArgsConstructor // Generates a no-argument constructor
+@AllArgsConstructor // Generates an all-argument constructor
 public class PaymentStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paymentStatusID;
+    private Integer paymentStatusID; // Wrapper class for Integer
 
     @Column(name = "PaymentID")
-    private Integer paymentID;
+    private Integer paymentID; // Wrapper class for Integer
 
     @Column(name = "Status")
-    private String status;
+    private String status; // String for status
 }

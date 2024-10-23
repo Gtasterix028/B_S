@@ -24,7 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.modelmapper.ModelMapper;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -98,16 +97,20 @@ public class AppConfig {
                         "/swagger-ui.html"
                 ).permitAll()
                 .requestMatchers("/account/**").permitAll()
-                .requestMatchers("/api/otp/**").permitAll()
-                .requestMatchers("/user/form/**").permitAll()
-                .requestMatchers("/admin/**").permitAll()
-                .requestMatchers("/admin/update-status").permitAll()
+//                .requestMatchers("/api/otp/**").permitAll()
+//                .requestMatchers("/user/form/**").permitAll()
+//                .requestMatchers("/admin/**").permitAll()
+//                .requestMatchers("/admin/update-status").permitAll()
+                .requestMatchers("/PaymentMethod/**").permitAll()
+                .requestMatchers("/customers/**").permitAll()
+                .requestMatchers("/Discount/**").permitAll()
+                .requestMatchers("/invoice/**").permitAll()
+                .requestMatchers("/invoiceDetails/**").permitAll()
                 .requestMatchers("/payments/**").permitAll()
                 .requestMatchers("/payment-status/**").permitAll()
                 .requestMatchers("/products/**").permitAll()
-                .requestMatchers("/customers/**").permitAll()
-
-
+                .requestMatchers("/Shipping/**").permitAll()
+                .requestMatchers("//TaxRates/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
@@ -144,12 +147,8 @@ public class AppConfig {
     }
 
 
-
-
-
-
-
 }
+
 
 
 
