@@ -5,7 +5,7 @@ import com.spring.jwt.dto.DiscountDto;
 import java.util.List;
 
 
-public interface DiscountUser {
+public interface IDiscount {
 
     DiscountDto saveDiscount(DiscountDto discountDto);
 

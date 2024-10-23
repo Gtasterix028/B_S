@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class InvoiceDetailsServiceImpl implements IInvoiceDetails {
+public class InvoiceDetailsService implements IInvoiceDetails {
 
     @Autowired
     private InvoiceDetailsRepository invoicesDetailsRepository;

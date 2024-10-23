@@ -22,9 +22,12 @@ public class Invoices {
     @JoinColumn(name = "customerID", nullable = false)
     private Customers customer;
 
-    @OneToOne(mappedBy = "invoices", cascade = CascadeType.ALL)
-    private Payment payment;
+    @OneToMany(mappedBy = "paymentId", cascade = CascadeType.ALL)
+    private List<Payment> payment;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "invoiceDetailID", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<InvoicesDetails> invoicesDetails;
+
+    @OneToMany(mappedBy = "shippingDetailId",cascade = CascadeType.ALL)
+    private List<ShippingDetail> shippingDetails;
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PaymentStatusServiceImpl implements IPaymentStatus {
+public class PaymentStatusService implements IPaymentStatus {
 
     @Autowired
     private PaymentStatusRepository paymentStatusRepository;

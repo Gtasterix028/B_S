@@ -1,8 +1,7 @@
 package com.spring.jwt.controller;
 
 
-import com.spring.jwt.Interfaces.PaymentMethodInterface;
-import com.spring.jwt.dto.DiscountDto;
+import com.spring.jwt.Interfaces.IPaymentMethod;
 import com.spring.jwt.dto.PaymentMethodDto;
 import com.spring.jwt.dto.Response;
 import com.spring.jwt.service.PaymentMethodService;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class PaymentMethodController {
     @Autowired
-    private PaymentMethodInterface paymentMethodInterface;
+    private IPaymentMethod paymentMethodInterface;
     private PaymentMethodService paymentMethodService;
 
     @PostMapping("/saveInformation")

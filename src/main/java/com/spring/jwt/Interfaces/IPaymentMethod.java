@@ -1,11 +1,10 @@
 package com.spring.jwt.Interfaces;
 
-import com.spring.jwt.dto.DiscountDto;
 import com.spring.jwt.dto.PaymentMethodDto;
 
 import java.util.List;
 
-public interface PaymentMethodInterface {
+public interface IPaymentMethod {
    PaymentMethodDto savePayment(PaymentMethodDto paymentMethodDto);
 
    List<PaymentMethodDto> getAll();

@@ -1,6 +1,6 @@
 package com.spring.jwt.controller;
 
-import com.spring.jwt.Interfaces.DiscountUser;
+import com.spring.jwt.Interfaces.IDiscount;
 import com.spring.jwt.dto.DiscountDto;
 import com.spring.jwt.dto.Response;
 import com.spring.jwt.service.DiscountService;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class DiscountController {
     @Autowired
-    private DiscountUser discountUser;
+    private IDiscount discountUser;
     private DiscountService discountService;
 
     @PostMapping("/saveInformation")
