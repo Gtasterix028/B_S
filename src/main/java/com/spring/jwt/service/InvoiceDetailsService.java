@@ -39,8 +39,8 @@ public class InvoiceDetailsService implements IInvoiceDetails {
 
         InvoicesDetails invoicesDetails = modelMapper.map(invoicesDetailsDTO, InvoicesDetails.class);
 
-        invoicesDetails.setInvoice(invoicesDetails.getInvoice());
-        invoicesDetails.setProduct(product);
+//        invoicesDetails.setInvoice(invoicesDetails.getInvoice());
+//        invoicesDetails.setProduct(product);
         InvoicesDetails savedInvoicesDetails = invoicesDetailsRepository.save(invoicesDetails);
 
         return modelMapper.map(savedInvoicesDetails, InvoicesDetailsDTO.class);

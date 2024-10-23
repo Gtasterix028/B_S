@@ -16,6 +16,6 @@ public class Products {
     private String description;
     private Double price;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<InvoicesDetails> invoicesDetails;
 }
