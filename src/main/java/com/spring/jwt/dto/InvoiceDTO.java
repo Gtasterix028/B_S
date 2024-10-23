@@ -1,12 +1,14 @@
 package com.spring.jwt.dto;
 
 import com.spring.jwt.entity.Customers;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.spring.jwt.entity.InvoicesDetails;
+import com.spring.jwt.entity.Payment;
+import com.spring.jwt.entity.ShippingDetail;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class InvoiceDTO {
@@ -16,5 +18,11 @@ public class InvoiceDTO {
     private LocalDate dueDate;
     private Double total;
 
-    private Customers customer;
+
+    private List<Payment> payment;
+    private List<InvoicesDetailsDTO> invoicesDetails;
+
+    private CustomersDTO customers;
+    private List<ShippingDto> shippingDetails;
+
 }

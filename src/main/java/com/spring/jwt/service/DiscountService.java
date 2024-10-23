@@ -1,7 +1,6 @@
 package com.spring.jwt.service;
 
-import com.spring.jwt.Interfaces.DiscountUser;
-import com.spring.jwt.config.MapperConfig;
+import com.spring.jwt.Interfaces.IDiscount;
 import com.spring.jwt.dto.DiscountDto;
 import com.spring.jwt.entity.Discount;
 import com.spring.jwt.repository.DiscountRepository;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DiscountService implements DiscountUser {
+public class DiscountService implements IDiscount {
     @Autowired
     private DiscountRepository discountRepository;
     @Autowired

@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class InvoiceServiceImpl implements IInvoice {
+public class InvoiceService implements IInvoice {
 
     @Autowired
     private InvoiceRepository invoiceRepository;
