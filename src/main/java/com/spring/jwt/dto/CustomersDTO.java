@@ -18,7 +18,6 @@ public class CustomersDTO {
     private String phone;
     private String address;
 
-
     private List<InvoiceDTO> invoiceDTOS;
     private PaymentDTO paymentDTO;
 
