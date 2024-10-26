@@ -50,24 +50,9 @@ public class ProductsService implements IProducts {
             product.setPrice(productsDTO.getPrice());
         }
 
-
         Products updatedProduct = productsRepository.save(product);
         return modelMapper.map(updatedProduct, ProductsDTO.class);
     }
-    //    List<QualificationDTO> qualificationDTOS = applicationDTO.getQualifications();
-//            if (qualificationDTOS != null) {
-//        for (QualificationDTO qualificationDTO : qualificationDTOS) {
-//            Qualification qualification = QualificationMapper.toQualification(qualificationDTO);
-//
-//            Optional<Qualification> existingQualification = qualificationRepository.findByApplicationAndStandardAndUniversityAndPassingYearAndPercentage(
-//                    savedApplication, qualification.getStandard(), qualification.getUniversity(),
-//                    qualification.getPassingYear(), qualification.getPercentage());
-//
-//            // Check if the qualification already exists
-//            if (existingQualification.isEmpty()) {
-//                qualification.setApplication(savedApplication);
-//                qualificationRepository.save(qualification);
-
 
     @Override
     public void deleteProduct(Integer id) {

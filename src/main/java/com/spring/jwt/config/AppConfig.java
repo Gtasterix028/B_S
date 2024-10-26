@@ -110,7 +110,7 @@ public class AppConfig {
                 .requestMatchers("/payment-status/**").permitAll()
                 .requestMatchers("/products/**").permitAll()
                 .requestMatchers("/Shipping/**").permitAll()
-                .requestMatchers("//TaxRates/**").permitAll()
+                .requestMatchers("/TaxRates/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
