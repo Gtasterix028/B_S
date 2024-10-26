@@ -18,7 +18,6 @@ public class InvoiceDTO {
     private LocalDate dueDate;
     private Double total;
 
-
     private List<Payment> payment;
     private List<InvoicesDetailsDTO> invoicesDetails;
 
