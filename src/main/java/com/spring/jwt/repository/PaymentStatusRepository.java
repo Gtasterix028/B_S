@@ -12,5 +12,4 @@ public interface PaymentStatusRepository extends JpaRepository<PaymentStatus, In
 //    List<PaymentStatus> findByPaymentId(Integer paymentId);
 
 
-    // You can define custom query methods here if needed
 }
