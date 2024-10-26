@@ -17,10 +17,10 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentID;
-
     private LocalDate paymentDate;
     private String paymentMethod;
     private Double amount;
+
 
     @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
     private PaymentStatus paymentStatus;
