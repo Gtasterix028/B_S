@@ -3,14 +3,15 @@ package com.spring.jwt.Interfaces;
 import com.spring.jwt.dto.InvoiceDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IInvoice {
 
-    Object saveInformation(InvoiceDTO invoiceDTO);
+    Object saveInformation(UUID id, InvoiceDTO invoiceDTO);
 
     List<InvoiceDTO> getALlInvoices();
 
-    InvoiceDTO getById(Integer id);
+    InvoiceDTO getById(UUID id);
 
-    InvoiceDTO updateAny(Integer id, InvoiceDTO invoiceDTO);
+    InvoiceDTO updateAny(UUID id, InvoiceDTO invoiceDTO);
 }

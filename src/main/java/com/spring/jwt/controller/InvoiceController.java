@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/invoice")
@@ -19,9 +20,9 @@ public class InvoiceController {
     private IInvoice iInvoice;
 
     @PostMapping("/saveInformation")
-    public ResponseEntity<Response> saveInformation (@RequestBody  InvoiceDTO invoiceDTO){
+    public ResponseEntity<Response> saveInformation (@RequestParam UUID id, @RequestBody InvoiceDTO invoiceDTO){
         try{
-            Object saveDTO = iInvoice.saveInformation(invoiceDTO);
+            Object saveDTO = iInvoice.saveInformation(id,invoiceDTO);
             return  ResponseEntity.ok(new Response("Information added Sucessfully",saveDTO,false));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Failed to add Information",e.getMessage(),true));
@@ -39,7 +40,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<Response> getById(@RequestParam Integer id) {
+    public ResponseEntity<Response> getById(@RequestParam UUID id) {
         try {
             InvoiceDTO invoiceDTO = iInvoice.getById(id);
             return ResponseEntity.ok(new Response("Invoice details for ID: " + id, invoiceDTO, false));
@@ -51,7 +52,7 @@ public class InvoiceController {
 
     @PatchMapping("/updateAny")
     public ResponseEntity<Response> updateAny
-            (@RequestParam Integer id,
+            (@RequestParam UUID id,
             @RequestBody InvoiceDTO invoiceDTO){
         try {
             InvoiceDTO invoiceDTO1 = iInvoice.updateAny(id,invoiceDTO);
