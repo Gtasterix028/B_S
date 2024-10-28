@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/payments") // URL mapping for Payments
+@RequestMapping("/payments")
 public class PaymentController {
 
     @Autowired
