@@ -23,7 +23,7 @@ public class Payment {
 
 
     @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-    private PaymentStatus paymentStatus;
+    private PaymentStatus status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "invoiceID", nullable = false)

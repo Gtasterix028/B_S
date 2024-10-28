@@ -39,7 +39,7 @@ public class ProductsController {
         }
     }
 
-    @PostMapping("/saveInformation")
+    @PostMapping("/saveInformation ")
     public ResponseEntity<Response> createProduct(@RequestBody ProductsDTO productsDTO) {
         try {
             ProductsDTO createdProduct = productsInterface.saveInformation(productsDTO);
