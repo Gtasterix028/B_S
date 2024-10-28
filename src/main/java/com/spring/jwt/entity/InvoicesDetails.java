@@ -3,13 +3,15 @@ package com.spring.jwt.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Entity
 public class InvoicesDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer invoiceDetailID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID invoiceDetailID;
 
     private Integer quantity;
 

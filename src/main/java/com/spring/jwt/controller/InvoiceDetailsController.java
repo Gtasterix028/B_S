@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/invoiceDetails")
@@ -19,7 +20,7 @@ public class InvoiceDetailsController {
 
         // Save new invoice detail information
         @PostMapping("/saveInformation")
-        public ResponseEntity<Response> saveInformation(@RequestParam Integer id ,@RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
+        public ResponseEntity<Response> saveInformation(@RequestParam UUID id , @RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
             try {
                 Object savedDTO = iInvoiceDetails.saveInformation(id,invoicesDetailsDTO); // Save the invoice detail
                 return ResponseEntity.ok(new Response("Invoice detail added successfully", savedDTO, false));
@@ -43,7 +44,7 @@ public class InvoiceDetailsController {
 
         // Get invoice detail by ID
         @GetMapping("/getById")
-        public ResponseEntity<Response> getById(@RequestParam Integer id) {
+        public ResponseEntity<Response> getById(@RequestParam UUID id) {
             try {
                 InvoicesDetailsDTO invoiceDetailsDTO = iInvoiceDetails.getById(id); // Fetch invoice detail by ID
                 return ResponseEntity.ok(new Response("Invoice detail for ID: " + id, invoiceDetailsDTO, false));
@@ -55,7 +56,7 @@ public class InvoiceDetailsController {
 
         // Update invoice detail by ID
         @PatchMapping("/updateAny")
-        public ResponseEntity<Response> updateAny(@RequestParam Integer id, @RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
+        public ResponseEntity<Response> updateAny(@RequestParam UUID id, @RequestBody InvoicesDetailsDTO invoicesDetailsDTO) {
             try {
                 InvoicesDetailsDTO updatedDTO = iInvoiceDetails.updateAny(id, invoicesDetailsDTO); // Update the invoice detail
                 return ResponseEntity.ok(new Response("Invoice detail updated by ID: " + id, updatedDTO, false));

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductsService implements IProducts {
@@ -22,21 +22,46 @@ public class ProductsService implements IProducts {
     private ModelMapper modelMapper;
 
     @Override
-    public ProductsDTO getProductByID(Integer id) {
+    public ProductsDTO getProductByID(UUID id) {
         Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
         return modelMapper.map(product, ProductsDTO.class);
     }
 
+//    @Override
+//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+//        Products product = modelMapper.map(productsDTO, Products.class);
+//
+//        if (productsDTO.getStockQuantities() != null) {
+//            product.setStockQuantities(productsDTO.getStockQuantities());
+//        }
+//        Products savedProduct = productsRepository.save(product);
+//        return modelMapper.map(savedProduct, ProductsDTO.class);
+//    }
+
     @Override
     public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+        // Check if stock quantities are provided in the DTO
+        if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
+            throw new IllegalArgumentException("Stock quantities must be provided.");
+        }
+
+        // Map DTO to entity
         Products product = modelMapper.map(productsDTO, Products.class);
+
+        // Set stock quantities
+        product.setStockQuantities(productsDTO.getStockQuantities());
+
+        // Save the product, which will also save the associated stock quantities
         Products savedProduct = productsRepository.save(product);
+
+        // Return the saved product as a DTO
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
 
+
     @Override
-    public ProductsDTO updateAny(Integer id, ProductsDTO productsDTO) {
+    public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {
         Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
 
@@ -55,7 +80,7 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(UUID id) {
         Products existingProduct = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
         productsRepository.delete(existingProduct);
@@ -69,7 +94,6 @@ public class ProductsService implements IProducts {
         for (Products product : productsList) {
             productsDTOList.add(modelMapper.map(product, ProductsDTO.class));
         }
-
         return productsDTOList;
     }
 }

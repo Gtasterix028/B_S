@@ -8,10 +8,11 @@ import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class CustomersDTO {
-    private Integer customerID ;
+    private UUID customerID ;
     private String firstName;
     private String lastName;
     private String email;

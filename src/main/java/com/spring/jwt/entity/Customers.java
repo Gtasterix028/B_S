@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
 public class Customers {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer customerID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID customerID;
     private String firstName;
     private String lastName;
     private String email;

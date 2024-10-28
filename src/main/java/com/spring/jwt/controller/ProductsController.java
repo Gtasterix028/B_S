@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
@@ -18,7 +19,7 @@ public class ProductsController {
     private IProducts productsInterface;
 
     @GetMapping("/getByID")
-    public ResponseEntity<Response> getProductById(@RequestParam Integer id) {
+    public ResponseEntity<Response> getProductById(@RequestParam UUID id) {
         try {
             ProductsDTO productsDTO = productsInterface.getProductByID(id);
             return ResponseEntity.ok(new Response("Product retrieved successfully", productsDTO, false));
@@ -52,7 +53,7 @@ public class ProductsController {
     }
 
     @PatchMapping("/updateAny")
-    public ResponseEntity<Response> updateProduct(@RequestParam Integer id, @RequestBody ProductsDTO productsDTO) {
+    public ResponseEntity<Response> updateProduct(@RequestParam UUID id, @RequestBody ProductsDTO productsDTO) {
         try {
             ProductsDTO updatedProduct = productsInterface.updateAny(id, productsDTO);
             return ResponseEntity.ok(new Response("Product updated successfully", updatedProduct, false));
@@ -65,7 +66,7 @@ public class ProductsController {
 
 
     @DeleteMapping("/deleteByID")
-    public ResponseEntity<Response> deleteProductByID(@RequestParam Integer id) {
+    public ResponseEntity<Response> deleteProductByID(@RequestParam UUID id) {
         try {
             productsInterface.deleteProduct(id);
             return ResponseEntity.ok(new Response("Product deleted successfully", null, false));
