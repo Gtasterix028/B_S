@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductsService implements IProducts {
@@ -22,21 +22,46 @@ public class ProductsService implements IProducts {
     private ModelMapper modelMapper;
 
     @Override
-    public ProductsDTO getProductByID(Integer id) {
+    public ProductsDTO getProductByID(UUID id) {
         Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
         return modelMapper.map(product, ProductsDTO.class);
     }
 
+//    @Override
+//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+//        Products product = modelMapper.map(productsDTO, Products.class);
+//
+//        if (productsDTO.getStockQuantities() != null) {
+//            product.setStockQuantities(productsDTO.getStockQuantities());
+//        }
+//        Products savedProduct = productsRepository.save(product);
+//        return modelMapper.map(savedProduct, ProductsDTO.class);
+//    }
+
     @Override
     public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+        // Check if stock quantities are provided in the DTO
+        if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
+            throw new IllegalArgumentException("Stock quantities must be provided.");
+        }
+
+        // Map DTO to entity
         Products product = modelMapper.map(productsDTO, Products.class);
+
+        // Set stock quantities
+        product.setStockQuantities(productsDTO.getStockQuantities());
+
+        // Save the product, which will also save the associated stock quantities
         Products savedProduct = productsRepository.save(product);
+
+        // Return the saved product as a DTO
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
 
+
     @Override
-    public ProductsDTO updateAny(Integer id, ProductsDTO productsDTO) {
+    public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {
         Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
 
@@ -55,7 +80,7 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public void deleteProduct(Integer id) {
+    public void deleteProduct(UUID id) {
         Products existingProduct = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
         productsRepository.delete(existingProduct);
@@ -68,6 +93,58 @@ public class ProductsService implements IProducts {
 
         for (Products product : productsList) {
             productsDTOList.add(modelMapper.map(product, ProductsDTO.class));
+        }
+        return productsDTOList;
+    }
+
+    @Override
+    public List<ProductsDTO> getProducts(UUID productId, String productName, String description, Double price) {
+        if (productId != null) {
+            List<Products> Products =productsRepository.findById(productId).map(List::of).orElse(List.of());
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products : Products)
+            {
+                productsDTOList.add(modelMapper.map(products,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (productName != null) {
+            List<Products> products= productsRepository.findByProductName(productName);
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for (Products  products1: products){
+                productsDTOList.add(modelMapper.map(products1,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (description != null) {
+            List <Products> products= productsRepository.findByDescription(description);
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products2:products){
+                productsDTOList.add(modelMapper.map(products2,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (price != null) {
+            List<Products> products= productsRepository.findByPrice(price);
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products3:products){
+                productsDTOList.add(modelMapper.map(products3,ProductsDTO.class));
+            }
+            return productsDTOList;
+
+        } else {
+            List<Products> products = productsRepository.findAll();
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products4 : products){
+                productsDTOList.add(modelMapper.map(products4,ProductsDTO.class));
+            }
+            return productsDTOList;}
+    }
+    @Override
+    public List<ProductsDTO> searchProductsByName(String name) {
+        List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(name);
+
+        List<ProductsDTO> productsDTOList = new ArrayList<>();
+        for (Products product : foundProducts) {
+            ProductsDTO dto = modelMapper.map(product, ProductsDTO.class);
+            productsDTOList.add(dto);
         }
 
         return productsDTOList;

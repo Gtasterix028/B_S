@@ -4,16 +4,23 @@ import com.spring.jwt.dto.ProductsDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 
 public interface IProducts {
-    ProductsDTO getProductByID(Integer id);
+    ProductsDTO getProductByID(UUID id);
 
     List<ProductsDTO> getAllProducts();
 
     ProductsDTO saveInformation(ProductsDTO productsDTO);
 
-    ProductsDTO updateAny(Integer id, ProductsDTO productsDTO);
+    ProductsDTO updateAny(UUID id, ProductsDTO productsDTO);
 
-    void deleteProduct(Integer id);
+    void deleteProduct(UUID id);
+
+    List<ProductsDTO> getProducts(UUID productId, String productName, String description, Double price);
+
+    List<ProductsDTO> searchProductsByName(String name);
 }
+
+

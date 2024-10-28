@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -27,7 +28,7 @@ public class InvoiceService implements IInvoice {
     private CustomersRepository customersRepository;
 
     @Override
-    public Object saveInformation(Integer id , InvoiceDTO invoiceDTO){
+    public Object saveInformation(UUID id , InvoiceDTO invoiceDTO){
 
         Customers customer = customersRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -50,7 +51,7 @@ public class InvoiceService implements IInvoice {
     }
 
     @Override
-    public InvoiceDTO getById(Integer id) {
+    public InvoiceDTO getById(UUID id) {
         Invoices invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found for ID: " + id));
 
@@ -58,7 +59,7 @@ public class InvoiceService implements IInvoice {
     }
 
     @Override
-    public InvoiceDTO updateAny(Integer id ,InvoiceDTO invoiceDTO){
+    public InvoiceDTO updateAny(UUID id ,InvoiceDTO invoiceDTO){
         Invoices existingInvoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found for ID: " + id));
 
@@ -69,8 +70,4 @@ public class InvoiceService implements IInvoice {
         Invoices updatedInvoice = invoiceRepository.save(existingInvoice);
         return modelMapper.map(updatedInvoice, InvoiceDTO.class);
     }
-
-
-
-
 }
