@@ -7,9 +7,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class InvoicesDetailsDTO {
-    private Integer invoiceDetailID;
+    private UUID invoiceDetailID;
     private Integer Quantity;
 
     private InvoiceDTO invoice;

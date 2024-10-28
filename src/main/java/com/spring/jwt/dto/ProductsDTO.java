@@ -8,19 +8,20 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ProductsDTO {
 
-    private Integer productID;
+    private UUID productID;
     private String productName;
     private String description;
     private Double price;
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
-    private Integer stockQuantity;
 
     private List<InvoicesDetailsDTO> invoicesDetails;
+    private List<Integer> stockQuantities;
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class InvoiceDetailsService implements IInvoiceDetails {
@@ -30,7 +31,7 @@ public class InvoiceDetailsService implements IInvoiceDetails {
     private ModelMapper modelMapper;
 
     @Override
-    public Object saveInformation(Integer id, InvoicesDetailsDTO invoicesDetailsDTO) {
+    public Object saveInformation(UUID id, InvoicesDetailsDTO invoicesDetailsDTO) {
         InvoicesDetails invoicesDetails1 = invoiceDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with ID: " ));
 
@@ -59,14 +60,14 @@ public class InvoiceDetailsService implements IInvoiceDetails {
     }
 
     @Override
-    public InvoicesDetailsDTO getById(Integer id) {
+    public InvoicesDetailsDTO getById(UUID id) {
         InvoicesDetails invoicesDetails = invoicesDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice detail not found for ID: " + id));
         return modelMapper.map(invoicesDetails, InvoicesDetailsDTO.class);
     }
 
     @Override
-    public InvoicesDetailsDTO updateAny(Integer id, InvoicesDetailsDTO invoicesDetailsDTO) {
+    public InvoicesDetailsDTO updateAny(UUID id, InvoicesDetailsDTO invoicesDetailsDTO) {
         InvoicesDetails invoicesDetails = invoicesDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice detail not found for ID: " + id));
 

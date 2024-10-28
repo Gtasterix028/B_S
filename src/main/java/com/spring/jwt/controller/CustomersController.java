@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/customers")
@@ -18,7 +19,7 @@ public class CustomersController {
     private ICustomers customersInterface;
 
     @GetMapping("/getByID")
-    public ResponseEntity<Response> getCustomerById(@RequestParam Integer id) {
+    public ResponseEntity<Response> getCustomerById(@RequestParam UUID id) {
         try {
             CustomersDTO customersDTO = customersInterface.getCustomerByID(id);
             return ResponseEntity.ok(new Response("Customer retrieved successfully", customersDTO, false));
@@ -48,7 +49,7 @@ public class CustomersController {
     }
 
     @PatchMapping("/updateAny")
-    public ResponseEntity<Response> updateCustomer(@RequestParam Integer id, @RequestBody CustomersDTO customersDTO) {
+    public ResponseEntity<Response> updateCustomer(@RequestParam UUID id, @RequestBody CustomersDTO customersDTO) {
         try {
             CustomersDTO updatedCustomer = customersInterface.updateAny(id, customersDTO);
             return ResponseEntity.ok(new Response("Customer updated successfully", updatedCustomer, false));
@@ -58,7 +59,7 @@ public class CustomersController {
     }
 
     @DeleteMapping("/deleteByID")
-    public ResponseEntity<Response> deleteCustomerBYID(@RequestParam Integer id) {
+    public ResponseEntity<Response> deleteCustomerBYID(@RequestParam UUID id) {
         try {
             customersInterface.deleteCustomer(id);
             return ResponseEntity.ok(new Response("Customer deleted successfully", null, false));

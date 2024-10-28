@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CustomersService implements ICustomers {
@@ -21,14 +22,14 @@ public class CustomersService implements ICustomers {
     private ModelMapper modelMapper;
 
     @Override
-    public CustomersDTO getCustomerByID(Integer id) {
+    public CustomersDTO getCustomerByID(UUID id) {
         Customers customers=customersRepository.findById(id).orElseThrow(()->new RuntimeException("Customer Not Found"));
 
         return modelMapper.map(customers,CustomersDTO.class);
     }
 
     @Override
-    public CustomersDTO saveInformation(Integer id, CustomersDTO customersDTO) {
+    public CustomersDTO saveInformation(UUID id, CustomersDTO customersDTO) {
         return null;
     }
 
@@ -45,7 +46,7 @@ public class CustomersService implements ICustomers {
     }
 
     @Override
-    public CustomersDTO updateAny(Integer id, CustomersDTO customersDTO) {
+    public CustomersDTO updateAny(UUID id, CustomersDTO customersDTO) {
         Customers customer = customersRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + id));
 
@@ -72,7 +73,7 @@ public class CustomersService implements ICustomers {
 
 
     @Override
-    public void deleteCustomer(Integer id) {
+    public void deleteCustomer(UUID id) {
         Customers existingCustomer = customersRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer Not Found"));
         customersRepository.delete(existingCustomer);
 
