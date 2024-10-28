@@ -73,4 +73,22 @@ public class ProductsController {
                     .body(new Response("An error occurred", e.getMessage(), true));
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<ProductsDTO>> getProducts(
+            @RequestParam(required = false) UUID productId,
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Double price) {
+
+        List<ProductsDTO> products = productsInterface.getProducts(productId, productName, description, price);
+        return ResponseEntity.ok(products);
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String name) {
+        List<ProductsDTO> products=productsInterface.searchProductsByName(name);
+        return ResponseEntity.ok(products);
+    }
 }
