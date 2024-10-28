@@ -34,11 +34,11 @@ public class CustomersService implements ICustomers {
     public CustomersDTO saveInformation(CustomersDTO customersDTO) {
         Customers customer = modelMapper.map(customersDTO, Customers.class);
         Customers savedCustomer = customersRepository.save(customer);
-        List<InvoiceDTO> invoices=customer.g;
-        if(invoices != null){
-            for(InvoiceDTO invoiceDTO : )
-
-        }
+//        List<InvoiceDTO> invoices=customer.g;
+//        if(invoices != null){
+//            for(InvoiceDTO invoiceDTO : )
+//
+//        }
         return modelMapper.map(savedCustomer, CustomersDTO.class);
     }
 

@@ -30,8 +30,10 @@ public class ProductsService implements IProducts {
 
     @Override
     public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+
         Products product = modelMapper.map(productsDTO, Products.class);
         Products savedProduct = productsRepository.save(product);
+
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
 
@@ -87,4 +89,60 @@ public class ProductsService implements IProducts {
 
         return productsDTOList;
     }
+
+    @Override
+    public List<ProductsDTO> getProducts(Integer productId, String productName, String description, Double price) {
+        if (productId != null) {
+            List<Products> Products =productsRepository.findById(productId).map(List::of).orElse(List.of());
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products : Products)
+            {
+                productsDTOList.add(modelMapper.map(products,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (productName != null) {
+            List<Products> products= productsRepository.findByProductName(productName);
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for (Products  products1: products){
+                productsDTOList.add(modelMapper.map(products1,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (description != null) {
+           List <Products> products= productsRepository.findByDescription(description);
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products2:products){
+                productsDTOList.add(modelMapper.map(products2,ProductsDTO.class));
+            }
+            return productsDTOList;
+        } else if (price != null) {
+           List<Products> products= productsRepository.findByPrice(price);
+           List<ProductsDTO> productsDTOList=new ArrayList<>();
+           for(Products products3:products){
+               productsDTOList.add(modelMapper.map(products3,ProductsDTO.class));
+           }
+           return productsDTOList;
+
+        } else {
+            List<Products> products = productsRepository.findAll();
+            List<ProductsDTO> productsDTOList=new ArrayList<>();
+            for(Products products4 : products){
+                productsDTOList.add(modelMapper.map(products4,ProductsDTO.class));
+            }
+            return productsDTOList;}
+        }
+    @Override
+    public List<ProductsDTO> searchProductsByName(String name) {
+        List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(name);
+
+        // Convert to DTO
+        List<ProductsDTO> productsDTOList = new ArrayList<>();
+        for (Products product : foundProducts) {
+            ProductsDTO dto = modelMapper.map(product, ProductsDTO.class);
+            productsDTOList.add(dto);
+        }
+
+        return productsDTOList;
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.spring.jwt.controller;
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
 import com.spring.jwt.dto.Response;
+import com.spring.jwt.entity.Products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,5 +72,22 @@ public class ProductsController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response("An error occurred", e.getMessage(), true));
         }
+    }
+    @GetMapping
+    public ResponseEntity<List<ProductsDTO>> getProducts(
+            @RequestParam(required = false) Integer productId,
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Double price) {
+
+        List<ProductsDTO> products = productsInterface.getProducts(productId, productName, description, price);
+        return ResponseEntity.ok(products);
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String name) {
+        List<ProductsDTO> products=productsInterface.searchProductsByName(name);
+        return ResponseEntity.ok(products);
     }
 }

@@ -1,30 +1,29 @@
 package com.spring.jwt.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Entity
 @Table(name = "PaymentStatus")
-@Data // Generates getters, setters, toString, equals, and hashCode methods
-@NoArgsConstructor // Generates a no-argument constructor
-@AllArgsConstructor // Generates an all-argument constructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paymentStatusID; // Wrapper class for Integer
+    private Integer paymentStatusID;
 
-    @Column(name = "PaymentID")
-    private Integer paymentID; // Wrapper class for Integer
+    @Column(name = "PaymentID", nullable = false) // Ensure it's not null if required
+    private Integer paymentID;
 
-    @Column(name = "Status")
-    private String status; // String for status
+    @Column(name = "Status", nullable = false) // Ensure status is required
+    private String status;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "paymentstatusId", referencedColumnName = "invoiceId", nullable = false)
-    private  Payment payment;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // Adjust cascade as needed
+   @JoinColumn(name = "payment_ID", nullable = false)
+    private Payment payment; // Assuming Payment is another entity
 
 }

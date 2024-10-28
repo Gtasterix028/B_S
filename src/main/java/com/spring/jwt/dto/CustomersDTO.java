@@ -20,7 +20,7 @@ public class CustomersDTO {
 
 
     private List<InvoiceDTO> invoiceDTOS;
-    private PaymentDTO paymentDTO;
+     private PaymentDTO paymentDTO;
 
 
 

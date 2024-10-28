@@ -23,15 +23,15 @@ public class Payment {
     private String paymentMethod;
     private Double amount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "invoiceID", referencedColumnName = "invoiceId", nullable = false)
+   @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceId", referencedColumnName = "invoiceId", nullable = false)
     private Invoices invoices;
 
-    @OneToOne(mappedBy = "paymentStatusID",cascade = CascadeType.ALL)
-    private List<PaymentStatus> paymentStatuses;
+    @OneToOne(mappedBy = "payment",cascade = CascadeType.ALL)
+    private PaymentStatus paymentStatuses;
 
-    @OneToOne(mappedBy = "paymentStatusID",cascade = CascadeType.ALL)
-    private List<Customers> customers;
+    @OneToOne(mappedBy = "payment",cascade = CascadeType.ALL)
+    private Customers customers;
 
 
 

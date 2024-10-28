@@ -16,4 +16,8 @@ public interface IProducts {
     ProductsDTO updateAny(Integer id, ProductsDTO productsDTO);
 
     void deleteProduct(Integer id);
+
+    List<ProductsDTO> getProducts(Integer productId, String productName, String description, Double price);
+
+    List<ProductsDTO> searchProductsByName(String name);
 }

@@ -19,8 +19,8 @@ public class InvoiceDTO {
     private Double total;
 
 
-    private List<Payment> payment;
-    private List<InvoicesDetailsDTO> invoicesDetails;
+    private List<PaymentDTO> payment;
+   private List<InvoicesDetailsDTO> invoicesDetails;
 
     private CustomersDTO customers;
     private List<ShippingDto> shippingDetails;

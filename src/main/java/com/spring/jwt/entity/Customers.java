@@ -22,7 +22,7 @@ public class Customers {
     private List<Invoices> invoicesList;
 
     @OneToOne
-    @JoinColumn(name = "invoiceID", referencedColumnName = "invoiceId", nullable = false)
+    @JoinColumn(name = "paymentID", nullable = false)
     private Payment payment;
 
 

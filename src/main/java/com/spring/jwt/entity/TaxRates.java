@@ -11,10 +11,10 @@ public class TaxRates {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taxRateId;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private double taxRate;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String taxName;
 
 
