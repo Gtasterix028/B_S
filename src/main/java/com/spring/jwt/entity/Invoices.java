@@ -13,7 +13,6 @@ public class Invoices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invoiceID;
-
     private LocalDate invoiceDate;
     private LocalDate dueDate;
     private Double total;

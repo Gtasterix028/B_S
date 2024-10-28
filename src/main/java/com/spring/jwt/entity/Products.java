@@ -19,7 +19,7 @@ public class Products {
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
-    private Integer stockQuantity;
+    private Integer stockQuantity   ;
 
 
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -62,6 +62,8 @@ public class ProductsController {
         }
     }
 
+
+
     @DeleteMapping("/deleteByID")
     public ResponseEntity<Response> deleteProductByID(@RequestParam Integer id) {
         try {
@@ -72,4 +74,12 @@ public class ProductsController {
                     .body(new Response("An error occurred", e.getMessage(), true));
         }
     }
+
+
+
+
+
+
+
+
 }
