@@ -25,6 +25,9 @@ public class Products {
     private Double sellingPrice;
     private Double discount;
 
+    @Enumerated(EnumType.STRING)
+    private ClothingType clothingType;
+
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<InvoicesDetails> invoicesDetails;
 
@@ -32,5 +35,9 @@ public class Products {
     @CollectionTable(name = "stock", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "quantity")
     private List<Integer> stockQuantities;
+
+//    // Many products can belong to many invoices
+//    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+//    private List<Invoice1> invoices;
 
 }

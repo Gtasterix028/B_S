@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -85,10 +86,32 @@ public class ProductsController {
         return ResponseEntity.ok(products);
     }
 
-
     @GetMapping("/search")
     public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String name) {
         List<ProductsDTO> products=productsInterface.searchProductsByName(name);
         return ResponseEntity.ok(products);
+    }
+
+//    @GetMapping("/getByClothingType")
+//    public ResponseEntity<Response> getProductsByClothingType(@RequestBody Map<String, String> request) {
+//        String clothingType = request.get("clothingType");
+//        try {
+//            List<ProductsDTO> productsList = productsInterface.getProductsByClothingType(clothingType);
+//            return ResponseEntity.ok(new Response("Products retrieved successfully", productsList, false));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(new Response("An error occurred", e.getMessage(), true));
+//        }
+//    }
+
+    @GetMapping("/getByClothingType")
+    public ResponseEntity<Response> getProductsByClothingType(@RequestParam String ClothingType) {
+        try {
+            List<ProductsDTO> productsList = productsInterface.getProductsByClothingType(ClothingType);
+            return ResponseEntity.ok(new Response("Products retrieved successfully", productsList, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
     }
 }

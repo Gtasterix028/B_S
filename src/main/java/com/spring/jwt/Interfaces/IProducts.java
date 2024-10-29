@@ -21,6 +21,8 @@ public interface IProducts {
     List<ProductsDTO> getProducts(UUID productId, String productName, String description, Double price);
 
     List<ProductsDTO> searchProductsByName(String name);
+
+    List<ProductsDTO> getProductsByClothingType(String clothingType);
 }
 
 

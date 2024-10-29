@@ -17,7 +17,7 @@ public class InvoicesDetails {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "productID", nullable = false)
-    private Products products; //
+    private Products products;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "invoiceID", nullable = false)
