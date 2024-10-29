@@ -1,5 +1,6 @@
 package com.spring.jwt.repository;
 
+import com.spring.jwt.entity.ClothingType;
 import com.spring.jwt.entity.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface ProductsRepository extends JpaRepository<Products,UUID> {
     List<Products> findByDescription(String description);
     List<Products> findByPrice(Double price);
     List<Products> findByProductNameContainingIgnoreCaseOrderByProductNameAsc(String name);
+
+    List<Products> findByClothingType(ClothingType type);
 }

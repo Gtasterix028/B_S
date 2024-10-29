@@ -23,4 +23,10 @@ public class Customers {
 
     @OneToOne(mappedBy = "customer")
     private Payment payment;
+
+    // One customer can have many invoices
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Invoice1> invoices1List;
+
+
 }
