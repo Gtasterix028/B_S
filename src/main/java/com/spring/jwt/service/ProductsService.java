@@ -23,7 +23,7 @@ public class ProductsService implements IProducts {
 
     @Override
     public ProductsDTO getProductByID(UUID id) {
-        Products product = productsRepository.findById()
+        Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
         return modelMapper.map(product, ProductsDTO.class);
     }

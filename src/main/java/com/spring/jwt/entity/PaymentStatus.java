@@ -22,9 +22,4 @@ public class PaymentStatus {
 
     @Column(name = "Status")
     private String status; // String for status
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "paymentstatusId", referencedColumnName = "invoiceId", nullable = false)
-    private  Payment payment;
-
 }
