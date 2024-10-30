@@ -53,6 +53,8 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
         return modelMapper.map(savedInvoice, Invoice1DTO.class);
     }
 
+
+    @Override
     @Transactional
     public List<ProductWithInvoicesDTO> getByNameAndSaveQuantity(List<String> productNames, List<Double> sellQuantities, UUID invoiceId) {
         Optional<Invoice1> invoiceOptional = invoice1Repository.findById(invoiceId);
@@ -79,15 +81,16 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
             }
 
             for (Products product : foundProducts) {
+                Double subTotalPrice = product.getSellingPrice() * sellQuantity;
                 // Create ProductWithInvoicesDTO for mapping
                 ProductWithInvoicesDTO productDTO = new ProductWithInvoicesDTO();
                 productDTO.setProductID(product.getProductID());
                 productDTO.setProductName(product.getProductName());
-                productDTO.setUnitPrice(product.getUnitPrice());
                 productDTO.setActualPrice(product.getActualPrice());
                 productDTO.setSellingPrice(product.getSellingPrice());
                 productDTO.setDiscount(product.getDiscount());
                 productDTO.setClothingType(product.getClothingType());
+                productDTO.setSubTotalPrice(product.getSubTotalPrice());
                 productDTO.setSellQuantity(sellQuantity);
                 productDTO.setInvoice1Date(existingInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(existingInvoice.getInvoice1DueDate());

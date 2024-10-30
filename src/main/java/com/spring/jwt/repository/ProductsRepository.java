@@ -12,7 +12,6 @@ import java.util.UUID;
 public interface ProductsRepository extends JpaRepository<Products,UUID> {
     List<Products> findByProductName(String productName);
     List<Products> findByDescription(String description);
-    List<Products> findByUnitPrice(Double price);
     List<Products> findByProductNameContainingIgnoreCaseOrderByProductNameAsc(String name);
     List<Products> findByClothingType(ClothingType type);
 }

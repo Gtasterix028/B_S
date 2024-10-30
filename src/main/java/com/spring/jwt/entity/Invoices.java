@@ -19,6 +19,9 @@ public class Invoices {
     private LocalDate dueDate;
     private Double total;
 
+    public void setCustomers(Customers customer) {
+    }
+
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "customerID", nullable = false)
 //    private Customers customer;

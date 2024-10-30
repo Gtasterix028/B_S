@@ -24,11 +24,11 @@ public class Invoice1 {
 
     private UUID productID;
     private String productName;
-    private Double unitPrice;
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
+    private Double subTotalPrice;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

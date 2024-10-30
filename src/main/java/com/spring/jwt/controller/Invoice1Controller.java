@@ -48,9 +48,8 @@ public class Invoice1Controller {
     @GetMapping("getByName")
     public ResponseEntity<Response> getByNameAndSaveQuantity(
             @RequestParam List<String> productNames,
-            @RequestParam List<Double>sellQuantity,
-            @RequestParam UUID invoiceId) { // Accept customerId as a parameter
-
+            @RequestParam List<Double >sellQuantity,
+            @RequestParam UUID invoiceId) {
         try {
             List<ProductWithInvoicesDTO> productsDTOList = iInvoice1.getByNameAndSaveQuantity(productNames, sellQuantity,  invoiceId);
             return ResponseEntity.ok(new Response("List of Product by name", productsDTOList, false));
@@ -59,8 +58,6 @@ public class Invoice1Controller {
                     .body(new Response("Failed to display the List ", e.getMessage(), true));
         }
     }
-
-
 }
 
 

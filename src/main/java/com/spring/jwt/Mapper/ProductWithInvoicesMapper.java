@@ -21,11 +21,11 @@ public class ProductWithInvoicesMapper {
         // Set additional product details in the Invoice1 entity
         newInvoice.setProductID(product.getProductID());
         newInvoice.setProductName(product.getProductName());
-        newInvoice.setUnitPrice(product.getUnitPrice());
         newInvoice.setActualPrice(product.getActualPrice());
         newInvoice.setSellingPrice(product.getSellingPrice());
         newInvoice.setDiscount(product.getDiscount());
         newInvoice.setClothingType(product.getClothingType());
+        newInvoice.setSubTotalPrice(product.getSubTotalPrice());
         return newInvoice;
     }
 
@@ -34,11 +34,11 @@ public class ProductWithInvoicesMapper {
         ProductWithInvoicesDTO productDTO = new ProductWithInvoicesDTO();
         productDTO.setProductID(product.getProductID());
         productDTO.setProductName(product.getProductName());
-        productDTO.setUnitPrice(product.getUnitPrice());
         productDTO.setActualPrice(product.getActualPrice());
         productDTO.setSellingPrice(product.getSellingPrice());
         productDTO.setDiscount(product.getDiscount());
         productDTO.setClothingType(product.getClothingType());
+        productDTO.setSubTotalPrice(product.getSubTotalPrice());
 
         productDTO.setInvoice1ID(invoice.getInvoice1ID());
         productDTO.setInvoice1Date(invoice.getInvoice1Date());

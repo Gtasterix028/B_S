@@ -11,12 +11,12 @@ public class ProductsDTO {
     private UUID productID;
     private String productName;
     private String description;
-    private Double unitPrice;
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
+    private Double subTotalPrice;
     private ClothingType clothingType;
-    private List<Integer> stockQuantities;
+    private List<Integer>stockQuantities;
 
     private List<Invoice1DTO> invoices;
 
