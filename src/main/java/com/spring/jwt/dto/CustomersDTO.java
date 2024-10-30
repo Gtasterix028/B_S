@@ -6,7 +6,6 @@ import java.util.UUID;
 
 @Data
 public class CustomersDTO {
-
     private UUID customerID;
     private String firstName;
     private String lastName;
@@ -14,12 +13,11 @@ public class CustomersDTO {
     private String phone;
     private String address;
     private List<Invoice1DTO> invoicesList; // List of Invoice DTOs
-
-
-
-private List<InvoiceDTO> invoiceDTOS;
-    private PaymentDTO paymentDTO;
-
-
-
 }
+
+//private List<InvoiceDTO> invoiceDTOS;
+//    private PaymentDTO paymentDTO;
+
+
+
+

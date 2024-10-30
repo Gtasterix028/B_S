@@ -15,15 +15,15 @@ public class PaymentStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentStatusID;
 
-    @Column(name = "Status")
-    private String status;
-
-    // Add a reference to the Payment entity
-    @OneToOne
-    @JoinColumn(name = "paymentID", referencedColumnName = "paymentID", insertable = false, updatable = false)
-    private Payment payment;
-
-    // Optionally, you can keep this if you want to fetch paymentID
-    @Column(name = "paymentID")
-    private Integer paymentID; // This can be kept if you want a non-insertable version of paymentID
+//    @Column(name = "Status")
+//    private String status;
+//
+//    // Add a reference to the Payment entity
+//    @OneToOne
+//    @JoinColumn(name = "paymentID", referencedColumnName = "paymentID", insertable = false, updatable = false)
+//    private Payment payment;
+//
+//    // Optionally, you can keep this if you want to fetch paymentID
+//    @Column(name = "paymentID")
+//    private Integer paymentID; // This can be kept if you want a non-insertable version of paymentID
 }

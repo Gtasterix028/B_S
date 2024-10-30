@@ -24,7 +24,7 @@ public class InvoiceService implements IInvoice {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired 
+    @Autowired
     private CustomersRepository customersRepository;
 
     @Override
@@ -34,9 +34,9 @@ public class InvoiceService implements IInvoice {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         Invoices invoice = modelMapper.map(invoiceDTO, Invoices.class);
-        invoice.setCustomer(customer);
+        invoice.setCustomers(customer);
         Invoices savedInvoice = invoiceRepository.save(invoice);
-        return modelMapper.map(savedInvoice , InvoiceDTO.class) ;
+        return modelMapper.map(savedInvoice , InvoiceDTO.class);
     }
 
     @Override
