@@ -2,6 +2,7 @@ package com.spring.jwt.service;
 
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
+import com.spring.jwt.entity.ClothingType;
 import com.spring.jwt.entity.Products;
 import com.spring.jwt.repository.ProductsRepository;
 import org.modelmapper.ModelMapper;
@@ -28,51 +29,34 @@ public class ProductsService implements IProducts {
         return modelMapper.map(product, ProductsDTO.class);
     }
 
-//    @Override
-//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
-//        Products product = modelMapper.map(productsDTO, Products.class);
-//
-//        if (productsDTO.getStockQuantities() != null) {
-//            product.setStockQuantities(productsDTO.getStockQuantities());
-//        }
-//        Products savedProduct = productsRepository.save(product);
-//        return modelMapper.map(savedProduct, ProductsDTO.class);
-//    }
-
     @Override
     public ProductsDTO saveInformation(ProductsDTO productsDTO) {
-        // Check if stock quantities are provided in the DTO
+
         if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
             throw new IllegalArgumentException("Stock quantities must be provided.");
         }
 
-        // Map DTO to entity
         Products product = modelMapper.map(productsDTO, Products.class);
 
-        // Set stock quantities
         product.setStockQuantities(productsDTO.getStockQuantities());
 
-        // Save the product, which will also save the associated stock quantities
         Products savedProduct = productsRepository.save(product);
 
-        // Return the saved product as a DTO
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
-
 
     @Override
     public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {
         Products product = productsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
 
+        // Update fields conditionally based on non-null values in ProductsDTO
         if (productsDTO.getProductName() != null) {
             product.setProductName(productsDTO.getProductName());
         }
         if (productsDTO.getDescription() != null) {
             product.setDescription(productsDTO.getDescription());
         }
-
-
         if (productsDTO.getPrice() != null) {
             product.setPrice(productsDTO.getPrice());
         }
@@ -85,21 +69,17 @@ public class ProductsService implements IProducts {
         if (productsDTO.getDiscount() != null) {
             product.setDiscount(productsDTO.getDiscount());
         }
-        if (productsDTO.getProductType() != null) {
-            product.setProductType(productsDTO.getProductType());
+        if (productsDTO.getClothingType() != null) {
+            product.setClothingType(productsDTO.getClothingType());
         }
         if (productsDTO.getStockQuantities() != null && !productsDTO.getStockQuantities().isEmpty()) {
-            // Clear existing stock quantities and add new ones
-            product.getStockQuantities().clear();
-            product.getStockQuantities().addAll(productsDTO.getStockQuantities());
+            product.setStockQuantities(productsDTO.getStockQuantities());
         }
 
         Products updatedProduct = productsRepository.save(product);
-
-        System.out.println("Updated Product: " + updatedProduct); // Log the updated product
-
         return modelMapper.map(updatedProduct, ProductsDTO.class);
     }
+
 
     @Override
     public void deleteProduct(UUID id) {
@@ -170,5 +150,21 @@ public class ProductsService implements IProducts {
         }
 
         return productsDTOList;
+    }
+
+    @Override
+    public List<ProductsDTO> getProductsByClothingType(String clothingType) {
+        try {
+            ClothingType type = ClothingType.valueOf(clothingType.toUpperCase());
+            List<Products> products = productsRepository.findByClothingType(type);
+            List<ProductsDTO> productsDTOList = new ArrayList<>();
+
+            for (Products product : products) {
+                productsDTOList.add(modelMapper.map(product, ProductsDTO.class));
+            }
+            return productsDTOList;
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid clothing type: " + clothingType);
+        }
     }
 }
