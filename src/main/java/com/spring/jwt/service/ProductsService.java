@@ -57,8 +57,8 @@ public class ProductsService implements IProducts {
         if (productsDTO.getDescription() != null) {
             product.setDescription(productsDTO.getDescription());
         }
-        if (productsDTO.getPrice() != null) {
-            product.setPrice(productsDTO.getPrice());
+        if (productsDTO.getUnitPrice() != null) {
+            product.setUnitPrice(productsDTO.getUnitPrice());
         }
         if (productsDTO.getActualPrice() != null) {
             product.setActualPrice(productsDTO.getActualPrice());
@@ -124,7 +124,7 @@ public class ProductsService implements IProducts {
             }
             return productsDTOList;
         } else if (price != null) {
-            List<Products> products= productsRepository.findByPrice(price);
+            List<Products> products= productsRepository.findByUnitPrice(price);
             List<ProductsDTO> productsDTOList=new ArrayList<>();
             for(Products products3:products){
                 productsDTOList.add(modelMapper.map(products3,ProductsDTO.class));
@@ -166,5 +166,29 @@ public class ProductsService implements IProducts {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid clothing type: " + clothingType);
         }
+    }
+
+    @Override
+    public Integer getTotalStockQuantity() {
+        List<Products> allProducts = productsRepository.findAll();
+        int totalStock = 0;
+
+        for (Products product : allProducts) {
+            for (Integer quantity : product.getStockQuantities()) {
+                totalStock += quantity;
+            }
+        }
+        return totalStock;
+    }
+
+    @Override
+    public Integer getStockQuantityByProductId(UUID productId) {
+        Products product = productsRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+        int stockQuantity = 0;
+        for (Integer quantity : product.getStockQuantities()) {
+            stockQuantity += quantity;
+        }
+        return stockQuantity;
     }
 }

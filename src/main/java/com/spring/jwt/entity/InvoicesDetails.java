@@ -15,11 +15,11 @@ public class InvoicesDetails {
 
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "productID", nullable = false)
-    private Products products;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "invoiceID", nullable = false)
-    private Invoices invoice;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "productID", nullable = false)
+//    private Products products;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "invoiceID", nullable = false)
+//    private Invoices invoice;
 }
