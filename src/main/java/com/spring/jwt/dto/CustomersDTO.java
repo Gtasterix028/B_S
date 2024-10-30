@@ -8,6 +8,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Data
@@ -19,8 +20,8 @@ public class CustomersDTO {
     private String phone;
     private String address;
 
-    private List<InvoiceDTO> invoiceDTOS;
-    private PaymentDTO paymentDTO;
+    private Optional<List<InvoiceDTO>> invoiceDTOS = Optional.empty();
+    private Optional<PaymentDTO> paymentDTO = Optional.empty();
 
 
 

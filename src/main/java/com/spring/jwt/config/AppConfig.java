@@ -109,6 +109,8 @@ public class AppConfig {
                 .requestMatchers("/payments/**").permitAll()
                 .requestMatchers("/payment-status/**").permitAll()
                 .requestMatchers("/products/**").permitAll()
+
+                .requestMatchers("/products/saveInformation/").permitAll()
                 .requestMatchers("/Shipping/**").permitAll()
                 .requestMatchers("/TaxRates/**").permitAll()
 

@@ -71,11 +71,33 @@ public class ProductsService implements IProducts {
         if (productsDTO.getDescription() != null) {
             product.setDescription(productsDTO.getDescription());
         }
+
+
         if (productsDTO.getPrice() != null) {
             product.setPrice(productsDTO.getPrice());
         }
+        if (productsDTO.getActualPrice() != null) {
+            product.setActualPrice(productsDTO.getActualPrice());
+        }
+        if (productsDTO.getSellingPrice() != null) {
+            product.setSellingPrice(productsDTO.getSellingPrice());
+        }
+        if (productsDTO.getDiscount() != null) {
+            product.setDiscount(productsDTO.getDiscount());
+        }
+        if (productsDTO.getProductType() != null) {
+            product.setProductType(productsDTO.getProductType());
+        }
+        if (productsDTO.getStockQuantities() != null && !productsDTO.getStockQuantities().isEmpty()) {
+            // Clear existing stock quantities and add new ones
+            product.getStockQuantities().clear();
+            product.getStockQuantities().addAll(productsDTO.getStockQuantities());
+        }
 
         Products updatedProduct = productsRepository.save(product);
+
+        System.out.println("Updated Product: " + updatedProduct); // Log the updated product
+
         return modelMapper.map(updatedProduct, ProductsDTO.class);
     }
 

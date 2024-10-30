@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
@@ -55,6 +56,11 @@ public class ProductsController {
     @PatchMapping("/updateAny")
     public ResponseEntity<Response> updateProduct(@RequestParam UUID id, @RequestBody ProductsDTO productsDTO) {
         try {
+
+            System.out.println("ID to patch.." +id);
+
+            System.out.println("Received data: " + productsDTO);
+
             ProductsDTO updatedProduct = productsInterface.updateAny(id, productsDTO);
             return ResponseEntity.ok(new Response("Product updated successfully", updatedProduct, false));
         } catch (Exception e) {
@@ -87,8 +93,9 @@ public class ProductsController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String name) {
-        List<ProductsDTO> products=productsInterface.searchProductsByName(name);
+    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String searchCharacter) {
+        System.out.println("search string ...." +searchCharacter);
+        List<ProductsDTO> products=productsInterface.searchProductsByName(searchCharacter);
         return ResponseEntity.ok(products);
     }
 }

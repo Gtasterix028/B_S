@@ -41,6 +41,8 @@ public class CustomersController {
     @PostMapping("/saveInformation")
     public ResponseEntity<Response> createCustomer(@RequestBody CustomersDTO customersDTO) {
         try {
+
+            System.out.println("new customer from froentend to be addeed..."+customersDTO);
             CustomersDTO createdCustomer = customersInterface.saveInformation(customersDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(new Response("Customer created successfully", createdCustomer, false));
         } catch (Exception e) {

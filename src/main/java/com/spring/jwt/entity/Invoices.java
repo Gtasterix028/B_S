@@ -31,4 +31,7 @@ public class Invoices {
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<Payment> payments;
+
+
+
 }
