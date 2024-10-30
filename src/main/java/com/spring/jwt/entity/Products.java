@@ -27,7 +27,7 @@ public class Products {
     private Double discount;
 
     @Enumerated(EnumType.STRING) // Using enum for product type
-    private ProductType productType;// NEW FIELD: indicates if the product is readymade or unstitched
+    private ClothingType setClothingType;// NEW FIELD: indicates if the product is readymade or unstitched
 
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<InvoicesDetails> invoicesDetails;
