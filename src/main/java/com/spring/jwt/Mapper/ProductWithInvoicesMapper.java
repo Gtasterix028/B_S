@@ -17,7 +17,15 @@ public class ProductWithInvoicesMapper {
         newInvoice.setInvoice1DueDate(dto.getInvoice1DueDate());
         newInvoice.setSellQuantity(dto.getSellQuantity());
         newInvoice.setSubmit(dto.getSubmit());
-        newInvoice.setCustomer(existingInvoice.getCustomer());  // Set the existing customer
+        newInvoice.setCustomer(existingInvoice.getCustomer());// Set the existing customer
+        // Set additional product details in the Invoice1 entity
+        newInvoice.setProductID(product.getProductID());
+        newInvoice.setProductName(product.getProductName());
+        newInvoice.setUnitPrice(product.getUnitPrice());
+        newInvoice.setActualPrice(product.getActualPrice());
+        newInvoice.setSellingPrice(product.getSellingPrice());
+        newInvoice.setDiscount(product.getDiscount());
+        newInvoice.setClothingType(product.getClothingType());
         return newInvoice;
     }
 

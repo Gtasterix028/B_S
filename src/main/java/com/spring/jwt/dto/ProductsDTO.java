@@ -18,13 +18,7 @@ public class ProductsDTO {
     private ClothingType clothingType;
     private List<Integer> stockQuantities;
 
-    private List<Invoice1DTO> invoices; // List of Invoice DTOs
-
-    //private List<InvoicesDetailsDTO> invoicesDetails;
-
+    private List<Invoice1DTO> invoices;
 
 }
 
-//ProductDTO SellingQuantity
-//        Fetch name
-//                prdocut name

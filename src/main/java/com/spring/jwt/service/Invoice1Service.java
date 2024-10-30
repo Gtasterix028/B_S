@@ -61,7 +61,7 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
         }
 
         if (productNames.size() != sellQuantities.size()) {
-            throw new IllegalArgumentException("The number of product names must match the number of sell quantities.");
+            throw new RuntimeException("The number of product names must match the number of sell quantities.");
         }
 
         Invoice1 existingInvoice = invoiceOptional.get();
@@ -95,85 +95,20 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
 
                 // Map to Invoice1 entity
                 Invoice1 newInvoice = mapper.toInvoiceEntity(productDTO, product, existingInvoice);
-                invoice1Repository.save(newInvoice); // Save new Invoice1 entity
+                invoice1Repository.save(newInvoice);
+                 // Save new Invoice1 entity
 
                 // Map back to DTO for response
                 ProductWithInvoicesDTO savedProductDTO = mapper.toProductWithInvoicesDTO(product, newInvoice);
                 productsDTOList.add(savedProductDTO);
 
+
+
             }
         }
-
         return productsDTOList;
     }
 }
-
-//
-//    @Override
-//    @Transactional
-//    public List<ProductWithInvoicesDTO> getByNameAndSaveQuantity(List<String> productNames, List<Double> sellQuantities, UUID invoiceId) {
-//        Optional<Invoice1> invoiceOptional = invoice1Repository.findById(invoiceId);
-//        if (!invoiceOptional.isPresent()) {
-//            throw new RuntimeException("Invoice with ID " + invoiceId + " not found.");
-//        }
-//
-//        if (productNames.size() != sellQuantities.size()) {
-//            throw new IllegalArgumentException("The number of product names must match the number of sell quantities.");
-//        }
-//
-//        Invoice1 existingInvoice = invoiceOptional.get();
-//        List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
-//
-//        // Iterate over the list of product names and sell quantities using index
-//        for (int i = 0; i < productNames.size(); i++) {
-//            String productName = productNames.get(i);
-//            Double sellQuantity = sellQuantities.get(i);
-//
-//            // Find product by name
-//            List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
-//            if (foundProducts.isEmpty()) {
-//                throw new RuntimeException("Product with name " + productName + " not found.");
-//            }
-//
-//            // Loop through all found products (in case of duplicates)
-//            for (Products product : foundProducts) {
-//                // Create a new Invoice1 object for each product
-//                Invoice1 newInvoice = new Invoice1();
-//                newInvoice.setInvoice1Date(existingInvoice.getInvoice1Date());
-//                newInvoice.setInvoice1DueDate(existingInvoice.getInvoice1DueDate());
-//                newInvoice.setSubmit(existingInvoice.getSubmit());
-//                newInvoice.setSellQuantity(sellQuantity); // Set the sell quantity for each product
-//                newInvoice.setProduct(product); // Associate the found product
-//                newInvoice.setCustomer(existingInvoice.getCustomer());
-//
-//                // Save the new invoice to the database
-//                invoice1Repository.save(newInvoice);
-//
-//                // Convert product to DTO and add to the response list
-//               ProductWithInvoicesDTO productDTO = new ProductWithInvoicesDTO();
-//
-//                productDTO.setProductID(product.getProductID());
-//                productDTO.setProductName(product.getProductName());
-//                productDTO.setUnitPrice(product.getUnitPrice());
-//                productDTO.setActualPrice(product.getActualPrice());
-//                productDTO.setSellingPrice(product.getSellingPrice());
-//                productDTO.setDiscount(product.getDiscount());
-//                productDTO.setClothingType(product.getClothingType());
-//
-//                productDTO.setInvoice1ID(newInvoice.getInvoice1ID());
-//                productDTO.setInvoice1Date(newInvoice.getInvoice1Date());
-//                productDTO.setSellQuantity(newInvoice.getSellQuantity());
-//                productDTO.setInvoice1DueDate(newInvoice.getInvoice1DueDate());
-//                productDTO.setSubmit(newInvoice.getSubmit());
-//
-//                productsDTOList.add(productDTO);
-//
-////
-//            }
-//        }
-//
-//        return productsDTOList;
-//    }
 
 
 

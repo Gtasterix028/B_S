@@ -10,7 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface Invoice1Repository extends JpaRepository<Invoice1, UUID> {
-//    Optional<Invoice1> findByCustomer_CustomerId(UUID customerId);
 
-   // Optional<Invoice1> findByCustomerId(UUID customerId);
 }
