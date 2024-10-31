@@ -18,18 +18,21 @@ public class Customers {
     private String phone;
     private String address;
 
-    // One customer can have many invoices
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Invoice1> invoices1List; // Change to List<Invoice1> if you keep it
-}
+//    @OneToOne
+//    @JoinColumn(name = "selling_id")
+//    private Sell sell;
 
-//
-//    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-//    private List<Invoices> invoicesList;
-//
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private List<Invoices> invoicesList;
+
+
+//    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonManagedReference
+//    private List<Invoice1> invoices1List;
+
 //    @OneToOne(mappedBy = "customer")
 //    private Payment payment;
+}
 
 
 

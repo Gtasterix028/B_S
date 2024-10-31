@@ -7,11 +7,12 @@ import java.util.UUID;
 
 public interface IInvoice {
 
-    Object saveInformation(UUID id, InvoiceDTO invoiceDTO);
+    Object saveInformation( InvoiceDTO invoiceDTO);
 
     List<InvoiceDTO> getALlInvoices();
 
     InvoiceDTO getById(UUID id);
 
     InvoiceDTO updateAny(UUID id, InvoiceDTO invoiceDTO);
+
 }

@@ -19,15 +19,12 @@ public class Invoices {
     private LocalDate dueDate;
     private Double total;
 
-    public void setCustomers(Customers customer) {
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customerID", nullable = false)
+    private Customers customer;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "customerID", nullable = false)
-//    private Customers customer;
-//
-//    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<InvoicesDetails> invoicesDetails;
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<InvoicesDetails> invoicesDetails;
 //
 //    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
 //    private List<ShippingDetail> shippingDetails;

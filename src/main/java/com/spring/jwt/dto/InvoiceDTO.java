@@ -19,10 +19,11 @@ public class InvoiceDTO {
     private LocalDate dueDate;
     private Double total;
 
-    private List<Payment> payment;
     private List<InvoicesDetailsDTO> invoicesDetails;
-
     private CustomersDTO customers;
-    private List<ShippingDto> shippingDetails;
+
+
+//    private List<ShippingDto> shippingDetails;
+//    private List<Payment> payment;
 
 }

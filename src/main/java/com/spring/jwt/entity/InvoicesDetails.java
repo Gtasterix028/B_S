@@ -12,14 +12,13 @@ public class InvoicesDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID invoiceDetailID;
-
     private Integer quantity;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "productID", nullable = false)
-//    private Products products;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "invoiceID", nullable = false)
-//    private Invoices invoice;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "productID", nullable = false)
+    private Products products;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceID", nullable = false)
+    private Invoices invoice;
 }

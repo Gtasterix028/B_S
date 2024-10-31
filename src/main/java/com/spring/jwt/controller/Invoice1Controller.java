@@ -32,19 +32,6 @@ public class Invoice1Controller {
         }
     }
 
-//    @GetMapping("getByName")
-//    public ResponseEntity<Response> getByNameAndSaveQuantity(@RequestParam String name, @RequestParam Double sellQuantity){
-//          //  ,@RequestBody UUID invoiceID) {
-//        try{
-//        List<ProductsDTO> productsDTOList = iInvoice1.getByNameAndSaveQuantity(name,sellQuantity);
-//            return ResponseEntity.ok(new Response("List of Product by name", productsDTOList, false));
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new Response("Failed to display the List ", e.getMessage(), true));
-//        }
-//
-//    }
-
     @GetMapping("getByName")
     public ResponseEntity<Response> getByNameAndSaveQuantity(
             @RequestParam List<String> productNames,
@@ -58,6 +45,49 @@ public class Invoice1Controller {
                     .body(new Response("Failed to display the List ", e.getMessage(), true));
         }
     }
+
+    @PostMapping("saveInvoice2")
+    public ResponseEntity<Response> saveInvoice2(
+            @RequestBody Invoice1DTO invoice1DTO,
+            @RequestParam List<String> productNames,
+            @RequestParam List<Double> sellQuantity) {
+        try {
+            // Call the service method to save the invoice and products
+            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity);
+
+            // Return a successful response
+            return ResponseEntity.ok(new Response("Invoice and products saved successfully", savedDTO1, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Failed to save invoice and products", e.getMessage(), true));
+        }
+    }
+//    public static class CombinedResponse {
+//        private Invoice1DTO invoice;
+//        private List<ProductWithInvoicesDTO> products;
+//
+//        public CombinedResponse(Invoice1DTO invoice, List<ProductWithInvoicesDTO> products) {
+//            this.invoice = invoice;
+//            this.products = products;
+//        }
+//
+//        // Getters and setters
+//        public Invoice1DTO getInvoice() {
+//            return invoice;
+//        }
+//
+//        public void setInvoice(Invoice1DTO invoice) {
+//            this.invoice = invoice;
+//        }
+//
+//        public List<ProductWithInvoicesDTO> getProducts() {
+//            return products;
+//        }
+//
+//        public void setProducts(List<ProductWithInvoicesDTO> products) {
+//            this.products = products;
+//        }
+//    }
 }
 
 

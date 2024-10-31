@@ -1,11 +1,11 @@
 
 package com.spring.jwt.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -15,13 +15,21 @@ public class Sell {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID sellingId;
-    private LocalDateTime date;
-    private Integer sellQuantity;
+    private LocalDate date;
+    private Double productSellQuantity;
+    private UUID productIdl;
 
 //    @OneToOne(mappedBy = "sell",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private  Customers customers;
 //
 //    @OneToMany(mappedBy = "sell", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private List<Products> products;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", nullable = false)
+    @JsonManagedReference(value = "invoice-sell")
+    private Invoice1 invoice1;
+
+
 
 }

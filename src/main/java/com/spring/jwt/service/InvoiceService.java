@@ -28,13 +28,13 @@ public class InvoiceService implements IInvoice {
     private CustomersRepository customersRepository;
 
     @Override
-    public Object saveInformation(UUID id , InvoiceDTO invoiceDTO){
+    public Object saveInformation( InvoiceDTO invoiceDTO){
 
-        Customers customer = customersRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+//        Customers customer = customersRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         Invoices invoice = modelMapper.map(invoiceDTO, Invoices.class);
-        invoice.setCustomers(customer);
+       // invoice.setCustomers(customer);
         Invoices savedInvoice = invoiceRepository.save(invoice);
         return modelMapper.map(savedInvoice , InvoiceDTO.class);
     }

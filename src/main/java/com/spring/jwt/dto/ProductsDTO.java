@@ -16,9 +16,12 @@ public class ProductsDTO {
     private Double discount;
     private Double subTotalPrice;
     private ClothingType clothingType;
+
     private List<Integer>stockQuantities;
 
-    private List<Invoice1DTO> invoices;
+ //   private List<Invoice1DTO> invoices;
+
+  //  private SellDTO sell;
 
 }
 

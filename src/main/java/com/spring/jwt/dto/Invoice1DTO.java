@@ -2,6 +2,7 @@ package com.spring.jwt.dto;
 
 import com.spring.jwt.entity.ClothingType;
 import com.spring.jwt.entity.Products;
+import com.spring.jwt.entity.Sell;
 import lombok.Data;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Invoice1DTO {
 
     private List<ProductsDTO> products;
     private CustomersDTO customer;
+    private List<SellDTO> sells;
 
 }
 
