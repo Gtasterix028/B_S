@@ -24,7 +24,7 @@ public class ShippingDetail {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "invoiceID", nullable = false)
-    private Invoices invoice;
+    private Invoice1 invoice;
 
 
 

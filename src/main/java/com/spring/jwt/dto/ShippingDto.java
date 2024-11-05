@@ -1,6 +1,5 @@
 package com.spring.jwt.dto;
 
-import com.spring.jwt.entity.Invoices;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +14,7 @@ public class ShippingDto {
         private LocalDate shippingDate;
         private LocalDate estimatedArrivalDAte;
 
-        private InvoiceDTO invoiceDTO;
+        private Invoice1DTO invoiceDTO;
 
 
 

@@ -32,34 +32,20 @@ public class Invoice1Controller {
         }
     }
 
-//    @GetMapping("getByName")
-//    public ResponseEntity<Response> getByNameAndSaveQuantity(@RequestParam String name, @RequestParam Double sellQuantity){
-//          //  ,@RequestBody UUID invoiceID) {
-//        try{
-//        List<ProductsDTO> productsDTOList = iInvoice1.getByNameAndSaveQuantity(name,sellQuantity);
-//            return ResponseEntity.ok(new Response("List of Product by name", productsDTOList, false));
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new Response("Failed to display the List ", e.getMessage(), true));
-//        }
-//
-//    }
-
-    @GetMapping("getByName")
-    public ResponseEntity<Response> getByNameAndSaveQuantity(
+    @PostMapping("saveInvoice2")
+    public ResponseEntity<Response> saveInvoice2(
+            @RequestBody Invoice1DTO invoice1DTO,
             @RequestParam List<String> productNames,
-            @RequestParam List<Double >sellQuantity,
-            @RequestParam UUID invoiceId) {
+            @RequestParam List<Double> sellQuantity) {
         try {
-            List<ProductWithInvoicesDTO> productsDTOList = iInvoice1.getByNameAndSaveQuantity(productNames, sellQuantity,  invoiceId);
-            return ResponseEntity.ok(new Response("List of Product by name", productsDTOList, false));
+            // Call the service method to save the invoice and products
+            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity);
+
+            // Return a successful response
+            return ResponseEntity.ok(new Response("Invoice and products saved successfully", savedDTO1, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("Failed to display the List ", e.getMessage(), true));
+                    .body(new Response("Failed to save invoice and products", e.getMessage(), true));
         }
     }
 }
-
-
-
-

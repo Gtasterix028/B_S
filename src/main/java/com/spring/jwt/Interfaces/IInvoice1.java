@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface IInvoice1 {
     Invoice1DTO saveInformation( Invoice1DTO invoice1DTO);
-    List<ProductWithInvoicesDTO> getByNameAndSaveQuantity(List<String> productNames, List<Double> sellQuantity, UUID invoiceId);
+
+    List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities);
+
 }
 
