@@ -12,6 +12,5 @@ public interface IInvoice1 {
 
     List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities);
 
-    List<ProductWithInvoicesDTO> getByNameAndSaveQuantity(List<String> productNames, List<Double> sellQuantity, UUID invoiceId);
 }
 

@@ -33,7 +33,7 @@ public class Invoice1 {
     private Double subTotalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "product_id") // Assuming you want to link to Products
+    @JoinColumn(name = "product_id")
     private Products product;
 
     @ManyToOne
