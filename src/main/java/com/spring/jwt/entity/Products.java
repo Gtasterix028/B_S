@@ -35,9 +35,9 @@ public class Products {
     @Column(name = "stockQuantities")
     private List<Integer> stockQuantities;
 
-    @ManyToOne
-    @JoinColumn(name = "selling_id")  // Foreign key to Sell
-    private Sell sell;
+//    @ManyToOne
+//    @JoinColumn(name = "selling_id")  // Foreign key to Sell
+//    private Sell sell;
 
     // One product can belong to many invoices
 //    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
