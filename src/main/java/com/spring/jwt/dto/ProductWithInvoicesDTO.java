@@ -20,7 +20,7 @@ public class ProductWithInvoicesDTO {
         private LocalDate invoice1Date;
         private Double sellQuantity;
         private LocalDate invoice1DueDate;
-        private Boolean submit;
+//        private Boolean submit;
 
         // Add any other invoice fields you want to include
 
