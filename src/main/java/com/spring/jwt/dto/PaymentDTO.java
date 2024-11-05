@@ -1,7 +1,6 @@
 package com.spring.jwt.dto;
 
 import com.spring.jwt.entity.Customers;
-import com.spring.jwt.entity.Invoices;
 import com.spring.jwt.entity.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,8 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class PaymentDTO {
     private Integer paymentID;
     private Integer invoiceID;
@@ -21,7 +19,7 @@ public class PaymentDTO {
     private String paymentMethod;
     private Double amount;
 
-    private InvoiceDTO invoices;
+    private Invoice1DTO invoice1;
 
     private List<PaymentStatusDTO> paymentStatuses;
 

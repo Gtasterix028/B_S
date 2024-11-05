@@ -29,6 +29,7 @@ public class ProductsService implements IProducts {
         return modelMapper.map(product, ProductsDTO.class);
     }
 
+
     @Override
     public ProductsDTO saveInformation(ProductsDTO productsDTO) {
 
@@ -37,13 +38,37 @@ public class ProductsService implements IProducts {
         }
 
         Products product = modelMapper.map(productsDTO, Products.class);
-
         product.setStockQuantities(productsDTO.getStockQuantities());
 
-        Products savedProduct = productsRepository.save(product);
+        // Calculate total stock quantity using a for-each loop
+        int totalStockQuantity = 0;
+        for (Integer quantity : productsDTO.getStockQuantities()) {
+            totalStockQuantity += quantity; // Assuming stock quantities are integers
+        }
 
+        // Calculate total price based on selling price and total stock quantity
+        Double totalPrice = product.getSellingPrice() * totalStockQuantity;
+        product.setSubTotalPrice(totalPrice); // Set the calculated total price
+
+        Products savedProduct = productsRepository.save(product);
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
+
+//    @Override
+//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
+//
+//        if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
+//            throw new IllegalArgumentException("Stock quantities must be provided.");
+//        }
+//
+//        Products product = modelMapper.map(productsDTO, Products.class);
+//
+//        product.setStockQuantities(productsDTO.getStockQuantities());
+//
+//        Products savedProduct = productsRepository.save(product);
+//
+//        return modelMapper.map(savedProduct, ProductsDTO.class);
+//    }
 
     @Override
     public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {
@@ -57,9 +82,7 @@ public class ProductsService implements IProducts {
         if (productsDTO.getDescription() != null) {
             product.setDescription(productsDTO.getDescription());
         }
-        if (productsDTO.getPrice() != null) {
-            product.setPrice(productsDTO.getPrice());
-        }
+
         if (productsDTO.getActualPrice() != null) {
             product.setActualPrice(productsDTO.getActualPrice());
         }
@@ -72,7 +95,7 @@ public class ProductsService implements IProducts {
         if (productsDTO.getClothingType() != null) {
             product.setClothingType(productsDTO.getClothingType());
         }
-        if (productsDTO.getStockQuantities() != null && !productsDTO.getStockQuantities().isEmpty()) {
+        if (productsDTO.getStockQuantities() != null) {
             product.setStockQuantities(productsDTO.getStockQuantities());
         }
 
@@ -123,13 +146,6 @@ public class ProductsService implements IProducts {
                 productsDTOList.add(modelMapper.map(products2,ProductsDTO.class));
             }
             return productsDTOList;
-        } else if (price != null) {
-            List<Products> products= productsRepository.findByPrice(price);
-            List<ProductsDTO> productsDTOList=new ArrayList<>();
-            for(Products products3:products){
-                productsDTOList.add(modelMapper.map(products3,ProductsDTO.class));
-            }
-            return productsDTOList;
 
         } else {
             List<Products> products = productsRepository.findAll();
@@ -166,5 +182,29 @@ public class ProductsService implements IProducts {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid clothing type: " + clothingType);
         }
+    }
+
+    @Override
+    public Integer getTotalStockQuantity() {
+        List<Products> allProducts = productsRepository.findAll();
+        int totalStock = 0;
+
+        for (Products product : allProducts) {
+            for (Integer quantity : product.getStockQuantities()) {
+                totalStock += quantity;
+            }
+        }
+        return totalStock;
+    }
+
+    @Override
+    public Integer getStockQuantityByProductId(UUID productId) {
+        Products product = productsRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+        int stockQuantity = 0;
+        for (Integer quantity : product.getStockQuantities()) {
+            stockQuantity += quantity;
+        }
+        return stockQuantity;
     }
 }

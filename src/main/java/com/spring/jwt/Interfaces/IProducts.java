@@ -23,6 +23,10 @@ public interface IProducts {
     List<ProductsDTO> searchProductsByName(String name);
 
     List<ProductsDTO> getProductsByClothingType(String clothingType);
+
+    Integer getTotalStockQuantity();
+
+    Integer getStockQuantityByProductId(UUID productId);
 }
 
 

@@ -13,10 +13,6 @@ public class ShippingDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer shippingDetailId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "invoiceID", nullable = false)
-    private Invoices invoice;
-
     @Column(nullable = false)
     private String shippingAddress;
 
@@ -25,6 +21,10 @@ public class ShippingDetail {
 
     @Column(nullable = false)
     private LocalDate estimatedArrivalDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "invoiceID", nullable = false)
+    private Invoice1 invoice;
 
 
 

@@ -17,19 +17,19 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentID;
+
     private LocalDate paymentDate;
     private String paymentMethod;
     private Double amount;
 
-
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
-    private PaymentStatus status;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "invoiceID", nullable = false)
-    private Invoices invoice;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customerID", nullable = false)
-    private Customers customer;
+//    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+//    private PaymentStatus paymentStatus;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "invoiceID", nullable = false)
+//    private Invoices invoice;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "customerID", nullable = false)
+//    private Customers customer;
 }

@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface CustomersRepository extends JpaRepository<Customers,UUID> {
 
 
-
+    Optional<Customers> findByEmail(String email);
 }

@@ -1,5 +1,8 @@
 package com.spring.jwt.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spring.jwt.entity.Customers;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,25 +19,31 @@ public class Invoice1 {
     private UUID invoice1ID;
 
     private LocalDate invoice1Date;
-
     private LocalDate invoice1DueDate;
-
     private Boolean submit;
 
-    // Many invoices to one customer
+    private Double sellQuantity;
+
+    private UUID productID;
+    private String productName;
+    private Double actualPrice;
+    private Double sellingPrice;
+    private Double discount;
+    private ClothingType clothingType;
+    private Double subTotalPrice;
+
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "product_id")
+    private Products product;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @JsonBackReference(value = "customer-invoice") // Jackson to get confused about which back-reference to use, leading to the error
     private Customers customer;
 
-    // Many invoices to many products
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "invoice_products",
-            joinColumns = @JoinColumn(name = "invoice_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Products> products;
-
-
+    @OneToMany(mappedBy = "invoice1", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "invoice-sell") // Named managed reference
+    private List<Sell> sells;
 
 }
+

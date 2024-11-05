@@ -1,8 +1,11 @@
-package com.spring.jwt.entity;
 
-import com.spring.jwt.Enum.ProductType;
+package com.spring.jwt.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spring.jwt.entity.ClothingType;
+//import com.spring.jwt.entity.Invoice1;
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -19,23 +22,26 @@ public class Products {
 
     private String description;
 
-    @Column(nullable = false)
-    private Double price;
-
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
+    private Double subTotalPrice;
 
-    @Enumerated(EnumType.STRING) // Using enum for product type
-    private ClothingType clothingType;// NEW FIELD: indicates if the product is readymade or unstitched
-
-    @OneToMany(mappedBy = "products", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<InvoicesDetails> invoicesDetails;
+    @Enumerated(EnumType.STRING)
+    private ClothingType clothingType;
 
     @ElementCollection
     @CollectionTable(name = "stock", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "quantity")
+    @Column(name = "stockQuantities")
     private List<Integer> stockQuantities;
 
+    @ManyToOne
+    @JoinColumn(name = "selling_id")  // Foreign key to Sell
+    private Sell sell;
 
+    // One product can belong to many invoices
+//    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JsonManagedReference
+//    private List<Invoice1> invoices;
 }
+

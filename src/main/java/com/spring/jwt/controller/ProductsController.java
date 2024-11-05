@@ -99,23 +99,34 @@ public class ProductsController {
         return ResponseEntity.ok(products);
     }
 
-//    @GetMapping("/getByClothingType")
-//    public ResponseEntity<Response> getProductsByClothingType(@RequestBody Map<String, String> request) {
-//        String clothingType = request.get("clothingType");
-//        try {
-//            List<ProductsDTO> productsList = productsInterface.getProductsByClothingType(clothingType);
-//            return ResponseEntity.ok(new Response("Products retrieved successfully", productsList, false));
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new Response("An error occurred", e.getMessage(), true));
-//        }
-//    }
 
     @GetMapping("/getByClothingType")
     public ResponseEntity<Response> getProductsByClothingType(@RequestParam String ClothingType) {
         try {
             List<ProductsDTO> productsList = productsInterface.getProductsByClothingType(ClothingType);
             return ResponseEntity.ok(new Response("Products retrieved successfully", productsList, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
+    @GetMapping("/totalStockQuantity")
+    public ResponseEntity<Response> getTotalStockQuantity() {
+        try {
+            Integer totalStock = productsInterface.getTotalStockQuantity();
+            return ResponseEntity.ok(new Response("Total stock quantity retrieved successfully", totalStock, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
+    @GetMapping("/stockQuantityByProductId")
+    public ResponseEntity<Response> getStockQuantityByProductId(@RequestParam UUID productId) {
+        try {
+            Integer stockQuantity = productsInterface.getStockQuantityByProductId(productId);
+            return ResponseEntity.ok(new Response("Stock quantity for product retrieved successfully", stockQuantity, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response("An error occurred", e.getMessage(), true));
