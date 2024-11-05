@@ -23,7 +23,7 @@ public class Customers {
 //    private Sell sell;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    private List<Invoices> invoicesList;
+    private List<Invoice1> invoicesList;
 
 
 //    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

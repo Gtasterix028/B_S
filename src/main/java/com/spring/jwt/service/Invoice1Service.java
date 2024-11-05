@@ -198,6 +198,8 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
                 Sell newSellEntity = new Sell();
                 newSellEntity.setProductIdl(product.getProductID());
                 newSellEntity.setProductSellQuantity(sellQuantity);
+                newSellEntity.setDate(invoice1DTO.getInvoice1Date());
+                newSellEntity.setInvoice1(newInvoice);
                 sellRepository.save(newSellEntity);
 
                 // Add the product DTO to the result list

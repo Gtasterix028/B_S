@@ -1,5 +1,6 @@
 
 package com.spring.jwt.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,16 +20,17 @@ public class Sell {
     private Double productSellQuantity;
     private UUID productIdl;
 
+    @ManyToOne
+    @JoinColumn(name = "invoice1ID", nullable = false)
+    @JsonBackReference(value = "invoice-sell")
+    private Invoice1 invoice1;
+
+
 //    @OneToOne(mappedBy = "sell",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private  Customers customers;
 //
 //    @OneToMany(mappedBy = "sell", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<Products> products;
-
-    @ManyToOne
-    @JoinColumn(name = "invoice_id", nullable = false)
-    @JsonManagedReference(value = "invoice-sell")
-    private Invoice1 invoice1;
+//    private List<Products> products;invoice1ID
 
 
 

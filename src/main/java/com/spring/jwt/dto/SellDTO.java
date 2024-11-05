@@ -19,8 +19,7 @@ public class SellDTO {
     private Double productSellQuantity;
     private UUID productIdl;
 
-
-    private Invoice1 invoice1;
+    private Invoice1DTO invoice1;
 
 //    private Customers customers;
 //

@@ -45,6 +45,5 @@ public class Invoice1 {
     @JsonManagedReference(value = "invoice-sell") // Named managed reference
     private List<Sell> sells;
 
-
 }
 
