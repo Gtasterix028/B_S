@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Data
@@ -14,7 +15,7 @@ public class InvoicesDetailsDTO {
     private UUID invoiceDetailID;
     private Integer Quantity;
 
-    private InvoiceDTO invoice;
+    private Optional<InvoiceDTO> invoice= Optional.empty();;
     private ProductsDTO product;
 
 

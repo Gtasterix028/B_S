@@ -22,6 +22,8 @@ public class InvoiceController {
     @PostMapping("/saveInformation")
     public ResponseEntity<Response> saveInformation (@RequestParam UUID id, @RequestBody InvoiceDTO invoiceDTO){
         try{
+
+            System.out.println("post data of Invoice DTO from from frontend...."+id+"&&&&"+invoiceDTO);
             Object saveDTO = iInvoice.saveInformation(id,invoiceDTO);
             return  ResponseEntity.ok(new Response("Information added Sucessfully",saveDTO,false));
         }catch (Exception e){

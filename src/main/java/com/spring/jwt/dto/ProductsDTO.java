@@ -3,6 +3,7 @@ package com.spring.jwt.dto;
 import com.spring.jwt.entity.ClothingType;
 import lombok.Data;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Data
@@ -17,9 +18,9 @@ public class ProductsDTO {
     private Double discount;
     private ClothingType clothingType;
     private List<Integer> stockQuantities;
-    private List<Invoice1DTO> invoices; // List of Invoice DTOs
+//    private List<InvoiceDTO> invoices; // List of Invoice DTOs
 
-private List<InvoicesDetailsDTO> invoicesDetails;
+private Optional<List<InvoicesDetailsDTO>> invoicesDetails= Optional.empty();;
 
 
 }

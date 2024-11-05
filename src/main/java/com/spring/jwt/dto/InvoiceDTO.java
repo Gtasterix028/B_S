@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Data
-public class    InvoiceDTO {
+public class InvoiceDTO {
 
     private UUID invoiceId;
     private LocalDate invoiceDate;
