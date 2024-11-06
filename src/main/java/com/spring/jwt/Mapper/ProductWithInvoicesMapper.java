@@ -76,7 +76,7 @@ public class ProductWithInvoicesMapper {
         // Set product details directly from DTO
         newInvoice.setProductID(product.getProductID());
         newInvoice.setProductName(product.getProductName());
-        newInvoice.setActualPrice(product.getActualPrice());
+       // newInvoice.setActualPrice(product.getActualPrice());
         newInvoice.setSellingPrice(product.getSellingPrice());
         newInvoice.setClothingType(product.getClothingType());
 
@@ -94,7 +94,7 @@ public class ProductWithInvoicesMapper {
         // Set product details directly from entity
         productDTO.setProductID(product.getProductID());
         productDTO.setProductName(product.getProductName());
-        productDTO.setActualPrice(product.getActualPrice());
+      //  productDTO.setActualPrice(product.getActualPrice());
         productDTO.setSellingPrice(product.getSellingPrice());
         productDTO.setClothingType(product.getClothingType());
 

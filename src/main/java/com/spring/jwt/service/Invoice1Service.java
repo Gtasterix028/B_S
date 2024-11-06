@@ -263,7 +263,7 @@ public class Invoice1Service implements IInvoice1 {
 
                 newInvoice.setProductID(product.getProductID());
                 newInvoice.setProductName(product.getProductName());
-                newInvoice.setActualPrice(product.getActualPrice());
+              //  newInvoice.setActualPrice(product.getActualPrice());
                 newInvoice.setSellingPrice(product.getSellingPrice());
                 newInvoice.setDiscount(product.getDiscount());
                 newInvoice.setClothingType(product.getClothingType());
@@ -290,7 +290,7 @@ public class Invoice1Service implements IInvoice1 {
                 ProductWithInvoicesDTO productDTO = modelMapper.map(product, ProductWithInvoicesDTO.class);
                 productDTO.setProductID(product.getProductID());
                 productDTO.setProductName(product.getProductName());
-                productDTO.setActualPrice(product.getActualPrice());
+               // productDTO.setActualPrice(product.getActualPrice());
                 productDTO.setSellingPrice(product.getSellingPrice());
                 productDTO.setDiscount(product.getDiscount());
                 productDTO.setClothingType(product.getClothingType());

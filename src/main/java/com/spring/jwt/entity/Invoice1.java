@@ -25,7 +25,7 @@ public class Invoice1 {
 
     private UUID productID;
     private String productName;
-    private Double actualPrice;
+  //  private Double actualPrice;
     private Double discount;
     private Double sellingPrice;  // Price with Discount
 

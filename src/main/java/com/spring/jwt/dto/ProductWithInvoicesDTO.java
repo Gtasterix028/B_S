@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ProductWithInvoicesDTO {
     private UUID productID;
     private String productName;
-    private Double actualPrice;
+  //  private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
