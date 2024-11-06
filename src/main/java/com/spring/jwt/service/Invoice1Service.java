@@ -18,14 +18,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class Invoice1Service implements IInvoice1 {  // Change here to implement IInvoice1
+public class Invoice1Service implements IInvoice1 {
 
     @Autowired
     private Invoice1Repository invoice1Repository;
@@ -49,7 +46,7 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
     @Override
     @Transactional
     public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities) {
-        // Validate productNames and sellQuantities
+
         if (productNames.size() != sellQuantities.size()) {
             throw new RuntimeException("The number of product names must match the number of sell quantities.");
         }
@@ -60,6 +57,7 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
 
         // Create a new Invoice1 entity from the DTO
         Invoice1 invoice = new Invoice1();
+        invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
         invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
         invoice.setCustomer(savedCustomer); // Set the saved customer
@@ -104,9 +102,11 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
 
                 // Create a new Invoice1 entry for this product
                 Invoice1 newInvoice = new Invoice1();
+                newInvoice.setInvoice1ID(invoice.getInvoice1ID());
                 newInvoice.setInvoice1Date(invoice.getInvoice1Date());
                 newInvoice.setInvoice1DueDate(invoice.getInvoice1DueDate());
                 newInvoice.setCustomer(savedCustomer);
+
                 newInvoice.setProductID(product.getProductID());
                 newInvoice.setProductName(product.getProductName());
                 newInvoice.setActualPrice(product.getActualPrice());
@@ -124,6 +124,7 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
                 newSellEntity.setProductIdl(product.getProductID());
                 newSellEntity.setProductSellQuantity(sellQuantity);
                 newSellEntity.setDate(invoice1DTO.getInvoice1Date());
+                newSellEntity.setProductSubtotal(newInvoice.getSubTotalPrice());
                 newSellEntity.setInvoice1(savedInvoice);
                 sellRepository.save(newSellEntity);
 
@@ -137,6 +138,7 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
                 productDTO.setClothingType(product.getClothingType());
                 productDTO.setSubTotalPrice(newInvoice.getSubTotalPrice());
                 productDTO.setSellQuantity(sellQuantity);
+                productDTO.setInvoice1ID(newInvoice.getInvoice1ID());
                 productDTO.setInvoice1Date(newInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(newInvoice.getInvoice1DueDate());
 
@@ -146,4 +148,5 @@ public class Invoice1Service implements IInvoice1 {  // Change here to implement
 
         return productsDTOList;
     }
+
 }

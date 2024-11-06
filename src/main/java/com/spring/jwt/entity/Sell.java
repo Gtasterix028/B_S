@@ -19,6 +19,7 @@ public class Sell {
     private LocalDate date;
     private Double productSellQuantity;
     private UUID productIdl;
+    private Double productSubtotal;
 
     @ManyToOne
     @JoinColumn(name = "invoice1ID", nullable = false)

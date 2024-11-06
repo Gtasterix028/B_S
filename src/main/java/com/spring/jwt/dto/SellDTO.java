@@ -18,6 +18,7 @@ public class SellDTO {
     private LocalDateTime date;
     private Double productSellQuantity;
     private UUID productIdl;
+    private Double productSubtotal;
 
     private Invoice1DTO invoice1;
 

@@ -35,9 +35,9 @@ public class Invoice1 {
 
     private Double subTotalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Products product;
+//    @ManyToOne
+//    @JoinColumn(name = "product_id")
+//    private Products product;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
