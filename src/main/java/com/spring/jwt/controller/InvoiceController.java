@@ -53,7 +53,7 @@ public class InvoiceController {
     @PatchMapping("/updateAny")
     public ResponseEntity<Response> updateAny
             (@RequestParam UUID id,
-            @RequestBody InvoiceDTO invoiceDTO){
+             @RequestBody InvoiceDTO invoiceDTO){
         try {
             InvoiceDTO invoiceDTO1 = iInvoice.updateAny(id,invoiceDTO);
             return ResponseEntity.ok(new Response("Invoice Updated by ID: " + id, invoiceDTO1, false));

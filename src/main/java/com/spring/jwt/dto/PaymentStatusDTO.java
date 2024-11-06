@@ -17,4 +17,3 @@ public class PaymentStatusDTO {
     private String status;
     private PaymentDTO paymentDTO;
 }
-

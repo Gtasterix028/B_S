@@ -24,7 +24,7 @@ public class InvoiceService implements IInvoice {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired 
+    @Autowired
     private CustomersRepository customersRepository;
 
     @Override

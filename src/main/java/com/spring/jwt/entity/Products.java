@@ -33,4 +33,9 @@ public class Products {
     @Column(name = "quantity")
     private List<Integer> stockQuantities;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sellingId", nullable = false)
+    private Sell sell;
+
+
 }

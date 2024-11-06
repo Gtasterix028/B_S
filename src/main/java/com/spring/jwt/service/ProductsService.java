@@ -87,6 +87,16 @@ public class ProductsService implements IProducts {
     }
 
     @Override
+    public List<ProductsDTO> getProducts(UUID productId, String productName, String description, Double price) {
+        return List.of();
+    }
+
+    @Override
+    public List<ProductsDTO> searchProductsByName(String name) {
+        return List.of();
+    }
+
+    @Override
     public List<ProductsDTO> getAllProducts() {
         List<Products> productsList = productsRepository.findAll();
         List<ProductsDTO> productsDTOList = new ArrayList<>();

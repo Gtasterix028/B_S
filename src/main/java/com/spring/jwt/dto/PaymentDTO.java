@@ -25,5 +25,5 @@ public class PaymentDTO {
 
     private List<PaymentStatusDTO> paymentStatuses;
 
-   private List<CustomersDTO> customers;
+    private List<CustomersDTO> customers;
 }

@@ -9,15 +9,15 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class InvoiceDTO {
 
-    private Integer invoiceId;
+    private UUID invoiceId;
     private LocalDate invoiceDate;
     private LocalDate dueDate;
     private Double total;
-
 
     private List<Payment> payment;
     private List<InvoicesDetailsDTO> invoicesDetails;

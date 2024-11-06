@@ -1,12 +1,10 @@
 package com.spring.jwt.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,8 +14,12 @@ public class Sell {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private UUID sellingId;
     private LocalDateTime time;
-    private
+    private Integer sellQuantity;
+
+    @OneToOne(mappedBy = "sell",cascade = CascadeType.ALL)
    private  Customers customers;
-   private Products products;
+
+    @OneToMany(mappedBy = "sell", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   private List<Products> products;
 
 }

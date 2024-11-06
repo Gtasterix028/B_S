@@ -11,7 +11,7 @@ public interface IDiscount {
 
     DiscountDto getByID(Integer id);
 
-  List<DiscountDto> getall();
+    List<DiscountDto> getall();
 
     DiscountDto update(DiscountDto discountDto, Integer id);
 
