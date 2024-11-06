@@ -29,6 +29,7 @@ public class Invoice1 {
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
+    @Enumerated(EnumType.STRING)
     private ClothingType clothingType;
     private Double subTotalPrice;
 
