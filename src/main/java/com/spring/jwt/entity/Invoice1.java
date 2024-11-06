@@ -20,24 +20,21 @@ public class Invoice1 {
 
     private LocalDate invoice1Date;
     private LocalDate invoice1DueDate;
-  //  private Boolean submit;
 
     private Double sellQuantity;
 
     private UUID productID;
     private String productName;
-    private Double actualPrice;
-    private Double sellingPrice;
+  //  private Double actualPrice;
     private Double discount;
+    private Double sellingPrice;  // Price with Discount
 
     @Enumerated(EnumType.STRING)
     private ClothingType clothingType;
 
     private Double subTotalPrice;
 
-//    @ManyToOne
-//    @JoinColumn(name = "product_id")
-//    private Products product;
+    private Double grandTotal; // Total without discount
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

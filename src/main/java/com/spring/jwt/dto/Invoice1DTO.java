@@ -19,11 +19,13 @@ public class Invoice1DTO {
 
     private UUID productID;
     private String productName;
-    private Double actualPrice;
+  //  private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
     private Double subTotalPrice;
+
+    private Double grandTotal;
 
   //  private List<ProductsDTO> products;
     private CustomersDTO customer;

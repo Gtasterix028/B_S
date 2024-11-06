@@ -10,11 +10,12 @@ import java.util.UUID;
 public class ProductWithInvoicesDTO {
     private UUID productID;
     private String productName;
-    private Double actualPrice;
+  //  private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
     private Double subTotalPrice;
+    private Double grandTotal;
 
         private UUID invoice1ID;
         private LocalDate invoice1Date;
