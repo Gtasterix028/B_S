@@ -54,22 +54,6 @@ public class ProductsService implements IProducts {
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
 
-//    @Override
-//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
-//
-//        if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
-//            throw new IllegalArgumentException("Stock quantities must be provided.");
-//        }
-//
-//        Products product = modelMapper.map(productsDTO, Products.class);
-//
-//        product.setStockQuantities(productsDTO.getStockQuantities());
-//
-//        Products savedProduct = productsRepository.save(product);
-//
-//        return modelMapper.map(savedProduct, ProductsDTO.class);
-//    }
-
     @Override
     public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {
         Products product = productsRepository.findById(id)

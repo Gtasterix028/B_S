@@ -13,7 +13,7 @@ public class Invoice1DTO {
     private UUID invoice1ID;
     private LocalDate invoice1Date;
     private LocalDate invoice1DueDate;
-    private Boolean submit;
+  //  private Boolean submit;
 
     private Double sellQuantity;
 

@@ -20,7 +20,7 @@ public class Invoice1 {
 
     private LocalDate invoice1Date;
     private LocalDate invoice1DueDate;
-    private Boolean submit;
+  //  private Boolean submit;
 
     private Double sellQuantity;
 
@@ -29,7 +29,10 @@ public class Invoice1 {
     private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
+
+    @Enumerated(EnumType.STRING)
     private ClothingType clothingType;
+
     private Double subTotalPrice;
 
     @ManyToOne
