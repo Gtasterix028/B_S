@@ -15,6 +15,7 @@ public class ProductWithInvoicesDTO {
     private Double discount;
     private ClothingType clothingType;
     private Double subTotalPrice;
+    private Double grandTotal;
 
         private UUID invoice1ID;
         private LocalDate invoice1Date;
