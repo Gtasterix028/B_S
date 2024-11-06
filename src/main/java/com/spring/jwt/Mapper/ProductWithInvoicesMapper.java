@@ -12,12 +12,14 @@ public class ProductWithInvoicesMapper {
     // Map from DTO to Entity
     public Invoice1 toInvoiceEntity(ProductWithInvoicesDTO dto, Products product, Invoice1 existingInvoice) {
         Invoice1 newInvoice = new Invoice1();
-        newInvoice.setProduct(product);  // Set the associated product
+       // newInvoice.setProduct(product);  // Set the associated product
+        newInvoice.setInvoice1ID(dto.getInvoice1ID());
         newInvoice.setInvoice1Date(dto.getInvoice1Date());
         newInvoice.setInvoice1DueDate(dto.getInvoice1DueDate());
         newInvoice.setSellQuantity(dto.getSellQuantity());
-       // newInvoice.setSubmit(dto.getSubmit());
+
         newInvoice.setCustomer(existingInvoice.getCustomer());// Set the existing customer
+
         // Set additional product details in the Invoice1 entity
         newInvoice.setProductID(product.getProductID());
         newInvoice.setProductName(product.getProductName());
@@ -44,7 +46,7 @@ public class ProductWithInvoicesMapper {
         productDTO.setInvoice1Date(invoice.getInvoice1Date());
         productDTO.setSellQuantity(invoice.getSellQuantity());
         productDTO.setInvoice1DueDate(invoice.getInvoice1DueDate());
-       // productDTO.setSubmit(invoice.getSubmit());
+
 
         return productDTO;
     }

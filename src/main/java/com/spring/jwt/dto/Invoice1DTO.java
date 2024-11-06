@@ -25,7 +25,7 @@ public class Invoice1DTO {
     private ClothingType clothingType;
     private Double subTotalPrice;
 
-    private List<ProductsDTO> products;
+  //  private List<ProductsDTO> products;
     private CustomersDTO customer;
     private List<SellDTO> sells;
 
