@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/Invoice1")
 public class Invoice1Controller {
 
@@ -37,6 +38,7 @@ public class Invoice1Controller {
             @RequestBody Invoice1DTO invoice1DTO,
             @RequestParam List<String> productNames,
             @RequestParam List<Double> sellQuantity) {
+
         try {
             // Call the service method to save the invoice and products
             List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity);
