@@ -18,6 +18,7 @@ public class Sell {
     private UUID sellingId;
     private LocalDate date;
     private Double productSellQuantity;
+    private Double actualPrice;
     private UUID productIdl;
     private Double productSubtotal;
 

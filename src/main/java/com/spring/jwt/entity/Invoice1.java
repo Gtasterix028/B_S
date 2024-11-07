@@ -48,5 +48,9 @@ public class Invoice1 {
     @JsonManagedReference(value = "invoice-sell") // Named managed reference
     private List<Sell> sells;
 
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id")
+//    @JsonBackReference(value = "customer-invoice") // Jackson to get confused about which back-reference to use, leading to the error
+//    private Sale sale;
 }
 

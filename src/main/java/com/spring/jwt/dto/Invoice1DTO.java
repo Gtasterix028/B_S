@@ -28,6 +28,7 @@ public class Invoice1DTO {
   //  private List<ProductsDTO> products;
     private CustomersDTO customer;
     private List<SellDTO> sells;
+ //   private SaleDTO saleDTO;
 
 }
 
