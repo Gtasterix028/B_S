@@ -10,19 +10,17 @@ import java.util.UUID;
 public class ProductWithInvoicesDTO {
     private UUID productID;
     private String productName;
-    private Double actualPrice;
+  //  private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
     private Double subTotalPrice;
+    private Double grandTotal;
 
         private UUID invoice1ID;
         private LocalDate invoice1Date;
         private Double sellQuantity;
         private LocalDate invoice1DueDate;
-        private Boolean submit;
-
-        // Add any other invoice fields you want to include
+//
 
 }
-// getByName?invoiceId=3fda6c0d-89a9-47f3-8a0e-1a2104013fd0&productNames=Printed Shirt&productNames=Plane Shirt&sellQuantity=75&sellQuantity=50

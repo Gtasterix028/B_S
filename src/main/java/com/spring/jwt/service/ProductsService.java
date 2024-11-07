@@ -46,29 +46,11 @@ public class ProductsService implements IProducts {
             totalStockQuantity += quantity; // Assuming stock quantities are integers
         }
 
-        // Calculate total price based on selling price and total stock quantity
-        Double totalPrice = product.getSellingPrice() * totalStockQuantity;
-        product.setSubTotalPrice(totalPrice); // Set the calculated total price
-
         Products savedProduct = productsRepository.save(product);
         return modelMapper.map(savedProduct, ProductsDTO.class);
     }
 
-//    @Override
-//    public ProductsDTO saveInformation(ProductsDTO productsDTO) {
-//
-//        if (productsDTO.getStockQuantities() == null || productsDTO.getStockQuantities().isEmpty()) {
-//            throw new IllegalArgumentException("Stock quantities must be provided.");
-//        }
-//
-//        Products product = modelMapper.map(productsDTO, Products.class);
-//
-//        product.setStockQuantities(productsDTO.getStockQuantities());
-//
-//        Products savedProduct = productsRepository.save(product);
-//
-//        return modelMapper.map(savedProduct, ProductsDTO.class);
-//    }
+
 
     @Override
     public ProductsDTO updateAny(UUID id, ProductsDTO productsDTO) {

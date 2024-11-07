@@ -1,10 +1,8 @@
 
 package com.spring.jwt.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,13 +10,17 @@ import java.util.UUID;
 @Data
 @Entity
 public class Sell {
+
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID sellingId;
+
     private LocalDate date;
     private Double productSellQuantity;
     private UUID productIdl;
+    private Double productSubtotal;
+
+    private Double grandTotal; // Total without discount
 
     @ManyToOne
     @JoinColumn(name = "invoice1ID", nullable = false)

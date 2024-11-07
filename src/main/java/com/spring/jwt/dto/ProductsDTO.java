@@ -12,16 +12,12 @@ public class ProductsDTO {
     private String productName;
     private String description;
     private Double actualPrice;
-    private Double sellingPrice;
     private Double discount;
-    private Double subTotalPrice;
+    private Double sellingPrice; // Price with Discount
+
     private ClothingType clothingType;
 
     private List<Integer>stockQuantities;
-
- //   private List<Invoice1DTO> invoices;
-
-  //  private SellDTO sell;
 
 }
 
