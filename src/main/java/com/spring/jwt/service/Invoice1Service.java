@@ -196,6 +196,243 @@ public class Invoice1Service implements IInvoice1 {
     @Autowired
     private SellRepository sellRepository;
 
+//    @Override
+//    @Transactional
+//    public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities) {
+//
+//        if (productNames.size() != sellQuantities.size()) {
+//            throw new RuntimeException("The number of product names must match the number of sell quantities.");
+//        }
+//
+//        // Create a new Customer entity from the DTO
+//        Customers customer = modelMapper.map(invoice1DTO.getCustomer(), Customers.class);
+//        Customers savedCustomer = customersRepository.save(customer); // Save the customer
+//
+//        // Create a new Invoice1 entity from the DTO
+//        Invoice1 invoice = new Invoice1();
+//        invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
+//        invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
+//        invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
+//        invoice.setCustomer(savedCustomer); // Set the saved customer
+//
+//        double grandTotal = 0.0;  // Variable to accumulate Grand Total
+//        List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
+//
+//        for (int i = 0; i < productNames.size(); i++) {
+//            String productName = productNames.get(i);
+//            Double sellQuantity = sellQuantities.get(i);
+//
+//            List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
+//            if (foundProducts.isEmpty()) {
+//                throw new RuntimeException("Product with name " + productName + " not found.");
+//            }
+//
+//            for (Products product : foundProducts) {
+//                int totalStock = product.getStockQuantities().stream().mapToInt(Integer::intValue).sum();
+//
+//                if (totalStock < sellQuantity) {
+//                    throw new RuntimeException("Insufficient stock for product: " + productName);
+//                }
+//
+//                // Update stock quantities
+//                List<Integer> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
+//                int remainingQuantity = sellQuantity.intValue();
+//
+//                for (int j = 0; j < updatedStockQuantities.size(); j++) {
+//                    if (remainingQuantity <= 0) break;
+//
+//                    int availableStock = updatedStockQuantities.get(j);
+//                    if (availableStock >= remainingQuantity) {
+//                        updatedStockQuantities.set(j, availableStock - remainingQuantity);
+//                        remainingQuantity = 0;
+//                    } else {
+//                        updatedStockQuantities.set(j, 0);
+//                        remainingQuantity -= availableStock;
+//                    }
+//                }
+//
+//                product.setStockQuantities(updatedStockQuantities);
+//                productsRepository.save(product); // Save updated product
+//
+//                // Create a new Invoice1 entry for this product
+//                Invoice1 newInvoice = new Invoice1();
+//                newInvoice.setInvoice1ID(invoice.getInvoice1ID());
+//                newInvoice.setInvoice1Date(invoice.getInvoice1Date());
+//                newInvoice.setInvoice1DueDate(invoice.getInvoice1DueDate());
+//                newInvoice.setCustomer(savedCustomer);
+//
+//                newInvoice.setProductID(product.getProductID());
+//                newInvoice.setProductName(product.getProductName());
+//              //  newInvoice.setActualPrice(product.getActualPrice());
+//                newInvoice.setSellingPrice(product.getSellingPrice());
+//                newInvoice.setDiscount(product.getDiscount());
+//                newInvoice.setClothingType(product.getClothingType());
+//                newInvoice.setSellQuantity(sellQuantity);
+//                newInvoice.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
+//
+//                // Add the product's subTotalPrice to Grand Total
+//                grandTotal += newInvoice.getSubTotalPrice();
+//
+//                // Save the invoice
+//                Invoice1 savedInvoice = invoice1Repository.save(newInvoice);
+//
+//                // Create and save Sell entity
+//                Sell newSellEntity = new Sell();
+//                newSellEntity.setProductIdl(product.getProductID());
+//                newSellEntity.setProductSellQuantity(sellQuantity);
+//                newSellEntity.setDate(invoice1DTO.getInvoice1Date());
+//                newSellEntity.setProductSubtotal(newInvoice.getSubTotalPrice());
+//                newSellEntity.setGrandTotal(newInvoice.getGrandTotal());
+//                newSellEntity.setInvoice1(savedInvoice);
+//                sellRepository.save(newSellEntity);
+//
+//                // Prepare DTO for the response
+//                ProductWithInvoicesDTO productDTO = modelMapper.map(product, ProductWithInvoicesDTO.class);
+//                productDTO.setProductID(product.getProductID());
+//                productDTO.setProductName(product.getProductName());
+//               // productDTO.setActualPrice(product.getActualPrice());
+//                productDTO.setSellingPrice(product.getSellingPrice());
+//                productDTO.setDiscount(product.getDiscount());
+//                productDTO.setClothingType(product.getClothingType());
+//                productDTO.setSubTotalPrice(newInvoice.getSubTotalPrice());
+//                productDTO.setGrandTotal(newInvoice.getGrandTotal());
+//                productDTO.setSellQuantity(sellQuantity);
+//                productDTO.setInvoice1ID(newInvoice.getInvoice1ID());
+//                productDTO.setInvoice1Date(newInvoice.getInvoice1Date());
+//                productDTO.setInvoice1DueDate(newInvoice.getInvoice1DueDate());
+//
+//                productsDTOList.add(productDTO);
+//            }
+//        }
+//
+//        // After processing all products, set the Grand Total in the invoice
+//        invoice.setGrandTotal(grandTotal);  // Set Grand Total in the Invoice
+//        invoice1Repository.save(invoice);   // Save the invoice with Grand Total
+//
+//        // Optionally, set Grand Total in Sell entities
+//        List<Sell> sells = sellRepository.findByInvoice1(invoice);  // Find all Sell entities related to this invoice
+//        for (Sell sell : sells) {
+//            sell.setGrandTotal(grandTotal);  // Set Grand Total in each Sell entity
+//            sellRepository.save(sell);       // Save the updated Sell entity
+//        }
+//
+//        return productsDTOList;
+//    }
+//}
+//
+//    @Override
+//    @Transactional
+//    public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities) {
+//
+//        if (productNames.size() != sellQuantities.size()) {
+//            throw new RuntimeException("The number of product names must match the number of sell quantities.");
+//        }
+//
+//        // Create and save customer
+//        Customers customer = modelMapper.map(invoice1DTO.getCustomer(), Customers.class);
+//        Customers savedCustomer = customersRepository.save(customer);
+//
+//        // Create new invoice
+//        Invoice1 invoice = new Invoice1();
+//        invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
+//        invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
+//        invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
+//        invoice.setCustomer(savedCustomer);
+//
+//        double grandTotal = 0.0;
+//        List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
+//
+//        for (int i = 0; i < productNames.size(); i++) {
+//            String productName = productNames.get(i);
+//            Double sellQuantity = sellQuantities.get(i);
+//
+//            List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
+//            if (foundProducts.isEmpty()) {
+//                throw new RuntimeException("Product with name '" + productName + "' not found.");
+//            }
+//
+//            for (Products product : foundProducts) {
+//                int totalStock = product.getStockQuantities().stream().mapToInt(Integer::intValue).sum();
+//
+//                if (totalStock < sellQuantity) {
+//                    throw new RuntimeException("Insufficient stock for product: " + productName);
+//                }
+//
+//                // Update stock quantities
+//                List<Integer> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
+//                int remainingQuantity = sellQuantity.intValue();
+//
+//                for (int j = 0; j < updatedStockQuantities.size() && remainingQuantity > 0; j++) {
+//                    int availableStock = updatedStockQuantities.get(j);
+//                    if (availableStock >= remainingQuantity) {
+//                        updatedStockQuantities.set(j, availableStock - remainingQuantity);
+//                        remainingQuantity = 0;
+//                    } else {
+//                        updatedStockQuantities.set(j, 0);
+//                        remainingQuantity -= availableStock;
+//                    }
+//                }
+//
+//                product.setStockQuantities(updatedStockQuantities);
+//                productsRepository.save(product); // Save updated product
+//
+//                // Create a new Invoice1 entry for this product
+//                invoice.setProductID(product.getProductID());
+//                invoice.setProductName(product.getProductName());
+//                invoice.setSellingPrice(product.getSellingPrice());
+//                invoice.setDiscount(product.getDiscount());
+//                invoice.setClothingType(product.getClothingType());
+//                invoice.setSellQuantity(sellQuantity);
+//                invoice.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
+//
+//                // Update grand total
+//                grandTotal += invoice.getSubTotalPrice();
+//
+//                // Save the invoice
+//                Invoice1 savedInvoice = invoice1Repository.save(invoice);
+//
+//                // Create and save Sell entity
+//                Sell newSellEntity = new Sell();
+//                newSellEntity.setProductIdl(product.getProductID());
+//                newSellEntity.setProductSellQuantity(sellQuantity);
+//                newSellEntity.setDate(invoice1DTO.getInvoice1Date());
+//                newSellEntity.setProductSubtotal(invoice.getSubTotalPrice());
+//                newSellEntity.setInvoice1(savedInvoice);
+//                sellRepository.save(newSellEntity);
+//
+//                // Prepare DTO for the response
+//                ProductWithInvoicesDTO productDTO = modelMapper.map(product, ProductWithInvoicesDTO.class);
+//                productDTO.setProductID(product.getProductID());
+//                productDTO.setProductName(product.getProductName());
+//                productDTO.setSellingPrice(product.getSellingPrice());
+//                productDTO.setDiscount(product.getDiscount());
+//                productDTO.setClothingType(product.getClothingType());
+//                productDTO.setSubTotalPrice(invoice.getSubTotalPrice());
+//                productDTO.setSellQuantity(sellQuantity);
+//                productDTO.setInvoice1ID(savedInvoice.getInvoice1ID());
+//                productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
+//                productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
+//
+//                productsDTOList.add(productDTO);
+//            }
+//        }
+//
+//        // Set Grand Total in the invoice and save
+//        invoice.setGrandTotal(grandTotal);
+//        invoice1Repository.save(invoice);
+//
+//        // Optionally, update Grand Total in Sell entities
+//        List<Sell> sells = sellRepository.findByInvoice1(invoice);
+//        for (Sell sell : sells) {
+//            sell.setGrandTotal(grandTotal);
+//            sellRepository.save(sell);
+//        }
+//
+//        return productsDTOList;
+//    }
+//}
+
+
     @Override
     @Transactional
     public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities) {
@@ -204,18 +441,17 @@ public class Invoice1Service implements IInvoice1 {
             throw new RuntimeException("The number of product names must match the number of sell quantities.");
         }
 
-        // Create a new Customer entity from the DTO
+        // Create and save customer
         Customers customer = modelMapper.map(invoice1DTO.getCustomer(), Customers.class);
-        Customers savedCustomer = customersRepository.save(customer); // Save the customer
+        Customers savedCustomer = customersRepository.save(customer);
 
-        // Create a new Invoice1 entity from the DTO
+        // Create new invoice
         Invoice1 invoice = new Invoice1();
         invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
         invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
-        invoice.setCustomer(savedCustomer); // Set the saved customer
+        invoice.setCustomer(savedCustomer);
 
-        double grandTotal = 0.0;  // Variable to accumulate Grand Total
         List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
 
         for (int i = 0; i < productNames.size(); i++) {
@@ -224,7 +460,7 @@ public class Invoice1Service implements IInvoice1 {
 
             List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
             if (foundProducts.isEmpty()) {
-                throw new RuntimeException("Product with name " + productName + " not found.");
+                throw new RuntimeException("Product with name '" + productName + "' not found.");
             }
 
             for (Products product : foundProducts) {
@@ -238,9 +474,7 @@ public class Invoice1Service implements IInvoice1 {
                 List<Integer> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
                 int remainingQuantity = sellQuantity.intValue();
 
-                for (int j = 0; j < updatedStockQuantities.size(); j++) {
-                    if (remainingQuantity <= 0) break;
-
+                for (int j = 0; j < updatedStockQuantities.size() && remainingQuantity > 0; j++) {
                     int availableStock = updatedStockQuantities.get(j);
                     if (availableStock >= remainingQuantity) {
                         updatedStockQuantities.set(j, availableStock - remainingQuantity);
@@ -255,34 +489,23 @@ public class Invoice1Service implements IInvoice1 {
                 productsRepository.save(product); // Save updated product
 
                 // Create a new Invoice1 entry for this product
-                Invoice1 newInvoice = new Invoice1();
-                newInvoice.setInvoice1ID(invoice.getInvoice1ID());
-                newInvoice.setInvoice1Date(invoice.getInvoice1Date());
-                newInvoice.setInvoice1DueDate(invoice.getInvoice1DueDate());
-                newInvoice.setCustomer(savedCustomer);
-
-                newInvoice.setProductID(product.getProductID());
-                newInvoice.setProductName(product.getProductName());
-              //  newInvoice.setActualPrice(product.getActualPrice());
-                newInvoice.setSellingPrice(product.getSellingPrice());
-                newInvoice.setDiscount(product.getDiscount());
-                newInvoice.setClothingType(product.getClothingType());
-                newInvoice.setSellQuantity(sellQuantity);
-                newInvoice.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
-
-                // Add the product's subTotalPrice to Grand Total
-                grandTotal += newInvoice.getSubTotalPrice();
+                invoice.setProductID(product.getProductID());
+                invoice.setProductName(product.getProductName());
+                invoice.setSellingPrice(product.getSellingPrice());
+                invoice.setDiscount(product.getDiscount());
+                invoice.setClothingType(product.getClothingType());
+                invoice.setSellQuantity(sellQuantity);
+                invoice.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
 
                 // Save the invoice
-                Invoice1 savedInvoice = invoice1Repository.save(newInvoice);
+                Invoice1 savedInvoice = invoice1Repository.save(invoice);
 
                 // Create and save Sell entity
                 Sell newSellEntity = new Sell();
                 newSellEntity.setProductIdl(product.getProductID());
                 newSellEntity.setProductSellQuantity(sellQuantity);
                 newSellEntity.setDate(invoice1DTO.getInvoice1Date());
-                newSellEntity.setProductSubtotal(newInvoice.getSubTotalPrice());
-                newSellEntity.setGrandTotal(newInvoice.getGrandTotal());
+                newSellEntity.setProductSubtotal(invoice.getSubTotalPrice());
                 newSellEntity.setInvoice1(savedInvoice);
                 sellRepository.save(newSellEntity);
 
@@ -290,30 +513,28 @@ public class Invoice1Service implements IInvoice1 {
                 ProductWithInvoicesDTO productDTO = modelMapper.map(product, ProductWithInvoicesDTO.class);
                 productDTO.setProductID(product.getProductID());
                 productDTO.setProductName(product.getProductName());
-               // productDTO.setActualPrice(product.getActualPrice());
                 productDTO.setSellingPrice(product.getSellingPrice());
                 productDTO.setDiscount(product.getDiscount());
-                productDTO.setClothingType(product.getClothingType());
-                productDTO.setSubTotalPrice(newInvoice.getSubTotalPrice());
-                productDTO.setGrandTotal(newInvoice.getGrandTotal());
+                        productDTO.setClothingType(product.getClothingType());
+                productDTO.setSubTotalPrice(invoice.getSubTotalPrice());
                 productDTO.setSellQuantity(sellQuantity);
-                productDTO.setInvoice1ID(newInvoice.getInvoice1ID());
-                productDTO.setInvoice1Date(newInvoice.getInvoice1Date());
-                productDTO.setInvoice1DueDate(newInvoice.getInvoice1DueDate());
+                productDTO.setInvoice1ID(savedInvoice.getInvoice1ID());
+                productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
+                productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
 
                 productsDTOList.add(productDTO);
             }
         }
 
-        // After processing all products, set the Grand Total in the invoice
-        invoice.setGrandTotal(grandTotal);  // Set Grand Total in the Invoice
-        invoice1Repository.save(invoice);   // Save the invoice with Grand Total
+        // Set Grand Total from the request into the invoice and save
+        invoice.setGrandTotal(invoice1DTO.getGrandTotal());
+        invoice1Repository.save(invoice);
 
-        // Optionally, set Grand Total in Sell entities
-        List<Sell> sells = sellRepository.findByInvoice1(invoice);  // Find all Sell entities related to this invoice
+        // Optionally, update Grand Total in Sell entities
+        List<Sell> sells = sellRepository.findByInvoice1(invoice);
         for (Sell sell : sells) {
-            sell.setGrandTotal(grandTotal);  // Set Grand Total in each Sell entity
-            sellRepository.save(sell);       // Save the updated Sell entity
+            sell.setGrandTotal(invoice1DTO.getGrandTotal());
+            sellRepository.save(sell);
         }
 
         return productsDTOList;
