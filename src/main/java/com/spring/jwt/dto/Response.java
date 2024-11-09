@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class Response {
     private String message;
-    private Object object; // Correct type
-     private Boolean hasError; // Correct type
+    private Object object;
+     private Boolean hasError;
 
     public Response(String message, Object object, Boolean hasError)
     {

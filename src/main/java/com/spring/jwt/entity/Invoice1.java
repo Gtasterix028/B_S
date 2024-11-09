@@ -25,20 +25,23 @@ public class Invoice1 {
 
     private UUID productID;
     private String productName;
-  //  private Double actualPrice;
 
-    @Column(nullable = true)
     private Double discount;
     private Double sellingPrice;  // Price with Discount
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
     private ClothingType clothingType;
 
-    @Column(nullable = true)
     private Double subTotalPrice;
-    @Column(nullable = true)
+
     private Double grandTotal; // Total without discount
+
+    private  String paymentMethod;
+
+//    private Double gst;
+//
+//    private Double sGst;
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -48,6 +51,8 @@ public class Invoice1 {
     @OneToMany(mappedBy = "invoice1", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference(value = "invoice-sell") // Named managed reference
     private List<Sell> sells;
+
+
 
 }
 
