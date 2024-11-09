@@ -38,6 +38,11 @@ public class Invoice1 {
 
     private  String paymentMethod;
 
+//    private Double gst;
+//
+//    private Double sGst;
+
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference(value = "customer-invoice") // Jackson to get confused about which back-reference to use, leading to the error
