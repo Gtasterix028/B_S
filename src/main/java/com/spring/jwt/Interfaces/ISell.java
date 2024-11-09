@@ -21,5 +21,5 @@ public interface ISell {
 
     Double getSubTotalBetweenDates(LocalDate startDate, LocalDate endDate);
 
-    List<Double> getProductSubtotals(String period);
+    Double getProductSubtotals(String period);
 }
