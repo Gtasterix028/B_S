@@ -112,6 +112,7 @@ public class AppConfig {
                 .requestMatchers("/Shipping/**").permitAll()
                 .requestMatchers("/TaxRates/**").permitAll()
                 .requestMatchers("/Invoice1/**").permitAll()
+                .requestMatchers("/sell/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
