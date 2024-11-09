@@ -89,6 +89,8 @@ public ResponseEntity<Response> getDateWise(@RequestParam("data") LocalDate date
     }
 }
 
+
+//from to date
     @GetMapping("/subtotalRange")
     public ResponseEntity<Response> getDateWise(
             @RequestParam("startDate") LocalDate startDate,
@@ -103,6 +105,8 @@ public ResponseEntity<Response> getDateWise(@RequestParam("data") LocalDate date
         }
     }
 
+
+    //get sales data indivisually like daily,monthly,yearly
     @GetMapping("/AllSubtotals")
       public ResponseEntity<Response> getProductSubtotals(
             @RequestParam String period) {
