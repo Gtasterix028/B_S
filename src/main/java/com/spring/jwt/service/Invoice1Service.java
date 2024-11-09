@@ -502,7 +502,7 @@ public class Invoice1Service implements IInvoice1 {
 
                 // Create and save Sell entity
                 Sell newSellEntity = new Sell();
-                newSellEntity.setProductIdl(product.getProductID());
+                newSellEntity.setProductId(product.getProductID());
                 newSellEntity.setProductSellQuantity(sellQuantity);
                 newSellEntity.setDate(invoice1DTO.getInvoice1Date());
                 newSellEntity.setProductSubtotal(invoice.getSubTotalPrice());
@@ -521,7 +521,7 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setInvoice1ID(savedInvoice.getInvoice1ID());
                 productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
-
+                productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
                 productsDTOList.add(productDTO);
             }
         }

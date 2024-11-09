@@ -17,7 +17,7 @@ public class Sell {
 
     private LocalDate date;
     private Double productSellQuantity;
-    private UUID productIdl;
+    private UUID productId;
     private Double productSubtotal;
 
     private Double grandTotal; // Total without discount
