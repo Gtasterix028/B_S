@@ -83,6 +83,8 @@ public class ProductWithInvoicesMapper {
         // Set other fields directly
         newInvoice.setSubTotalPrice(dto.getSubTotalPrice());
         newInvoice.setGrandTotal(dto.getGrandTotal());
+        newInvoice.setPaymentMethod(existingInvoice.getPaymentMethod());
+
 
         return newInvoice;
     }
@@ -105,6 +107,7 @@ public class ProductWithInvoicesMapper {
         productDTO.setSellQuantity(invoice.getSellQuantity());
         productDTO.setSubTotalPrice(invoice.getSubTotalPrice());
         productDTO.setGrandTotal(invoice.getGrandTotal());
+
 
         return productDTO;
     }

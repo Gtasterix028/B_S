@@ -1,15 +1,15 @@
 package com.spring.jwt.controller;
 
 import com.spring.jwt.Interfaces.IInvoice1;
-import com.spring.jwt.dto.Invoice1DTO;
-import com.spring.jwt.dto.ProductWithInvoicesDTO;
-import com.spring.jwt.dto.ProductsDTO;
-import com.spring.jwt.dto.Response;
+import com.spring.jwt.dto.*;
+import com.spring.jwt.entity.Invoice1;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,5 +37,13 @@ public class Invoice1Controller {
         }
     }
 
+    @GetMapping("/invoices")
+    public ResponseEntity<List<TransactionDTO>> getInvoicesByDateRange(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+        List<TransactionDTO> invoices = iInvoice1.getInvoicesByDateRange(startDate, endDate);
+        return ResponseEntity.ok(invoices);
+    }
 
 }
