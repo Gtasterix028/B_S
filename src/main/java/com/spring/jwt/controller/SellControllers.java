@@ -111,7 +111,7 @@ public ResponseEntity<Response> getDateWise(@RequestParam("data") LocalDate date
       public ResponseEntity<Response> getProductSubtotals(
             @RequestParam String period) {
         try {
-            List<Double> productSubtotals = sellService.getProductSubtotals(period);
+            Double productSubtotals = sellService.getProductSubtotals(period);
             Response response = new Response("Product subtotals retrieved successfully", productSubtotals, false);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {

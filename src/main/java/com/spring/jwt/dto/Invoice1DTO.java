@@ -25,6 +25,9 @@ public class Invoice1DTO {
     private ClothingType clothingType;
     private Double subTotalPrice;
 
+    private String paymentMethod;
+
+
     private Double grandTotal;
 
   //  private List<ProductsDTO> products;
