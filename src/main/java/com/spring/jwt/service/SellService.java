@@ -50,17 +50,33 @@ public class SellService implements ISell {
     }
 
     @Override
-    public List<Double> getProductSubtotals(String period) {
+    public Double getProductSubtotals(String period) {
         switch (period) {
             case "daily":
-                return sellRepository.findDailyProductSubtotals();
+                List<Double> doubles= sellRepository.findDailyProductSubtotals();
+                return doubles.stream()
+                        .filter(subtotal -> subtotal != null) // filter out null values if any
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
             case "monthly":
-                return sellRepository.findMonthlyProductSubtotals();
+                List<Double> doubles1= sellRepository.findMonthlyProductSubtotals();
+                return doubles1.stream()
+                        .filter(subtotal -> subtotal != null) // filter out null values if any
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
             case "yearly":
-               return sellRepository.findYearlyProductSubtotals();
+               List<Double> doubles2= sellRepository.findYearlyProductSubtotals();
+                return doubles2.stream()
+                        .filter(subtotal -> subtotal != null) // filter out null values if any
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
                case "all":
             default:
-                return sellRepository.findAllProductSubtotals();
+                List<Double> doubles3=sellRepository.findAllProductSubtotals();
+                return doubles3.stream()
+                        .filter(subtotal -> subtotal != null) // filter out null values if any
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
         }
     }
 }

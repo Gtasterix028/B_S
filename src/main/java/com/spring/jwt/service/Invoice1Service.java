@@ -450,6 +450,7 @@ public class Invoice1Service implements IInvoice1 {
         invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
         invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
+        invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
         invoice.setCustomer(savedCustomer);
 
         List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
