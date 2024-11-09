@@ -15,12 +15,15 @@ public class Products {
     private UUID productID;
 
     @Column(nullable = false)
+
     private String productName;
-
+    @Column(nullable = true)
     private String description;
-
+    @Column(nullable = true)
     private Double actualPrice;
+    @Column(nullable = true)
     private Double discount;
+    @Column(nullable = true)
     private Double sellingPrice;  // Price with Discount
 
     @Enumerated(EnumType.STRING)

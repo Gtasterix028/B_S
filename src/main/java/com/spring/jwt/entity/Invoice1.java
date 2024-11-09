@@ -26,14 +26,18 @@ public class Invoice1 {
     private UUID productID;
     private String productName;
   //  private Double actualPrice;
+
+    @Column(nullable = true)
     private Double discount;
     private Double sellingPrice;  // Price with Discount
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private ClothingType clothingType;
 
+    @Column(nullable = true)
     private Double subTotalPrice;
-
+    @Column(nullable = true)
     private Double grandTotal; // Total without discount
 
     @ManyToOne
