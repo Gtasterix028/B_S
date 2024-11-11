@@ -29,7 +29,7 @@ public class Invoice1Controller {
             @RequestParam List<Double> sellQuantity) {
 
         try {
-
+            System.out.println("INvoice data from frontend......"+invoice1DTO);
             List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity);
 
             return ResponseEntity.ok(new Response("Invoice and products saved successfully", savedDTO1, false));
