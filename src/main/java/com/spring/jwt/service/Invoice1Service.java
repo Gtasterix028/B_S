@@ -198,6 +198,10 @@ public class Invoice1Service implements IInvoice1 {
         invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
         invoice.setCustomer(savedCustomer);
+        invoice.setGrandTotal(invoice1DTO.getGrandTotal());
+        invoice.setGst(invoice1DTO.getGst());
+        invoice.setSGst(invoice1DTO.getSGst());
+        invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
         List<ProductWithInvoicesDTO> productsDTOList = new ArrayList<>();
 
@@ -243,6 +247,10 @@ public class Invoice1Service implements IInvoice1 {
                 invoice.setClothingType(product.getClothingType());
                 invoice.setSellQuantity(sellQuantity);
                 invoice.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
+                invoice.setGrandTotal(invoice1DTO.getGrandTotal());
+                invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
+                invoice.setGst(invoice1DTO.getGst());
+                invoice.setSGst(invoice1DTO.getSGst());
 
                 // Save the invoice
                 Invoice1 savedInvoice = invoice1Repository.save(invoice);
@@ -254,6 +262,7 @@ public class Invoice1Service implements IInvoice1 {
                 newSellEntity.setDate(invoice1DTO.getInvoice1Date());
                 newSellEntity.setProductSubtotal(invoice.getSubTotalPrice());
                 newSellEntity.setInvoice1(savedInvoice);
+                newSellEntity.setGrandTotal(invoice.getGrandTotal());
                 sellRepository.save(newSellEntity);
 
                 // Prepare DTO for the response
@@ -269,6 +278,9 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
                 productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
+                productDTO.setGst(invoice1DTO.getGst());
+                productDTO.setSGst(invoice1DTO.getSGst());
+                productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
                 productsDTOList.add(productDTO);
             }

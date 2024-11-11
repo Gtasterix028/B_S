@@ -27,8 +27,11 @@ public class Invoice1DTO {
 
     private String paymentMethod;
 
-
     private Double grandTotal;
+
+    private Double gst;
+
+    private Double sGst;
 
   //  private List<ProductsDTO> products;
     private CustomersDTO customer;

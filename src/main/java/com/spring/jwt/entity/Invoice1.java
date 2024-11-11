@@ -38,9 +38,9 @@ public class Invoice1 {
 
     private  String paymentMethod;
 
-//    private Double gst;
-//
-//    private Double sGst;
+    private Double gst;
+
+    private Double sGst;
 
 
     @ManyToOne
