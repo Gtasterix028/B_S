@@ -42,7 +42,6 @@ public class Invoice1 {
 
     private Double sGst;
 
-
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference(value = "customer-invoice") // Jackson to get confused about which back-reference to use, leading to the error
@@ -51,6 +50,7 @@ public class Invoice1 {
     @OneToMany(mappedBy = "invoice1", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference(value = "invoice-sell") // Named managed reference
     private List<Sell> sells;
+
 
 
 

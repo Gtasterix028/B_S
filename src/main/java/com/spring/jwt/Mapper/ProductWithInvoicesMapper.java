@@ -70,6 +70,7 @@ public class ProductWithInvoicesMapper {
         newInvoice.setInvoice1DueDate(dto.getInvoice1DueDate());
         newInvoice.setSellQuantity(dto.getSellQuantity());
 
+
         // Set existing customer
         newInvoice.setCustomer(existingInvoice.getCustomer());
 

@@ -20,7 +20,7 @@ public class SellDTO {
     private UUID productIdl;
     private Double productSubtotal;
     private Double totalAmount;  // Total with Discount
-    private Double grandTotal; // Total without discount
+  //  private Double grandTotal; // Total without discount
 
     private Invoice1DTO invoice1;
 

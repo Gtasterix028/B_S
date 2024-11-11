@@ -31,8 +31,6 @@ public class SellService implements ISell {
     @Override
     public Double getSubTotal(LocalDate date) {
         List<Double> productSubtotals = sellRepository.findProductSubtotalsByDate(date);
-
-
         return productSubtotals.stream()
                 .filter(subtotal -> subtotal != null) // filter out null values if any
                 .mapToDouble(Double::doubleValue)
