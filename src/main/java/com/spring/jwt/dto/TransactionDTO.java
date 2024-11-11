@@ -12,21 +12,10 @@ public class TransactionDTO {
     private UUID invoice1ID;
     private LocalDate invoice1Date;
 
-
-
-
-
-
-
-
-
     private String paymentMethod;
-
 
     private Double grandTotal;
 
-
     private String customerName;
-
 
 }
