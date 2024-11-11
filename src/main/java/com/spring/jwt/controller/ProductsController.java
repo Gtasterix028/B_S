@@ -125,4 +125,17 @@ public class ProductsController {
                     .body(new Response("An error occurred", e.getMessage(), true));
         }
     }
+
+    @PostMapping("/saveMultipleInformation")
+    public ResponseEntity<Response> createProductsList(@RequestBody List<ProductsDTO> productsDTOList){
+        try{
+            List<ProductsDTO> list=productsInterface.saveProduct(productsDTOList);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("product list get", list,false));
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
 }

@@ -27,6 +27,8 @@ public interface IProducts {
     Integer getTotalStockQuantity();
 
     Integer getStockQuantityByProductId(UUID productId);
+
+    List<ProductsDTO> saveProduct(List<ProductsDTO> productsDTOList);
 }
 
 
