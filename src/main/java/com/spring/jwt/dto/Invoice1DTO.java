@@ -23,12 +23,15 @@ public class Invoice1DTO {
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
-    private Double subTotalPrice;
+   // private Double subTotalPrice;
 
     private String paymentMethod;
 
-
     private Double grandTotal;
+
+    private Double gst;
+
+    private Double sGst;
 
   //  private List<ProductsDTO> products;
     private CustomersDTO customer;

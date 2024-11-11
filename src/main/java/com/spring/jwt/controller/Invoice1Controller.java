@@ -48,4 +48,16 @@ public class Invoice1Controller {
         return ResponseEntity.ok(invoices);
     }
 
+    @GetMapping("/getByID")
+    public ResponseEntity<Response> getInvoicesById(@RequestParam UUID id) {
+        try {
+            List<Invoice1> invoices = iInvoice1.getInvoicesByID(id);
+
+            return ResponseEntity.ok(new Response("Invoice retrived successfully", invoices, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Failed to retrive Invoices ", e.getMessage(), true));
+        }
+
+    }
 }

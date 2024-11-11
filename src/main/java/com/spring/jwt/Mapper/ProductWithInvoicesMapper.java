@@ -70,18 +70,19 @@ public class ProductWithInvoicesMapper {
         newInvoice.setInvoice1DueDate(dto.getInvoice1DueDate());
         newInvoice.setSellQuantity(dto.getSellQuantity());
 
+
         // Set existing customer
         newInvoice.setCustomer(existingInvoice.getCustomer());
 
         // Set product details directly from DTO
-        newInvoice.setProductID(product.getProductID());
-        newInvoice.setProductName(product.getProductName());
-       // newInvoice.setActualPrice(product.getActualPrice());
-        newInvoice.setSellingPrice(product.getSellingPrice());
-        newInvoice.setClothingType(product.getClothingType());
+//        newInvoice.setProductID(product.getProductID());
+//        newInvoice.setProductName(product.getProductName());
+//       // newInvoice.setActualPrice(product.getActualPrice());
+//        newInvoice.setSellingPrice(product.getSellingPrice());
+//        newInvoice.setClothingType(product.getClothingType());
 
         // Set other fields directly
-        newInvoice.setSubTotalPrice(dto.getSubTotalPrice());
+      //  newInvoice.setSubTotalPrice(dto.getSubTotalPrice());
         newInvoice.setGrandTotal(dto.getGrandTotal());
         newInvoice.setPaymentMethod(existingInvoice.getPaymentMethod());
 
@@ -105,7 +106,7 @@ public class ProductWithInvoicesMapper {
         productDTO.setInvoice1Date(invoice.getInvoice1Date());
         productDTO.setInvoice1DueDate(invoice.getInvoice1DueDate());
         productDTO.setSellQuantity(invoice.getSellQuantity());
-        productDTO.setSubTotalPrice(invoice.getSubTotalPrice());
+       // productDTO.setSubTotalPrice(invoice.getSubTotalPrice());
         productDTO.setGrandTotal(invoice.getGrandTotal());
 
 

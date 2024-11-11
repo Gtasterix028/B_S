@@ -20,8 +20,6 @@ public class Sell {
     private UUID productId;
     private Double productSubtotal;
 
-    private Double grandTotal; // Total without discount
-
     @ManyToOne
     @JoinColumn(name = "invoice1ID", nullable = false)
     @JsonBackReference(value = "invoice-sell")

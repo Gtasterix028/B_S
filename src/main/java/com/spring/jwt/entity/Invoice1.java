@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,25 +24,21 @@ public class Invoice1 {
 
     private Double sellQuantity;
 
-    private UUID productID;
-    private String productName;
 
-    private Double discount;
-    private Double sellingPrice;  // Price with Discount
 
-    @Enumerated(EnumType.STRING)
-    private ClothingType clothingType;
 
-    private Double subTotalPrice;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "invoice1_products", joinColumns = @JoinColumn(name = "invoice1_id"))
+    private List<ProductDetails> products = new ArrayList<>(); // Initialize the list here
+
 
     private Double grandTotal; // Total without discount
 
     private  String paymentMethod;
 
-//    private Double gst;
-//
-//    private Double sGst;
+    private Double gst;
 
+    private Double sGst;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -51,6 +48,17 @@ public class Invoice1 {
     @OneToMany(mappedBy = "invoice1", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference(value = "invoice-sell") // Named managed reference
     private List<Sell> sells;
+
+    //    private UUID productID;
+//    private String productName;
+//
+//    private Double discount;
+//    private Double sellingPrice;  // Price with Discount
+//
+//    @Enumerated(EnumType.STRING)
+//    private ClothingType clothingType;
+//
+    // private Double subTotalPrice;
 
 
 

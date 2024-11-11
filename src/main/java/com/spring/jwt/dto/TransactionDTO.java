@@ -18,4 +18,8 @@ public class TransactionDTO {
 
     private String customerName;
 
+    private Double gst;
+
+    private Double sGst;
+
 }
