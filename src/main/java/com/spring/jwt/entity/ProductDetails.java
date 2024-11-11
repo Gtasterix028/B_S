@@ -17,6 +17,7 @@ public class ProductDetails implements Serializable {
     private String productName;
     private Double discount;
     private Double sellingPrice;
+    private Double sellQuantity;
 
     @Enumerated(EnumType.STRING)
     private ClothingType clothingType;

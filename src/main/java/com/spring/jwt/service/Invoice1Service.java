@@ -147,6 +147,9 @@ public class Invoice1Service implements IInvoice1 {
                 productDetails.setDiscount(product.getDiscount());
                 productDetails.setClothingType(product.getClothingType());
                 productDetails.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
+                productDetails.setSellQuantity(sellQuantity);
+
+
 
                 savedInvoice.getProducts().add(productDetails); // Add to saved invoice's products list
 

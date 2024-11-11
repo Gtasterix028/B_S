@@ -18,20 +18,17 @@ public interface Invoice1Repository extends JpaRepository<Invoice1, UUID> {
     @Query("SELECT i FROM Invoice1 i WHERE i.invoice1Date BETWEEN :startDate AND :endDate")
     List<Invoice1> findInvoicesByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+    @Query("SELECT SUM(i.grandTotal) FROM Invoice1 i WHERE DATE(i.invoice1Date) = CURRENT_DATE")
+    Double findDailyGrandTotals();
+
+    @Query("SELECT SUM(i.grandTotal) FROM Invoice1 i WHERE MONTH(i.invoice1Date) = MONTH(CURRENT_DATE) AND YEAR(i.invoice1Date) = YEAR(CURRENT_DATE)")
+    Double findMonthlyGrandTotals();
+
+    @Query("SELECT SUM(i.grandTotal) FROM Invoice1 i WHERE YEAR(i.invoice1Date) = YEAR(CURRENT_DATE)")
+    Double findYearlyGrandTotals();
+
+    @Query("SELECT SUM(i.grandTotal) FROM Invoice1 i")
+    Double findAllGrandTotals();
 
     List<Invoice1> findByInvoice1ID(UUID id);
-
-
-
-//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
-//    List<Double> findAllGrandTotals();
-//
-//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1  s GROUP BY s.invoice1ID")
-//    List<Double> findDailyGrandTotals();
-//
-//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
-//    List<Double> findYearlyGrandTotals();
-//
-//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
-//    List<Double> findMonthlyGrandTotals();
 }
