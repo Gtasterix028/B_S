@@ -23,7 +23,7 @@ public class Invoice1DTO {
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
-    private Double subTotalPrice;
+   // private Double subTotalPrice;
 
     private String paymentMethod;
 

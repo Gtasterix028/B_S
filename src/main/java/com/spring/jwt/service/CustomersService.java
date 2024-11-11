@@ -51,12 +51,10 @@ public class CustomersService implements ICustomers {
                 .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + id));
 
 
-        if (customersDTO.getFirstName() != null) {
-            customer.setFirstName(customersDTO.getFirstName());
+        if (customersDTO.getFullName() != null) {
+            customer.setFullName(customersDTO.getFullName());
         }
-        if (customersDTO.getLastName() != null) {
-            customer.setLastName(customersDTO.getLastName());
-        }
+
         if (customersDTO.getEmail() != null) {
             customer.setEmail(customersDTO.getEmail());
         }

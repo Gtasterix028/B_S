@@ -26,18 +26,15 @@ public interface SellRepository extends JpaRepository<Sell,UUID> {
 
 
 
-    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE DATE(s.date) = CURRENT_DATE GROUP BY s.productId")
-    List<Double> findDailyProductSubtotals();
+//    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE DATE(s.date) = CURRENT_DATE GROUP BY s.productId")
+//    List<Double> findDailyProductSubtotals();
+//
+//    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE MONTH(s.date) = MONTH(CURRENT_DATE) AND YEAR(s.date) = YEAR(CURRENT_DATE) GROUP BY s.productId")
+//    List<Double> findMonthlyProductSubtotals();
+//
+//    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE YEAR(s.date) = YEAR(CURRENT_DATE) GROUP BY s.productId")
+//    List<Double> findYearlyProductSubtotals();
 
-    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE MONTH(s.date) = MONTH(CURRENT_DATE) AND YEAR(s.date) = YEAR(CURRENT_DATE) GROUP BY s.productId")
-    List<Double> findMonthlyProductSubtotals();
 
-    @Query("SELECT SUM(s.productSubtotal) FROM Sell s WHERE YEAR(s.date) = YEAR(CURRENT_DATE) GROUP BY s.productId")
-    List<Double> findYearlyProductSubtotals();
-
-
-    @Query("SELECT SUM(s.productSubtotal) FROM Sell s GROUP BY s.productId")
     List<Double> findAllProductSubtotals();
-
-
 }

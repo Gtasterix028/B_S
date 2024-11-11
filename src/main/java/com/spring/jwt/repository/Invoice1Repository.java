@@ -20,4 +20,18 @@ public interface Invoice1Repository extends JpaRepository<Invoice1, UUID> {
 
 
     List<Invoice1> findByInvoice1ID(UUID id);
+
+
+
+//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
+//    List<Double> findAllGrandTotals();
+//
+//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1  s GROUP BY s.invoice1ID")
+//    List<Double> findDailyGrandTotals();
+//
+//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
+//    List<Double> findYearlyGrandTotals();
+//
+//    @Query("SELECT SUM(s.grandTotal) FROM Invoice1 s GROUP BY s.invoice1ID")
+//    List<Double> findMonthlyGrandTotals();
 }

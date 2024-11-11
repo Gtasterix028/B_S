@@ -86,6 +86,8 @@ public class ProductsService implements IProducts {
     }
 
 
+
+
     @Override
     public void deleteProduct(UUID id) {
         Products existingProduct = productsRepository.findById(id)
@@ -189,4 +191,23 @@ public class ProductsService implements IProducts {
         }
         return stockQuantity;
     }
+
+    @Override
+    public List<ProductsDTO> saveProduct(List<ProductsDTO> list){
+        List<Products> products=new ArrayList<>();
+        for(ProductsDTO dto:list){
+            products.add(modelMapper.map(dto,Products.class));
+        }
+        for (Products product : products) {
+            productsRepository.save(product);
+        }
+        List<ProductsDTO> productsDTOS=new ArrayList<>();
+        for(Products products1:products){
+            productsDTOS.add(modelMapper.map(products1,ProductsDTO.class));
+        }
+
+        return productsDTOS;
+    }
+
 }
+

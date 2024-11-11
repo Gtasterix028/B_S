@@ -23,97 +23,66 @@ public class SellControllers {
 
     @GetMapping("/daily-total")
     public ResponseEntity<Response> getDailyTotal(
-            @RequestParam("date")  LocalDate date) {
-        try{
-        List<SellDTO> sellDTOS=sellService.getDailyTotal(date);
-        Response response=new Response("get daily sell",sellDTOS,false);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-        catch (Exception e)
-        {
-            Response response=new Response("sell not get ", e.getMessage(),true);
+            @RequestParam("date") LocalDate date) {
+        try {
+            List<SellDTO> sellDTOS = sellService.getDailyTotal(date);
+            Response response = new Response("get daily sell", sellDTOS, false);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            Response response = new Response("sell not get ", e.getMessage(), true);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
-//    @GetMapping("/monthly-total")
-//    public ResponseEntity<Response> getMonthlyTotal(
-//            @RequestParam("year") int year,
-//            @RequestParam("month") int month) {
-//      try{  List<SellDTO> sellDTOS=   sellService.getMonthlyTotal(year, month);
-//        Response response=new Response("get monthly total ",sellDTOS,false);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-//      catch (Exception e){
-//          Response response=new Response("sell not get ", e.getMessage(),true);
-//          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-//      }
-//    }
-//
-//    @GetMapping("/yearly-total")
-//    public ResponseEntity<Response> getYearlyTotal(@RequestParam("year") int year) {
+
+//    @GetMapping("AllGrandTotal")
+//    public ResponseEntity<Response> getGrandTotal(@RequestParam String period) {
 //        try {
-//
-//
-//        List<SellDTO> sellDTOS= sellService.getYearlyTotal(year);
-//        Response response=new Response("get monthly total ",sellDTOS,false);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-//        catch(Exception e){
-//            Response response=new Response("sell not get ", e.getMessage(),true);
+//            Double grandTotal = sellService.getGrandTotal(period);
+//            Response response = new Response("sale get successfully", grandTotal, false);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//        } catch (Exception e) {
+//            Response response = new Response("Failed to retrieve GrandTotal", e.getMessage(), true);
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 //        }
-//
-//
 //    }
-//
-//    @GetMapping("/total-from-start-date")
-//    public ResponseEntity<Response> getTotalFromStartDateToPresent(
-//            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
-//        try{
-//        List<SellDTO> sellDTOS= sellService.getTotalFromStartDateToPresent(startDate);
-//        Response response=new Response("get monthly total ",sellDTOS,false);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);}
-//        catch(Exception e){
-//            Response response=new Response("sell not get ", e.getMessage(),true);
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        @GetMapping("/subtotal")
+        public ResponseEntity<Response> getDateWise (@RequestParam("data") LocalDate date ){
+            try {
+                Double sellDTOS = sellService.getSubTotal(date);
+                Response response = new Response("get properly subtotal", sellDTOS, false);
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            } catch (Exception e) {
+                Response response = new Response("sell not get ", e.getMessage(), true);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        }
+
+        @GetMapping("/subtotalRange")
+        public ResponseEntity<Response> getDateWise (
+                @RequestParam("startDate") LocalDate startDate,
+                @RequestParam("endDate") LocalDate endDate){
+            try {
+                Double sellDTOS = sellService.getSubTotalBetweenDates(startDate, endDate);
+                Response response = new Response("Subtotal retrieved successfully", sellDTOS, false);
+                return ResponseEntity.status(HttpStatus.OK).body(response);
+            } catch (Exception e) {
+                Response response = new Response("Failed to retrieve subtotal", e.getMessage(), true);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        }
+
+//        @GetMapping("/AllSubtotals")
+//        public ResponseEntity<Response> getProductSubtotals (
+//                @RequestParam String period){
+//            try {
+//                Double productSubtotals = sellService.getProductSubtotals(period);
+//                Response response = new Response("Product subtotals retrieved successfully", productSubtotals, false);
+//                return ResponseEntity.status(HttpStatus.OK).body(response);
+//            } catch (Exception e) {
+//                Response response = new Response("Failed to retrieve product subtotals", e.getMessage(), true);
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+//            }
 //        }
-//
-//    }
-@GetMapping("/subtotal")
-public ResponseEntity<Response> getDateWise(@RequestParam("data") LocalDate date ){
-    try{
-        Double  sellDTOS=sellService.getSubTotal(date);
-        Response response=new Response("get properly subtotal",sellDTOS,false);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-    catch(Exception e){
-        Response response=new Response("sell not get ", e.getMessage(),true);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-    }
-}
 
-    @GetMapping("/subtotalRange")
-    public ResponseEntity<Response> getDateWise(
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate) {
-        try {
-            Double sellDTOS = sellService.getSubTotalBetweenDates(startDate, endDate);
-            Response response = new Response("Subtotal retrieved successfully", sellDTOS, false);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (Exception e) {
-            Response response = new Response("Failed to retrieve subtotal", e.getMessage(), true);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
     }
 
-    @GetMapping("/AllSubtotals")
-      public ResponseEntity<Response> getProductSubtotals(
-            @RequestParam String period) {
-        try {
-            Double productSubtotals = sellService.getProductSubtotals(period);
-            Response response = new Response("Product subtotals retrieved successfully", productSubtotals, false);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (Exception e) {
-            Response response = new Response("Failed to retrieve product subtotals", e.getMessage(), true);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-    }
-
-}
