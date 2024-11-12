@@ -35,9 +35,11 @@ public class Invoice1 {
 
     private  String paymentMethod;
 
-    private Double cGst;
+    private Double cGstInRs;
+    private Double sGstInRs;
 
-    private Double sGst;
+    private Double cGstInPercent;
+    private Double sGstInPercent;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

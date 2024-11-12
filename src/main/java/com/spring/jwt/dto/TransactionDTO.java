@@ -19,8 +19,10 @@ public class TransactionDTO {
 
     private String customerName;
 
-    private Double cGst;
+    private Double cGstInRs;
+    private Double sGstInRs;
 
-    private Double sGst;
+    private Double cGstInPercent;
+    private Double sGstInPercent;
 
 }

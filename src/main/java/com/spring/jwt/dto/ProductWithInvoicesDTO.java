@@ -21,8 +21,12 @@ public class ProductWithInvoicesDTO {
         private LocalDate invoice1Date;
         private Double sellQuantity;
         private LocalDate invoice1DueDate;
-    private Double cGst;
-    private Double sGst;
+
+    private Double cGstInRs;
+    private Double sGstInRs;
+
+    private Double cGstInPercent;
+    private Double sGstInPercent;
     private String paymentMethod;
 
 
