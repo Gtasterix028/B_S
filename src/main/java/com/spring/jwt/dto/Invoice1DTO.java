@@ -27,9 +27,11 @@ public class Invoice1DTO {
 
     private Double grandTotal;
 
-    private Double cGst;
+    private Double cGstInRs;
+    private Double sGstInRs;
 
-    private Double sGst;
+    private Double cGstInPercent;
+    private Double sGstInPercent;
 
     private CustomersDTO customer;
     private List<SellDTO> sells;

@@ -58,8 +58,11 @@ public class Invoice1Service implements IInvoice1 {
           transactionDTO.setPaymentMethod(invoice.getPaymentMethod());
           transactionDTO.setGrandTotal(invoice.getGrandTotal());
           transactionDTO.setCustomerName(invoice.getCustomer().getFullName());
-          transactionDTO.setCGst(invoice.getCGst());
-          transactionDTO.setSGst(invoice.getSGst());
+          transactionDTO.setCGstInRs(invoice.getCGstInRs());
+          transactionDTO.setSGstInRs(invoice.getSGstInRs());
+          transactionDTO.setCGstInPercent(invoice.getCGstInRs());
+          transactionDTO.setSGstInPercent(invoice.getSGstInRs());
+
           transactionDTOS.add(transactionDTO);
 
       }
@@ -80,11 +83,11 @@ public class Invoice1Service implements IInvoice1 {
             throw new RuntimeException("The number of product names must match the number of sell quantities.");
         }
 
-        Double totalTax = invoice1DTO.getCGst() + invoice1DTO.getSGst();
+        Double totalTax = invoice1DTO.getCGstInRs() + invoice1DTO.getSGstInRs();
         Double basePrice = invoice1DTO.getGrandTotal() / (1 + (totalTax / 100));
 
-        Double gstInRs = Math.round(basePrice * (invoice1DTO.getCGst() / 100) * 100.0) / 100.0;
-        Double SgstInRs = Math.round(basePrice * (invoice1DTO.getSGst() / 100) * 100.0) / 100.0;
+        Double gstInRs = Math.round(basePrice * (invoice1DTO.getCGstInRs() / 100) * 100.0) / 100.0;
+        Double SgstInRs = Math.round(basePrice * (invoice1DTO.getSGstInRs() / 100) * 100.0) / 100.0;
 
         // Create and save customer
         Customers customer = modelMapper.map(invoice1DTO.getCustomer(), Customers.class);
@@ -98,8 +101,12 @@ public class Invoice1Service implements IInvoice1 {
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
         invoice.setCustomer(savedCustomer);
         invoice.setGrandTotal(invoice1DTO.getGrandTotal());
-        invoice.setCGst(gstInRs);
-        invoice.setSGst(SgstInRs);
+        invoice.setCGstInRs(gstInRs);
+        invoice.setSGstInRs(SgstInRs);
+
+        invoice.setCGstInPercent(invoice1DTO.getCGstInRs());
+        invoice.setSGstInPercent(invoice.getSGstInRs());
+
         invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
         // Save the invoice to generate its ID
@@ -170,8 +177,12 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
                 productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
-                productDTO.setCGst(gstInRs);
-                productDTO.setSGst(SgstInRs);
+                productDTO.setCGstInRs(gstInRs);
+                productDTO.setSGstInRs(SgstInRs);
+
+                productDTO.setCGstInPercent(invoice1DTO.getCGstInRs());
+                productDTO.setSGstInPercent(invoice1DTO.getSGstInRs());
+
                 productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
                 productsDTOList.add(productDTO);
