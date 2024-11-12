@@ -19,13 +19,12 @@ public class Invoice1 {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID invoice1ID;
 
+    private String invoiceNumber;
+
     private LocalDate invoice1Date;
     private LocalDate invoice1DueDate;
 
     private Double sellQuantity;
-
-
-
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "invoice1_products", joinColumns = @JoinColumn(name = "invoice1_id"))
@@ -36,7 +35,7 @@ public class Invoice1 {
 
     private  String paymentMethod;
 
-    private Double gst;
+    private Double cGst;
 
     private Double sGst;
 

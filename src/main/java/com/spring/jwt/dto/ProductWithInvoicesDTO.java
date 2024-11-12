@@ -10,7 +10,6 @@ import java.util.UUID;
 public class ProductWithInvoicesDTO {
     private UUID productID;
     private String productName;
-  //  private Double actualPrice;
     private Double sellingPrice;
     private Double discount;
     private ClothingType clothingType;
@@ -18,10 +17,11 @@ public class ProductWithInvoicesDTO {
     private Double grandTotal;
 
         private UUID invoice1ID;
+    private String invoiceNumber;
         private LocalDate invoice1Date;
         private Double sellQuantity;
         private LocalDate invoice1DueDate;
-    private Double gst;
+    private Double cGst;
     private Double sGst;
     private String paymentMethod;
 
