@@ -53,11 +53,12 @@ public class Invoice1Service implements IInvoice1 {
           Invoice1 invoice=invoice1.get(i);
           TransactionDTO  transactionDTO=new TransactionDTO();
           transactionDTO.setInvoice1ID(invoice.getInvoice1ID());
+          transactionDTO.setInvoiceNumber(invoice.getInvoiceNumber());
           transactionDTO.setInvoice1Date(invoice.getInvoice1Date());
           transactionDTO.setPaymentMethod(invoice.getPaymentMethod());
           transactionDTO.setGrandTotal(invoice.getGrandTotal());
           transactionDTO.setCustomerName(invoice.getCustomer().getFullName());
-          transactionDTO.setGst(invoice.getGst());
+          transactionDTO.setCGst(invoice.getCGst());
           transactionDTO.setSGst(invoice.getSGst());
           transactionDTOS.add(transactionDTO);
 
@@ -79,10 +80,10 @@ public class Invoice1Service implements IInvoice1 {
             throw new RuntimeException("The number of product names must match the number of sell quantities.");
         }
 
-        Double totalTax = invoice1DTO.getGst() + invoice1DTO.getSGst();
+        Double totalTax = invoice1DTO.getCGst() + invoice1DTO.getSGst();
         Double basePrice = invoice1DTO.getGrandTotal() / (1 + (totalTax / 100));
 
-        Double gstInRs = Math.round(basePrice * (invoice1DTO.getGst() / 100) * 100.0) / 100.0;
+        Double gstInRs = Math.round(basePrice * (invoice1DTO.getCGst() / 100) * 100.0) / 100.0;
         Double SgstInRs = Math.round(basePrice * (invoice1DTO.getSGst() / 100) * 100.0) / 100.0;
 
         // Create and save customer
@@ -92,11 +93,12 @@ public class Invoice1Service implements IInvoice1 {
         // Create new invoice and save it before processing products
         Invoice1 invoice = new Invoice1();
         invoice.setInvoice1ID(invoice1DTO.getInvoice1ID());
+        invoice.setInvoiceNumber(invoice1DTO.getInvoiceNumber());
         invoice.setInvoice1Date(invoice1DTO.getInvoice1Date());
         invoice.setInvoice1DueDate(invoice1DTO.getInvoice1DueDate());
         invoice.setCustomer(savedCustomer);
         invoice.setGrandTotal(invoice1DTO.getGrandTotal());
-        invoice.setGst(gstInRs);
+        invoice.setCGst(gstInRs);
         invoice.setSGst(SgstInRs);
         invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
@@ -149,8 +151,6 @@ public class Invoice1Service implements IInvoice1 {
                 productDetails.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
                 productDetails.setSellQuantity(sellQuantity);
 
-
-
                 savedInvoice.getProducts().add(productDetails); // Add to saved invoice's products list
 
                 // Create and save Sell entity
@@ -166,10 +166,11 @@ public class Invoice1Service implements IInvoice1 {
                 ProductWithInvoicesDTO productDTO = modelMapper.map(product, ProductWithInvoicesDTO.class);
                 productDTO.setSellQuantity(sellQuantity);
                 productDTO.setInvoice1ID(savedInvoice.getInvoice1ID());
+                productDTO.setInvoiceNumber(savedInvoice.getInvoiceNumber());
                 productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
                 productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
-                productDTO.setGst(gstInRs);
+                productDTO.setCGst(gstInRs);
                 productDTO.setSGst(SgstInRs);
                 productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
 

@@ -10,6 +10,7 @@ import java.util.UUID;
 @Data
 public class TransactionDTO {
     private UUID invoice1ID;
+    private String invoiceNumber;
     private LocalDate invoice1Date;
 
     private String paymentMethod;
@@ -18,7 +19,7 @@ public class TransactionDTO {
 
     private String customerName;
 
-    private Double gst;
+    private Double cGst;
 
     private Double sGst;
 
