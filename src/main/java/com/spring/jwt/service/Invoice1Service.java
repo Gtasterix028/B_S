@@ -60,8 +60,8 @@ public class Invoice1Service implements IInvoice1 {
           transactionDTO.setCustomerName(invoice.getCustomer().getFullName());
           transactionDTO.setCGstInRs(invoice.getCGstInRs());
           transactionDTO.setSGstInRs(invoice.getSGstInRs());
-          transactionDTO.setCGstInPercent(invoice.getCGstInRs());
-          transactionDTO.setSGstInPercent(invoice.getSGstInRs());
+          transactionDTO.setCGstInPercent(invoice.getCGstInPercent());
+          transactionDTO.setSGstInPercent(invoice.getSGstInPercent());
 
           transactionDTOS.add(transactionDTO);
 
@@ -105,7 +105,7 @@ public class Invoice1Service implements IInvoice1 {
         invoice.setSGstInRs(SgstInRs);
 
         invoice.setCGstInPercent(invoice1DTO.getCGstInRs());
-        invoice.setSGstInPercent(invoice.getSGstInRs());
+        invoice.setSGstInPercent(invoice1DTO.getSGstInRs());
 
         invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
