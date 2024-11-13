@@ -29,6 +29,10 @@ public interface IProducts {
     Double getStockQuantityByProductId(UUID productId);
 
     List<ProductsDTO> saveProduct(List<ProductsDTO> productsDTOList);
+
+    List<ProductsDTO> getProductsByFilter(String clothingType, String sortBy, String order);
+
+    List<ProductsDTO> getProductsByFilterstock(String order);
 }
 
 

@@ -28,4 +28,23 @@ public interface ProductsRepository extends JpaRepository<Products,UUID> {
 
     @Query("SELECT p FROM Products p LEFT JOIN p.stockQuantities sq GROUP BY p ORDER BY p.clothingType DESC, SUM(sq) DESC")
     List<Products> findByOrderByClothingTypeDescAndTotalStockQuantityDesc();
+
+
+   
+
+
+    List<Products> findByClothingTypeOrderByProductNameAsc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByProductNameDesc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByStockQuantitiesAsc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByStockQuantitiesDesc(ClothingType clothingType);
+
+    List<Products> findAllByOrderByStockQuantitiesAsc();
+
+    List<Products> findAllByOrderByStockQuantitiesDesc();
 }

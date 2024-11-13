@@ -140,4 +140,23 @@ public class ProductsController {
                     .body(new Response("An error occurred", e.getMessage(), true));
         }
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<ProductsDTO>> getProductsByFilter(
+            @RequestParam String clothingType,
+            @RequestParam(required = false, defaultValue = "name") String sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String order)
+
+    {
+        List<ProductsDTO> products = productsInterface.getProductsByFilter(clothingType, sortBy, order);
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/filterStock")
+    public ResponseEntity<List<ProductsDTO>> getProductByStockQuantity(
+            @RequestParam(defaultValue = "asc") String order) {
+
+        List<ProductsDTO> stockQuantity = productsInterface.getProductsByFilterstock(order);
+        return ResponseEntity.ok(stockQuantity);
+    }
+
 }
