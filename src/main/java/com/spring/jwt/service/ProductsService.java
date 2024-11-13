@@ -3,6 +3,7 @@ package com.spring.jwt.service;
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
 import com.spring.jwt.entity.ClothingType;
+import com.spring.jwt.entity.ProductDetails;
 import com.spring.jwt.entity.Products;
 import com.spring.jwt.repository.ProductsRepository;
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,7 @@ public class ProductsService implements IProducts {
 
         Products product = modelMapper.map(productsDTO, Products.class);
         product.setStockQuantities(productsDTO.getStockQuantities());
+
 
         // Calculate total stock quantity using a for-each loop
         int totalStockQuantity = 0;

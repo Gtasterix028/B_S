@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface IInvoice1 {
 
-    List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities);
+    List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities,List<Double> sellingPrice);
 
     List<TransactionDTO> getInvoicesByDateRange(LocalDate startDate, LocalDate endDate);
 
