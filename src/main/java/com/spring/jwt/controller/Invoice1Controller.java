@@ -25,10 +25,11 @@ public class Invoice1Controller {
     public ResponseEntity<Response> saveInvoice2(
             @RequestBody Invoice1DTO invoice1DTO,
             @RequestParam List<String> productNames,
-            @RequestParam List<Double> sellQuantity) {
+            @RequestParam List<Double> sellQuantity,
+            @RequestParam List<Double> sellingPrice) {
         try {
 
-            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity);
+            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity,sellingPrice);
 
             return ResponseEntity.ok(new Response("Invoice and products saved successfully", savedDTO1, false));
         } catch (Exception e) {
