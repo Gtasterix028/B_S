@@ -43,8 +43,8 @@ public class ProductsService implements IProducts {
 
 
         // Calculate total stock quantity using a for-each loop
-        int totalStockQuantity = 0;
-        for (Integer quantity : productsDTO.getStockQuantities()) {
+        Double totalStockQuantity = 0.0;
+        for (Double quantity : productsDTO.getStockQuantities()) {
             totalStockQuantity += quantity; // Assuming stock quantities are integers
         }
 
@@ -171,12 +171,12 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public Integer getTotalStockQuantity() {
+    public Double getTotalStockQuantity() {
         List<Products> allProducts = productsRepository.findAll();
-        int totalStock = 0;
+        Double totalStock = 0.0;
 
         for (Products product : allProducts) {
-            for (Integer quantity : product.getStockQuantities()) {
+            for (Double quantity : product.getStockQuantities()) {
                 totalStock += quantity;
             }
         }
@@ -184,11 +184,11 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public Integer getStockQuantityByProductId(UUID productId) {
+    public Double getStockQuantityByProductId(UUID productId) {
         Products product = productsRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
-        int stockQuantity = 0;
-        for (Integer quantity : product.getStockQuantities()) {
+        Double stockQuantity = 0.0;
+        for (Double quantity : product.getStockQuantities()) {
             stockQuantity += quantity;
         }
         return stockQuantity;

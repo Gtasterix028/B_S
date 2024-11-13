@@ -131,23 +131,26 @@ public class Invoice1Service implements IInvoice1 {
             }
 
             for (Products product : foundProducts) {
-                int totalStock = product.getStockQuantities().stream().mapToInt(Integer::intValue).sum();
+                Double totalStock = product.getStockQuantities()
+                        .stream()
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
 
                 if (totalStock < sellQuantity) {
                     throw new RuntimeException("Insufficient stock for product: " + productName);
                 }
 
                 // Update stock quantities
-                List<Integer> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
-                int remainingQuantity = sellQuantity.intValue();
+                List<Double> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
+                Double remainingQuantity = sellQuantity;
 
                 for (int j = 0; j < updatedStockQuantities.size() && remainingQuantity > 0; j++) {
-                    int availableStock = updatedStockQuantities.get(j);
+                    Double availableStock = updatedStockQuantities.get(j);
                     if (availableStock >= remainingQuantity) {
                         updatedStockQuantities.set(j, availableStock - remainingQuantity);
-                        remainingQuantity = 0;
+                        remainingQuantity = 0.0;
                     } else {
-                        updatedStockQuantities.set(j, 0);
+                        updatedStockQuantities.set(j, 0.0);
                         remainingQuantity -= availableStock;
                     }
                 }

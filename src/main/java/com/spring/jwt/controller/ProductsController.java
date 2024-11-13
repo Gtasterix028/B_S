@@ -3,6 +3,7 @@ package com.spring.jwt.controller;
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
 import com.spring.jwt.dto.Response;
+import com.spring.jwt.entity.ClothingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,8 +88,9 @@ public class ProductsController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String searchCharacter) {
+    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String searchCharacter, @RequestParam Double stockQuantity, @RequestParam ClothingType Cloth) {
         List<ProductsDTO> products=productsInterface.searchProductsByName(searchCharacter);
+
         return ResponseEntity.ok(products);
     }
 
@@ -107,7 +109,7 @@ public class ProductsController {
     @GetMapping("/totalStockQuantity")
     public ResponseEntity<Response> getTotalStockQuantity() {
         try {
-            Integer totalStock = productsInterface.getTotalStockQuantity();
+            Double totalStock = productsInterface.getTotalStockQuantity();
             return ResponseEntity.ok(new Response("Total stock quantity retrieved successfully", totalStock, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -118,7 +120,7 @@ public class ProductsController {
     @GetMapping("/stockQuantityByProductId")
     public ResponseEntity<Response> getStockQuantityByProductId(@RequestParam UUID productId) {
         try {
-            Integer stockQuantity = productsInterface.getStockQuantityByProductId(productId);
+            Double stockQuantity = productsInterface.getStockQuantityByProductId(productId);
             return ResponseEntity.ok(new Response("Stock quantity for product retrieved successfully", stockQuantity, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

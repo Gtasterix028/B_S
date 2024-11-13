@@ -29,7 +29,7 @@ public class Products {
     @ElementCollection
     @CollectionTable(name = "stock", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "stockQuantities")
-    private List<Integer> stockQuantities;
+    private List<Double> stockQuantities;
 
 }
 
