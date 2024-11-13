@@ -1,5 +1,4 @@
 
-
 package com.spring.jwt.service;
 
 import com.spring.jwt.Interfaces.IInvoice1;
@@ -77,11 +76,12 @@ public class Invoice1Service implements IInvoice1 {
 
     @Override
     @Transactional
-    public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities) {
+    public List<ProductWithInvoicesDTO> saveInvoiceAndProductsWithPrice(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities, List<Double> productPrice) {
 
-        if (productNames.size() != sellQuantities.size()) {
-            throw new RuntimeException("The number of product names must match the number of sell quantities.");
+        if (productNames.size() != sellQuantities.size() || productNames.size() != productPrice.size()) {
+            throw new RuntimeException("The number of product names, sell quantities, and product prices must match.");
         }
+
 
         Double totalTax = invoice1DTO.getCGstInRs() + invoice1DTO.getSGstInRs();
         Double basePrice = invoice1DTO.getGrandTotal() / (1 + (totalTax / 100));
@@ -117,6 +117,7 @@ public class Invoice1Service implements IInvoice1 {
         for (int i = 0; i < productNames.size(); i++) {
             String productName = productNames.get(i);
             Double sellQuantity = sellQuantities.get(i);
+            Double productPrice1 = productPrice.get(i);
 
             List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
             if (foundProducts.isEmpty()) {
@@ -152,11 +153,14 @@ public class Invoice1Service implements IInvoice1 {
                 ProductDetails productDetails = new ProductDetails();
                 productDetails.setProductID(product.getProductID());
                 productDetails.setProductName(product.getProductName());
-                productDetails.setSellingPrice(product.getSellingPrice());
+               // productDetails.setSellingPrice(productPrice1());
                 productDetails.setDiscount(product.getDiscount());
                 productDetails.setClothingType(product.getClothingType());
                 productDetails.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
                 productDetails.setSellQuantity(sellQuantity);
+                productDetails.setProductPrice(productPrice1);
+                productDetails.setSize(product.getSize());
+                productDetails.setColor(product.getColor());
 
                 savedInvoice.getProducts().add(productDetails); // Add to saved invoice's products list
 
@@ -184,6 +188,7 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setSGstInPercent(invoice1DTO.getSGstInRs());
 
                 productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
+                productDTO.setProductPrice(productPrice1);
 
                 productsDTOList.add(productDTO);
             }
@@ -194,6 +199,7 @@ public class Invoice1Service implements IInvoice1 {
 
         return productsDTOList;
     }
+
 
 
 

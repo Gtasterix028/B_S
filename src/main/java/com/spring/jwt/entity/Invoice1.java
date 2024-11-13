@@ -30,7 +30,6 @@ public class Invoice1 {
     @CollectionTable(name = "invoice1_products", joinColumns = @JoinColumn(name = "invoice1_id"))
     private List<ProductDetails> products = new ArrayList<>(); // Initialize the list here
 
-
     private Double grandTotal; // Total without discount
 
     private  String paymentMethod;

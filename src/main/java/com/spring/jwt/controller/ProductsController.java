@@ -19,6 +19,31 @@ public class ProductsController {
     @Autowired
     private IProducts productsInterface;
 
+    @PostMapping("/saveInformation")
+    public ResponseEntity<Response> createProduct(@RequestBody ProductsDTO productsDTO) {
+        try {
+            ProductsDTO createdProduct = productsInterface.saveInformation(productsDTO);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new Response("Product created successfully", createdProduct, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
+    @PostMapping("/saveMultipleInformation")
+    public ResponseEntity<Response> createProductsList(@RequestBody List<ProductsDTO> productsDTOList){
+        try{
+            List<ProductsDTO> list=productsInterface.saveProduct(productsDTOList);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("product list get", list,false));
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
     @GetMapping("/getByID")
     public ResponseEntity<Response> getProductById(@RequestParam UUID id) {
         try {
@@ -35,18 +60,6 @@ public class ProductsController {
         try {
             List<ProductsDTO> productsList = productsInterface.getAllProducts();
             return ResponseEntity.ok(new Response("All products retrieved successfully", productsList, false));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("An error occurred", e.getMessage(), true));
-        }
-    }
-
-    @PostMapping("/saveInformation")
-    public ResponseEntity<Response> createProduct(@RequestBody ProductsDTO productsDTO) {
-        try {
-            ProductsDTO createdProduct = productsInterface.saveInformation(productsDTO);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new Response("Product created successfully", createdProduct, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response("An error occurred", e.getMessage(), true));
@@ -75,7 +88,7 @@ public class ProductsController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/SearchBy")
     public ResponseEntity<List<ProductsDTO>> getProducts(
             @RequestParam(required = false) UUID productId,
             @RequestParam(required = false) String productName,
@@ -126,16 +139,5 @@ public class ProductsController {
         }
     }
 
-    @PostMapping("/saveMultipleInformation")
-    public ResponseEntity<Response> createProductsList(@RequestBody List<ProductsDTO> productsDTOList){
-        try{
-            List<ProductsDTO> list=productsInterface.saveProduct(productsDTOList);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("product list get", list,false));
 
-        }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("An error occurred", e.getMessage(), true));
-        }
-    }
 }

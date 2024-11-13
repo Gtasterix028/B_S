@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public interface IInvoice1 {
 
-    List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities);
-
     List<TransactionDTO> getInvoicesByDateRange(LocalDate startDate, LocalDate endDate);
 
     List<Invoice1> getInvoicesByID(UUID id);
+
+    List<ProductWithInvoicesDTO> saveInvoiceAndProductsWithPrice(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantity, List<Double> productPrice);
 }
 

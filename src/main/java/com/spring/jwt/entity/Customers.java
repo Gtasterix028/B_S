@@ -17,13 +17,12 @@ public class Customers {
     private String phone;
     private String address;
 
-//    @OneToOne
-//    @JoinColumn(name = "selling_id")
-//    private Sell sell;
-
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<Invoice1> invoicesList;
 
+//    @OneToOne
+//    @JoinColumn(name = "selling_id")
+//    private Sell sell;
 
 //    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JsonManagedReference
