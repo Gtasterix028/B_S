@@ -21,7 +21,7 @@ public class Products {
 
     private Double actualPrice;
     private Double discount;
-    private Double sellingPrice;  // Price with Discount
+    private Double sellingPrice;
 
     @Enumerated(EnumType.STRING)
     private ClothingType clothingType;
@@ -32,4 +32,5 @@ public class Products {
     private List<Integer> stockQuantities;
 
 }
+
 

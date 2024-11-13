@@ -11,7 +11,27 @@ import java.util.UUID;
 @Repository
 public interface ProductsRepository extends JpaRepository<Products,UUID> {
     List<Products> findByProductName(String productName);
+
     List<Products> findByDescription(String description);
+
     List<Products> findByProductNameContainingIgnoreCaseOrderByProductNameAsc(String name);
-    List<Products> findByClothingType(ClothingType type);
+//    List<Products> findByClothingType(ClothingType type);
+
+    List<Products> findByClothingType(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByProductNameAsc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByProductNameDesc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByStockQuantitiesAsc(ClothingType clothingType);
+
+
+    List<Products> findByClothingTypeOrderByStockQuantitiesDesc(ClothingType clothingType);
+
+    List<Products> findAllByOrderByStockQuantitiesAsc();
+
+    List<Products> findAllByOrderByStockQuantitiesDesc();
 }

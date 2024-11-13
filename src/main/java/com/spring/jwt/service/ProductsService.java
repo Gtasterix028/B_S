@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductsService implements IProducts {
@@ -21,6 +22,8 @@ public class ProductsService implements IProducts {
 
     @Autowired
     private ModelMapper modelMapper;
+
+
 
     @Override
     public ProductsDTO getProductByID(UUID id) {
@@ -208,6 +211,70 @@ public class ProductsService implements IProducts {
 
         return productsDTOS;
     }
+
+    @Override
+    public List<ProductsDTO> getProductsByFilter(String clothingType, String sortBy, String order) {
+        List<Products> products;
+
+        try {
+
+            ClothingType type = ClothingType.valueOf(clothingType.toUpperCase());
+
+            switch (sortBy.toLowerCase()) {
+                case "name":
+
+                    if ("asc".equalsIgnoreCase(order)) {
+                        products = productsRepository.findByClothingTypeOrderByProductNameAsc(type);
+                    } else {
+                        products = productsRepository.findByClothingTypeOrderByProductNameDesc(type);
+                    }
+                    break;
+
+                case "stock":
+
+                    if ("asc".equalsIgnoreCase(order)) {
+                        products = productsRepository.findByClothingTypeOrderByStockQuantitiesAsc(type);
+                    } else {
+                        products = productsRepository.findByClothingTypeOrderByStockQuantitiesDesc(type);
+                    }
+                    break;
+
+                default:
+                    products = productsRepository.findByClothingType(type);
+                    break;
+            }
+
+            List<ProductsDTO> productsDTOList = new ArrayList<>();
+            for (Products product : products) {
+                productsDTOList.add(modelMapper.map(product, ProductsDTO.class));
+            }
+            return productsDTOList;
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid clothing type: " + clothingType, e);
+        }
+    }
+
+    @Override
+    public List<ProductsDTO> getProductsByFilterstock(String order) {
+        List<Products> products;
+
+        // Sorting logic based on the order parameter
+        switch (order.toLowerCase()) {
+            case "asc":
+                products = productsRepository.findAllByOrderByStockQuantitiesAsc();
+                break;
+            case "desc":
+                products = productsRepository.findAllByOrderByStockQuantitiesDesc();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort order. Use 'asc' or 'desc'.");
+        }
+
+        return products.stream()
+                .map(product -> modelMapper.map(product, ProductsDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 }
 
