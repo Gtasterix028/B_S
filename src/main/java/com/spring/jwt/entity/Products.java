@@ -22,6 +22,8 @@ public class Products {
     private Double actualPrice;
     private Double discount;
     private Double sellingPrice;  // Price with Discount
+    private String size;
+    private String color;
 
     @Enumerated(EnumType.STRING)
     private ClothingType clothingType;

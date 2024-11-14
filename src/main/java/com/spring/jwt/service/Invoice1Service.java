@@ -167,6 +167,8 @@ public class Invoice1Service implements IInvoice1 {
                 productDetails.setClothingType(product.getClothingType());
                 productDetails.setSubTotalPrice(sellingPrices * sellQuantity); // Use sellingPrices for subtotal
                 productDetails.setSellQuantity(sellQuantity);
+                productDetails.setColor(product.getColor());
+                productDetails.setSize(product.getSize());
 
                 savedInvoice.getProducts().add(productDetails); // Add to saved invoice's products list
 
@@ -187,11 +189,15 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setInvoice1Date(savedInvoice.getInvoice1Date());
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
                 productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
+
                 productDTO.setCGstInRs(gstInRs);
                 productDTO.setSGstInRs(sgstInRs);
+
                 productDTO.setCGstInPercent(invoice1DTO.getCGstInRs());
                 productDTO.setSGstInPercent(invoice1DTO.getSGstInRs());
+                
                 productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
+
 
                 productsDTOList.add(productDTO);
             }

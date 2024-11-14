@@ -13,7 +13,10 @@ public class ProductsDTO {
     private String description;
     private Double actualPrice;
     private Double discount;
-    private Double sellingPrice; // Price with Discount
+    private Double sellingPrice;
+
+    private String size;
+    private String color;
 
     private ClothingType clothingType;
 

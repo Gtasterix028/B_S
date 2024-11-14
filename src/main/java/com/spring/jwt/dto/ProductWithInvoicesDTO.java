@@ -16,6 +16,9 @@ public class ProductWithInvoicesDTO {
     private Double subTotalPrice;
     private Double grandTotal;
 
+    private String size;
+    private String color;
+
         private UUID invoice1ID;
     private String invoiceNumber;
         private LocalDate invoice1Date;
