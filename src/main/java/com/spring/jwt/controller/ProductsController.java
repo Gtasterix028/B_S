@@ -3,6 +3,7 @@ package com.spring.jwt.controller;
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
 import com.spring.jwt.dto.Response;
+import com.spring.jwt.entity.ClothingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,31 +19,6 @@ public class ProductsController {
 
     @Autowired
     private IProducts productsInterface;
-
-    @PostMapping("/saveInformation")
-    public ResponseEntity<Response> createProduct(@RequestBody ProductsDTO productsDTO) {
-        try {
-            ProductsDTO createdProduct = productsInterface.saveInformation(productsDTO);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new Response("Product created successfully", createdProduct, false));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("An error occurred", e.getMessage(), true));
-        }
-    }
-
-    @PostMapping("/saveMultipleInformation")
-    public ResponseEntity<Response> createProductsList(@RequestBody List<ProductsDTO> productsDTOList){
-        try{
-            List<ProductsDTO> list=productsInterface.saveProduct(productsDTOList);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("product list get", list,false));
-
-        }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("An error occurred", e.getMessage(), true));
-        }
-    }
 
     @GetMapping("/getByID")
     public ResponseEntity<Response> getProductById(@RequestParam UUID id) {
@@ -60,6 +36,18 @@ public class ProductsController {
         try {
             List<ProductsDTO> productsList = productsInterface.getAllProducts();
             return ResponseEntity.ok(new Response("All products retrieved successfully", productsList, false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
+    @PostMapping("/saveInformation")
+    public ResponseEntity<Response> createProduct(@RequestBody ProductsDTO productsDTO) {
+        try {
+            ProductsDTO createdProduct = productsInterface.saveInformation(productsDTO);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new Response("Product created successfully", createdProduct, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response("An error occurred", e.getMessage(), true));
@@ -88,7 +76,7 @@ public class ProductsController {
         }
     }
 
-    @GetMapping("/SearchBy")
+    @GetMapping
     public ResponseEntity<List<ProductsDTO>> getProducts(
             @RequestParam(required = false) UUID productId,
             @RequestParam(required = false) String productName,
@@ -100,8 +88,9 @@ public class ProductsController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String searchCharacter) {
+    public ResponseEntity<List<ProductsDTO>> searchProducts(@RequestParam String searchCharacter, @RequestParam Double stockQuantity, @RequestParam ClothingType Cloth) {
         List<ProductsDTO> products=productsInterface.searchProductsByName(searchCharacter);
+
         return ResponseEntity.ok(products);
     }
 
@@ -120,7 +109,7 @@ public class ProductsController {
     @GetMapping("/totalStockQuantity")
     public ResponseEntity<Response> getTotalStockQuantity() {
         try {
-            Integer totalStock = productsInterface.getTotalStockQuantity();
+            Double totalStock = productsInterface.getTotalStockQuantity();
             return ResponseEntity.ok(new Response("Total stock quantity retrieved successfully", totalStock, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -131,7 +120,7 @@ public class ProductsController {
     @GetMapping("/stockQuantityByProductId")
     public ResponseEntity<Response> getStockQuantityByProductId(@RequestParam UUID productId) {
         try {
-            Integer stockQuantity = productsInterface.getStockQuantityByProductId(productId);
+            Double stockQuantity = productsInterface.getStockQuantityByProductId(productId);
             return ResponseEntity.ok(new Response("Stock quantity for product retrieved successfully", stockQuantity, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -139,5 +128,35 @@ public class ProductsController {
         }
     }
 
+    @PostMapping("/saveMultipleInformation")
+    public ResponseEntity<Response> createProductsList(@RequestBody List<ProductsDTO> productsDTOList){
+        try{
+            List<ProductsDTO> list=productsInterface.saveProduct(productsDTOList);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new Response("product list get", list,false));
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("An error occurred", e.getMessage(), true));
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<ProductsDTO>> getProductsByFilter(
+            @RequestParam String clothingType,
+            @RequestParam(required = false, defaultValue = "name") String sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String order)
+
+    {
+        List<ProductsDTO> products = productsInterface.getProductsByFilter(clothingType, sortBy, order);
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/filterStock")
+    public ResponseEntity<List<ProductsDTO>> getProductByStockQuantity(
+            @RequestParam(defaultValue = "asc") String order) {
+
+        List<ProductsDTO> stockQuantity = productsInterface.getProductsByFilterstock(order);
+        return ResponseEntity.ok(stockQuantity);
+    }
 
 }

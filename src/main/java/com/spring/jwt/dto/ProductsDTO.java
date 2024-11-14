@@ -20,7 +20,7 @@ public class ProductsDTO {
 
     private ClothingType clothingType;
 
-    private List<Integer>stockQuantities;
+    private List<Double>stockQuantities;
 
 }
 

@@ -3,6 +3,7 @@ package com.spring.jwt.service;
 import com.spring.jwt.Interfaces.IProducts;
 import com.spring.jwt.dto.ProductsDTO;
 import com.spring.jwt.entity.ClothingType;
+import com.spring.jwt.entity.ProductDetails;
 import com.spring.jwt.entity.Products;
 import com.spring.jwt.repository.ProductsRepository;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductsService implements IProducts {
@@ -40,9 +42,10 @@ public class ProductsService implements IProducts {
         Products product = modelMapper.map(productsDTO, Products.class);
         product.setStockQuantities(productsDTO.getStockQuantities());
 
+
         // Calculate total stock quantity using a for-each loop
-        int totalStockQuantity = 0;
-        for (Integer quantity : productsDTO.getStockQuantities()) {
+        Double totalStockQuantity = 0.0;
+        for (Double quantity : productsDTO.getStockQuantities()) {
             totalStockQuantity += quantity; // Assuming stock quantities are integers
         }
 
@@ -169,12 +172,12 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public Integer getTotalStockQuantity() {
+    public Double getTotalStockQuantity() {
         List<Products> allProducts = productsRepository.findAll();
-        int totalStock = 0;
+        Double totalStock = 0.0;
 
         for (Products product : allProducts) {
-            for (Integer quantity : product.getStockQuantities()) {
+            for (Double quantity : product.getStockQuantities()) {
                 totalStock += quantity;
             }
         }
@@ -182,11 +185,11 @@ public class ProductsService implements IProducts {
     }
 
     @Override
-    public Integer getStockQuantityByProductId(UUID productId) {
+    public Double getStockQuantityByProductId(UUID productId) {
         Products product = productsRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
-        int stockQuantity = 0;
-        for (Integer quantity : product.getStockQuantities()) {
+        Double stockQuantity = 0.0;
+        for (Double quantity : product.getStockQuantities()) {
             stockQuantity += quantity;
         }
         return stockQuantity;
@@ -208,6 +211,70 @@ public class ProductsService implements IProducts {
 
         return productsDTOS;
     }
+
+    @Override
+    public List<ProductsDTO> getProductsByFilter(String clothingType, String sortBy, String order) {
+        List<Products> products;
+
+        try {
+
+            ClothingType type = ClothingType.valueOf(clothingType.toUpperCase());
+
+            switch (sortBy.toLowerCase()) {
+                case "name":
+
+                    if ("asc".equalsIgnoreCase(order)) {
+                        products = productsRepository.findByClothingTypeOrderByProductNameAsc(type);
+                    } else {
+                        products = productsRepository.findByClothingTypeOrderByProductNameDesc(type);
+                    }
+                    break;
+
+                case "stock":
+
+                    if ("asc".equalsIgnoreCase(order)) {
+                        products = productsRepository.findByClothingTypeOrderByStockQuantitiesAsc(type);
+                    } else {
+                        products = productsRepository.findByClothingTypeOrderByStockQuantitiesDesc(type);
+                    }
+                    break;
+
+                default:
+                    products = productsRepository.findByClothingType(type);
+                    break;
+            }
+
+            List<ProductsDTO> productsDTOList = new ArrayList<>();
+            for (Products product : products) {
+                productsDTOList.add(modelMapper.map(product, ProductsDTO.class));
+            }
+            return productsDTOList;
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid clothing type: " + clothingType, e);
+        }
+    }
+
+    @Override
+    public List<ProductsDTO> getProductsByFilterstock(String order) {
+        List<Products> products;
+
+        // Sorting logic based on the order parameter
+        switch (order.toLowerCase()) {
+            case "asc":
+                products = productsRepository.findAllByOrderByStockQuantitiesAsc();
+                break;
+            case "dsc":
+                products = productsRepository.findAllByOrderByStockQuantitiesDesc();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort order. Use 'asc' or 'desc'.");
+        }
+
+        return products.stream()
+                .map(product -> modelMapper.map(product, ProductsDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
 }
 

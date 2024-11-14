@@ -21,10 +21,7 @@ public class Products {
 
     private Double actualPrice;
     private Double discount;
-    private Double sellingPrice;
-
-    private String size;
-    private String color;
+    private Double sellingPrice;  // Price with Discount
 
     @Enumerated(EnumType.STRING)
     private ClothingType clothingType;
@@ -32,6 +29,7 @@ public class Products {
     @ElementCollection
     @CollectionTable(name = "stock", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "stockQuantities")
-    private List<Integer> stockQuantities;
+    private List<Double> stockQuantities;
+
 }
 

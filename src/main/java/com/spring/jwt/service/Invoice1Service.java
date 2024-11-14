@@ -1,4 +1,5 @@
 
+
 package com.spring.jwt.service;
 
 import com.spring.jwt.Interfaces.IInvoice1;
@@ -74,20 +75,22 @@ public class Invoice1Service implements IInvoice1 {
         return invoice1Repository.findByInvoice1ID(id);
     }
 
-    @Override
-    @Transactional
-    public List<ProductWithInvoicesDTO> saveInvoiceAndProductsWithPrice(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities, List<Double> productPrice) {
 
-        if (productNames.size() != sellQuantities.size() || productNames.size() != productPrice.size()) {
-            throw new RuntimeException("The number of product names, sell quantities, and product prices must match.");
+
+    @Override
+    public List<ProductWithInvoicesDTO> saveInvoiceAndProducts(Invoice1DTO invoice1DTO, List<String> productNames, List<Double> sellQuantities, List<Double> sellingPrice) {
+        // Validate input sizes
+        if (productNames.size() != sellQuantities.size() || productNames.size() != sellingPrice.size()) {
+            throw new RuntimeException("The number of product names, sell quantities, and selling prices must match.");
         }
 
-
+        // Calculate total tax and base price
         Double totalTax = invoice1DTO.getCGstInRs() + invoice1DTO.getSGstInRs();
         Double basePrice = invoice1DTO.getGrandTotal() / (1 + (totalTax / 100));
 
+        // Calculate GST in Rs
         Double gstInRs = Math.round(basePrice * (invoice1DTO.getCGstInRs() / 100) * 100.0) / 100.0;
-        Double SgstInRs = Math.round(basePrice * (invoice1DTO.getSGstInRs() / 100) * 100.0) / 100.0;
+        Double sgstInRs = Math.round(basePrice * (invoice1DTO.getSGstInRs() / 100) * 100.0) / 100.0;
 
         // Create and save customer
         Customers customer = modelMapper.map(invoice1DTO.getCustomer(), Customers.class);
@@ -102,11 +105,9 @@ public class Invoice1Service implements IInvoice1 {
         invoice.setCustomer(savedCustomer);
         invoice.setGrandTotal(invoice1DTO.getGrandTotal());
         invoice.setCGstInRs(gstInRs);
-        invoice.setSGstInRs(SgstInRs);
-
+        invoice.setSGstInRs(sgstInRs);
         invoice.setCGstInPercent(invoice1DTO.getCGstInRs());
         invoice.setSGstInPercent(invoice1DTO.getSGstInRs());
-
         invoice.setPaymentMethod(invoice1DTO.getPaymentMethod());
 
         // Save the invoice to generate its ID
@@ -117,7 +118,12 @@ public class Invoice1Service implements IInvoice1 {
         for (int i = 0; i < productNames.size(); i++) {
             String productName = productNames.get(i);
             Double sellQuantity = sellQuantities.get(i);
-            Double productPrice1 = productPrice.get(i);
+            Double sellingPrices = sellingPrice.get(i);
+
+            // Check for null selling price
+            if (sellingPrices == null) {
+                throw new RuntimeException("Selling price cannot be null for product: " + productName);
+            }
 
             List<Products> foundProducts = productsRepository.findByProductNameContainingIgnoreCaseOrderByProductNameAsc(productName);
             if (foundProducts.isEmpty()) {
@@ -125,23 +131,26 @@ public class Invoice1Service implements IInvoice1 {
             }
 
             for (Products product : foundProducts) {
-                int totalStock = product.getStockQuantities().stream().mapToInt(Integer::intValue).sum();
+                Double totalStock = product.getStockQuantities()
+                        .stream()
+                        .mapToDouble(Double::doubleValue)
+                        .sum();
 
                 if (totalStock < sellQuantity) {
                     throw new RuntimeException("Insufficient stock for product: " + productName);
                 }
 
                 // Update stock quantities
-                List<Integer> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
-                int remainingQuantity = sellQuantity.intValue();
+                List<Double> updatedStockQuantities = new ArrayList<>(product.getStockQuantities());
+                Double remainingQuantity = sellQuantity;
 
                 for (int j = 0; j < updatedStockQuantities.size() && remainingQuantity > 0; j++) {
-                    int availableStock = updatedStockQuantities.get(j);
+                    Double availableStock = updatedStockQuantities.get(j);
                     if (availableStock >= remainingQuantity) {
                         updatedStockQuantities.set(j, availableStock - remainingQuantity);
-                        remainingQuantity = 0;
+                        remainingQuantity = 0.0;
                     } else {
-                        updatedStockQuantities.set(j, 0);
+                        updatedStockQuantities.set(j, 0.0);
                         remainingQuantity -= availableStock;
                     }
                 }
@@ -153,14 +162,11 @@ public class Invoice1Service implements IInvoice1 {
                 ProductDetails productDetails = new ProductDetails();
                 productDetails.setProductID(product.getProductID());
                 productDetails.setProductName(product.getProductName());
-               // productDetails.setSellingPrice(productPrice1());
+                productDetails.setSellingPrice(sellingPrices); // Use the selling price from the input
                 productDetails.setDiscount(product.getDiscount());
                 productDetails.setClothingType(product.getClothingType());
-                productDetails.setSubTotalPrice(product.getSellingPrice() * sellQuantity);
+                productDetails.setSubTotalPrice(sellingPrices * sellQuantity); // Use sellingPrices for subtotal
                 productDetails.setSellQuantity(sellQuantity);
-                productDetails.setProductPrice(productPrice1);
-                productDetails.setSize(product.getSize());
-                productDetails.setColor(product.getColor());
 
                 savedInvoice.getProducts().add(productDetails); // Add to saved invoice's products list
 
@@ -169,7 +175,7 @@ public class Invoice1Service implements IInvoice1 {
                 newSellEntity.setProductId(product.getProductID());
                 newSellEntity.setProductSellQuantity(sellQuantity);
                 newSellEntity.setDate(invoice1DTO.getInvoice1Date());
-                newSellEntity.setProductSubtotal(product.getSellingPrice() * sellQuantity);
+                newSellEntity.setProductSubtotal(sellingPrices * sellQuantity); // Use sellingPrices for subtotal
                 newSellEntity.setInvoice1(savedInvoice); // Link to saved invoice
                 sellRepository.save(newSellEntity);
 
@@ -182,13 +188,10 @@ public class Invoice1Service implements IInvoice1 {
                 productDTO.setInvoice1DueDate(savedInvoice.getInvoice1DueDate());
                 productDTO.setGrandTotal(invoice1DTO.getGrandTotal());
                 productDTO.setCGstInRs(gstInRs);
-                productDTO.setSGstInRs(SgstInRs);
-
+                productDTO.setSGstInRs(sgstInRs);
                 productDTO.setCGstInPercent(invoice1DTO.getCGstInRs());
                 productDTO.setSGstInPercent(invoice1DTO.getSGstInRs());
-
                 productDTO.setPaymentMethod(invoice1DTO.getPaymentMethod());
-                productDTO.setProductPrice(productPrice1);
 
                 productsDTOList.add(productDTO);
             }
@@ -199,7 +202,6 @@ public class Invoice1Service implements IInvoice1 {
 
         return productsDTOList;
     }
-
 
 
 

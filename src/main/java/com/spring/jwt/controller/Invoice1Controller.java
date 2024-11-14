@@ -21,22 +21,22 @@ public class Invoice1Controller {
     private IInvoice1 iInvoice1;
 
 
-    @PostMapping("saveInvoicesAndPrice")
-    public ResponseEntity<Response> saveInvoiceAndProductsWithPrice(
+    @PostMapping("saveInvoice")
+    public ResponseEntity<Response> saveInvoice2(
             @RequestBody Invoice1DTO invoice1DTO,
             @RequestParam List<String> productNames,
             @RequestParam List<Double> sellQuantity,
-            @RequestParam List<Double> productPrice){
+            @RequestParam List<Double> sellingPrice) {
         try {
-            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProductsWithPrice(invoice1DTO, productNames, sellQuantity,productPrice);
+
+            List<ProductWithInvoicesDTO> savedDTO1 = iInvoice1.saveInvoiceAndProducts(invoice1DTO, productNames, sellQuantity,sellingPrice);
+
             return ResponseEntity.ok(new Response("Invoice and products saved successfully", savedDTO1, false));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response("Failed to save invoice and products", e.getMessage(), true));
         }
-
     }
-
 
     @GetMapping("/invoices")
     public ResponseEntity<List<TransactionDTO>> getInvoicesByDateRange(

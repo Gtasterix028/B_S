@@ -24,11 +24,15 @@ public interface IProducts {
 
     List<ProductsDTO> getProductsByClothingType(String clothingType);
 
-    Integer getTotalStockQuantity();
+    Double getTotalStockQuantity();
 
-    Integer getStockQuantityByProductId(UUID productId);
+    Double getStockQuantityByProductId(UUID productId);
 
     List<ProductsDTO> saveProduct(List<ProductsDTO> productsDTOList);
+
+    List<ProductsDTO> getProductsByFilter(String clothingType, String sortBy, String order);
+
+    List<ProductsDTO> getProductsByFilterstock(String order);
 }
 
 
