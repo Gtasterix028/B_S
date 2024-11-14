@@ -15,7 +15,6 @@ public class ProductWithInvoicesDTO {
     private ClothingType clothingType;
     private Double subTotalPrice;
     private Double grandTotal;
-    private Double productPrice;
 
     private String size;
     private String color;

@@ -18,7 +18,6 @@ public class ProductDetails implements Serializable {
     private Double discount;
     private Double sellingPrice;
     private Double sellQuantity;
-    private Double productPrice;
     private String size;
     private String color;
 
